@@ -1,28 +1,10 @@
 import { Arrow } from "./Arrow";
 import { MarkerDef } from "./MarkerDef";
-import { getStructures, getArrows } from "./data/data";
+import { getBoxes } from "./data/getBoxes";
+import { getArrows } from "./data/getArrows";
 
 export function MoleculesGraph(props) {
-  const structures = getStructures(props.data).map((structure) => {
-    return (
-      <g
-        key={Math.random()}
-        transform={"translate(" + structure.x + " " + structure.y + ")"}
-      >
-        <rect
-          style={structure.style}
-          height={structure.height}
-          width={structure.width}
-        />
-        <g
-          dangerouslySetInnerHTML={{
-            __html: structure.svg,
-          }}
-        />
-      </g>
-    );
-  });
-
+  const boxes = getBoxes(props.data);
   const arrows = getArrows(props.data);
 
   const svg = (
@@ -37,8 +19,8 @@ export function MoleculesGraph(props) {
       }}
     >
       <MarkerDef />
-      {structures}
-      <Arrow from={{ x: 20, y: 20 }} to={{ x: 200, y: 200 }} />
+      {boxes}
+      {arrows}
     </svg>
   );
 

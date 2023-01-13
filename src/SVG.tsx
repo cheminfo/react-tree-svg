@@ -1,4 +1,4 @@
-export function SVG(props: {svg: string}}) {
+export function SVG(props: { svg: string }) {
   if (!props.svg) return null;
 
   return (
