@@ -1,7 +1,6 @@
-import { Arrow } from "./Arrow";
 import { MarkerDef } from "./MarkerDef";
-import { getBoxes } from "./data/getBoxes";
-import { getArrows } from "./data/getArrows";
+import { getBoxes } from "../data/getBoxes";
+import { getArrows } from "../data/getArrows";
 
 export function MoleculesGraph(props) {
   const boxes = getBoxes(props.data);

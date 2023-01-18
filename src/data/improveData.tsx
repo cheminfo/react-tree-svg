@@ -1,6 +1,6 @@
 import OCL from "openchemlib/core";
-import { Rectangle } from "../Rectangle";
-import { SVG } from "../SVG";
+import { Rectangle } from "../components/Rectangle";
+import { SVG } from "../components/SVG";
 
 /**
  * Will calculate the SVG of the molecule and the rectangle in which to place the molecule and the corresponding label
@@ -78,6 +78,9 @@ function getLabel(datum) {
 
 function getMolecule(datum): { width: number; height: number; content: any } {
   let molecule;
+  if (datum.idCode) {
+    molecule = OCL.Molecule.fromIDCode(datum.idCode);
+  }
   if (datum.smiles) {
     molecule = OCL.Molecule.fromSmiles(datum.smiles);
   }
@@ -91,6 +94,7 @@ function getMolecule(datum): { width: number; height: number; content: any } {
   const svg = molecule.toSVG(300, 200, undefined, {
     autoCrop: true,
     autoCropMargin: 30,
+    suppressChiralText: true,
   });
   const size = svg.match(
     /.*width="(?<width>\d+)px".*height="(?<height>\d+)px".*/

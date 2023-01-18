@@ -5,7 +5,7 @@ export function MarkerDef(props) {
         id="arrowhead"
         markerWidth="10"
         markerHeight="7"
-        refX="0"
+        refX="7"
         refY="3.5"
         orient="auto"
       >

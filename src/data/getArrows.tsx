@@ -1,4 +1,4 @@
-import { Arrow } from "../Arrow";
+import { Arrow } from "../components/Arrow";
 
 export function getArrows(data) {
   const status = { level: 0 };
@@ -12,7 +12,13 @@ function getArrowsSS(data, arrows, status) {
     const datum = data[i];
     if (datum.children) {
       for (const child of datum.children) {
-        arrows.push(<Arrow from={datum.anchor.right} to={child.anchor.left} />);
+        arrows.push(
+          <Arrow
+            from={datum.anchor.right}
+            to={child.anchor.left}
+            label="Hello"
+          />
+        );
       }
 
       getArrowsSS(datum.children, arrows, {

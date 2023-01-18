@@ -1,4 +1,4 @@
-import { MoleculesGraph } from "./MoleculesGraph";
+import { MoleculesGraph } from "./components/MoleculesGraph";
 
 import { getData } from "./data/data";
 
