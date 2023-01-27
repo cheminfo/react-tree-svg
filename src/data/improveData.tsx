@@ -91,9 +91,9 @@ function getMolecule(datum): { width: number; height: number; content: any } {
       height: 0,
       content: undefined,
     };
-  const svg = molecule.toSVG(300, 200, undefined, {
+  const svg = molecule.toSVG(200, 150, undefined, {
     autoCrop: true,
-    autoCropMargin: 30,
+    autoCropMargin: 10,
     suppressChiralText: true,
   });
   const size = svg.match(

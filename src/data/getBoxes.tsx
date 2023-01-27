@@ -1,11 +1,10 @@
 export function getBoxes(data) {
   const boxes: any[] = [];
-  const status = { level: 0 };
-  getBoxesSS(data, boxes, status);
+  getBoxesSS(data, boxes);
   return boxes;
 }
 
-function getBoxesSS(data, boxes, status) {
+function getBoxesSS(data, boxes) {
   for (let i = 0; i < data.length; i++) {
     const datum = data[i];
     boxes.push(
@@ -19,10 +18,7 @@ function getBoxesSS(data, boxes, status) {
     );
 
     if (datum.children) {
-      getBoxesSS(datum.children, boxes, {
-        ...status,
-        level: status.level + 1,
-      });
+      getBoxesSS(datum.children, boxes);
     }
   }
 }

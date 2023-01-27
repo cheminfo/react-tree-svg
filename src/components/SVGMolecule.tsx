@@ -10,7 +10,7 @@ export function SVGMolecule(props) {
   return (
     <g
       dangerouslySetInnerHTML={{
-        __html: molecule.toSVG(300, 200, undefined, {
+        __html: molecule.toSVG(200, 150, undefined, {
           autoCrop: true,
           autoCropMargin: 10,
         }),

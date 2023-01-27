@@ -4,7 +4,12 @@ import { getArrows } from "../data/getArrows";
 
 export function MoleculesGraph(props) {
   const boxes = getBoxes(props.data);
-  const arrows = getArrows(props.data);
+  const arrows = getArrows(props.data, {
+    getLabel: (node) => {
+      return node?.reaction?.Label;
+    },
+    labelPosition: "center",
+  });
 
   const svg = (
     <svg

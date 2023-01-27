@@ -1,6 +1,6 @@
 import { MoleculesGraph } from "./components/MoleculesGraph";
 
-import { getData } from "./data/data";
+import { getData } from "./data/reaction";
 
 function App() {
   return (
