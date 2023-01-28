@@ -8,7 +8,6 @@ export function RightText(props: { x: number; y: number; label: string }) {
         transform={labelPosition}
         stroke="rgba(255,255,255,0.5)"
         strokeWidth="0.5em"
-        alignmentBaseline="bottom"
         fill="none"
         font-size="14"
       >
@@ -18,7 +17,6 @@ export function RightText(props: { x: number; y: number; label: string }) {
         textAnchor="end"
         transform={labelPosition}
         stroke="none"
-        alignmentBaseline="bottom"
         fontSize="14"
         fill="black"
       >

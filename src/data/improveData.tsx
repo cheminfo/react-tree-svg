@@ -96,12 +96,27 @@ function getMolecule(datum): { width: number; height: number; content: any } {
     autoCropMargin: 10,
     suppressChiralText: true,
   });
-  const size = svg.match(
-    /.*width="(?<width>\d+)px".*height="(?<height>\d+)px".*/
-  ).groups;
+  const size = getSize(svg);
   return {
     width: size.width,
     height: size.height,
     content: <SVG svg={svg} />,
   };
+}
+
+function getSize(svg: string): { width: number; height: number } {
+  const match = svg.match(
+    /.*width="(?<width>\d+)px".*height="(?<height>\d+)px".*/
+  );
+  if (!match) {
+    throw new Error("Size not found");
+  }
+  const size = match.groups;
+  if (!size?.width) {
+    throw new Error("size.width is not defined");
+  }
+  if (!size?.height) {
+    throw new Error("size.height is not defined");
+  }
+  return { width: Number(size.width), height: Number(size.height) };
 }

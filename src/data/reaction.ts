@@ -276,7 +276,7 @@ export function getData(data: any = example) {
 }
 
 function convertReactionsToData(reactions = example) {
-  const results = [];
+  const results: any[] = [];
 
   const reactantIdCode: Record<string, any> = {};
 

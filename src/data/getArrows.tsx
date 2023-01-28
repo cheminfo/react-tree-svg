@@ -7,7 +7,7 @@ export function getArrows(data, options = {}) {
   return arrows;
 }
 
-function getArrowsSS(data, arrows, status, options = {}) {
+function getArrowsSS(data, arrows, status, options: any = {}) {
   const { getLabel, labelPosition } = options;
 
   for (let i = 0; i < data.length; i++) {

@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2020",
+    "skipLibCheck": true,
+    "module": "commonjs",
+    "declarationMap": true,
+    "outDir": "lib",
+    "jsx": "react-jsx"
+  },
+  "include": ["src"],
+  "exclude": ["./src/**/__tests__"]
+}
