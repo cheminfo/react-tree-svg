@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "buildRender": "npm run tsc-esm && cheminfo-build --entry lib-esm/render.js --root MoleculesGraph",
+    "buildRender": "npm run tsc-esm && cheminfo-build --entry lib-esm/render.js --root SVGBoxesTree",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",

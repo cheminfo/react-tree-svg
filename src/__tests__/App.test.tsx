@@ -1,8 +1,8 @@
 import { getData } from "../data/data";
 import { renderToStaticMarkup } from "react-dom/server";
-import { MoleculesGraph } from "../components/MoleculesGraph";
+import { SVGBoxesTree } from "../components/SVGBoxesTree";
 
 test("", () => {
-  const result = renderToStaticMarkup(<MoleculesGraph data={getData()} />);
+  const result = renderToStaticMarkup(<SVGBoxesTree data={getData()} />);
   console.log(result);
 });

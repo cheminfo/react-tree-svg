@@ -1,13 +1,16 @@
-import { MoleculesGraph } from "./components/MoleculesGraph";
+import { SVGBoxesTree } from "./components/SVGBoxesTree";
 
 import { getData } from "./data/reaction";
 
 function App() {
   return (
-    <div>
-      <div>
-        <MoleculesGraph data={getData()} />
-      </div>
+    <div
+      style={{
+        border: "1px solid red",
+        overflow: "clip",
+      }}
+    >
+      <SVGBoxesTree data={getData()} />
     </div>
   );
 }

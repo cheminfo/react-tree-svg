@@ -25,6 +25,9 @@ function improveDataSS(data, options) {
       height: 0,
     };
     datum.content = getContent(datum);
+    if (datum.children && datum.children.length === 0) {
+      delete datum.children;
+    }
     if (datum.children) {
       improveDataSS(datum.children, {
         ...options,
@@ -76,7 +79,11 @@ function getLabel(datum) {
   };
 }
 
-function getMolecule(datum): { width: number; height: number; content: any } {
+function getMolecule(
+  datum,
+  options: any = {}
+): { width: number; height: number; content: any } {
+  const { maxWidth = 200, maxHeight = 150 } = options;
   let molecule;
   if (datum.idCode) {
     molecule = OCL.Molecule.fromIDCode(datum.idCode);
@@ -91,12 +98,12 @@ function getMolecule(datum): { width: number; height: number; content: any } {
       height: 0,
       content: undefined,
     };
-  const svg = molecule.toSVG(200, 150, undefined, {
+  const svg = molecule.toSVG(maxWidth, maxHeight, undefined, {
     autoCrop: true,
     autoCropMargin: 10,
     suppressChiralText: true,
   });
-  const size = getSize(svg);
+  const size = getMoleculeSize(svg);
   return {
     width: size.width,
     height: size.height,
@@ -104,7 +111,7 @@ function getMolecule(datum): { width: number; height: number; content: any } {
   };
 }
 
-function getSize(svg: string): { width: number; height: number } {
+function getMoleculeSize(svg: string): { width: number; height: number } {
   const match = svg.match(
     /.*width="(?<width>\d+)px".*height="(?<height>\d+)px".*/
   );
