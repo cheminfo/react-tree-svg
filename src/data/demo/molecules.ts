@@ -1,7 +1,4 @@
-import { improveData } from "./improveData";
-import { calculatePosition } from "./calculatePosition";
-
-export const example = [
+const molecules = [
   {
     smiles: "CN1[C@H]2CC[C@@H]1[C@@H](C(OC)=O)[C@@H](OC(C3=CC=CC=C3)=O)C2",
     children: [
@@ -144,8 +141,6 @@ export const example = [
   },
 ];
 
-export function getData(data = example) {
-  data = improveData(data);
-  calculatePosition(data);
-  return data;
+export function getData() {
+  return molecules;
 }

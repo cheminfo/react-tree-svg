@@ -1,7 +1,4 @@
-import { improveData } from "./improveData";
-import { calculatePosition } from "./calculatePosition";
-
-export const example = [
+const reactions = [
   {
     reaction: {
       Label: "OH by SH",
@@ -267,15 +264,11 @@ export const example = [
   },
 ];
 
-export function getData(data: any = example) {
-  data = convertReactionsToData(data);
-
-  data = improveData(data);
-  calculatePosition(data);
-  return data;
+export function getData() {
+  return convertReactionsToData(reactions);
 }
 
-function convertReactionsToData(reactions = example) {
+function convertReactionsToData(reactions) {
   const results: any[] = [];
 
   const reactantIdCode: Record<string, any> = {};

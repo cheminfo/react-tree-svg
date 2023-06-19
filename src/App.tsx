@@ -1,6 +1,14 @@
 import { SVGBoxesTree } from "./components/SVGBoxesTree";
 
-import { getData } from "./data/reaction";
+import { getData } from "./data/demo/molecules";
+import { prepareData } from "./data/prepareData";
+import { moleculeRenderer } from "./nodeRenderer/moleculeRenderer";
+import OCL from "openchemlib/core";
+
+const data = prepareData(getData(), {
+  nodeRenderer: moleculeRenderer,
+  nodeRendererOptions: { OCL },
+});
 
 function App() {
   return (
@@ -10,7 +18,7 @@ function App() {
         overflow: "clip",
       }}
     >
-      <SVGBoxesTree data={getData()} />
+      <SVGBoxesTree data={data} />
     </div>
   );
 }
