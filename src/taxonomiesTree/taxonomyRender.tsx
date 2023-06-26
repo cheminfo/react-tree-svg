@@ -10,7 +10,7 @@ export function taxonomyRender(datum): {
 
   const width = Math.max(taxonomy.width, label.width);
   const height = Math.max(taxonomy.height, label.height);
-  const nbTaxonomies = getNbTaxonomies(datum, width, height);
+  const nbTaxonomies = getNbTaxonomies(datum, width);
   console.log({ label });
   return {
     width,
@@ -32,14 +32,14 @@ export function taxonomyRender(datum): {
     ),
   };
 }
-function getNbTaxonomies(datum, width, height) {
+function getNbTaxonomies(datum, width) {
   return {
-    width: 200,
+    width: 150,
     height: 20,
     content: (
       <text
         x={width}
-        y={height}
+        y={-5}
         textAnchor="end"
         stroke="none"
         font-size="14"
@@ -52,7 +52,15 @@ function getNbTaxonomies(datum, width, height) {
   };
 }
 
-function getLabel(datum) {
+function getLabel(
+  datum,
+  options: { spacingHorizontal?: number; fontSize?: number } = {}
+) {
+  const { spacingHorizontal } = {
+    spacingHorizontal: 8,
+
+    ...options,
+  };
   if (datum.rank === "") {
     return {
       width: 0,
@@ -61,18 +69,18 @@ function getLabel(datum) {
     };
   }
   return {
-    width: 200,
+    width: 150,
     height: 20,
     content: (
       <text
-        x={0}
+        x={spacingHorizontal}
         y={-6}
         textAnchor="start"
         stroke="none"
         font-size="14"
         fill="grey"
         fontStyle={"italic"}
-        textDecoration={"underline"}
+        font-family="Arial, Helvetica, sans-serif"
       >
         {datum.rank}
       </text>
@@ -106,11 +114,12 @@ function getTaxonomy(
     content: (
       <svg height={height} width={width} dominant-baseline="central">
         <text
-          x={spacingHorizontal}
+          x={spacingHorizontal / 2}
           y={height / 2}
           stroke="none"
           fontSize={fontSize}
           fill="black"
+          font-family="Arial, Helvetica, sans-serif"
         >
           {datum.name}
         </text>
