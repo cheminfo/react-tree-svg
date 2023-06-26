@@ -7,8 +7,10 @@ export function taxonomyRender(datum): {
 } {
   const taxonomy = getTaxonomy(datum);
   const label = getLabel(datum);
+
   const width = Math.max(taxonomy.width, label.width);
   const height = Math.max(taxonomy.height, label.height);
+  const nbTaxonomies = getNbTaxonomies(datum, width, height);
   console.log({ label });
   return {
     width,
@@ -23,9 +25,29 @@ export function taxonomyRender(datum): {
             ...(datum.style || {}),
           }}
         />
-        {taxonomy.content}
         {label.content}
+        {taxonomy.content}
+        {nbTaxonomies.content}
       </g>
+    ),
+  };
+}
+function getNbTaxonomies(datum, width, height) {
+  return {
+    width: 200,
+    height: 20,
+    content: (
+      <text
+        x={width}
+        y={height}
+        textAnchor="end"
+        stroke="none"
+        font-size="14"
+        fill="blue"
+        fontStyle={"bold"}
+      >
+        {datum.nbTaxonomies}
+      </text>
     ),
   };
 }
@@ -48,7 +70,9 @@ function getLabel(datum) {
         textAnchor="start"
         stroke="none"
         font-size="14"
-        fill="black"
+        fill="grey"
+        fontStyle={"italic"}
+        textDecoration={"underline"}
       >
         {datum.rank}
       </text>
@@ -56,7 +80,15 @@ function getLabel(datum) {
   };
 }
 
-function getTaxonomy(datum) {
+function getTaxonomy(
+  datum,
+  options: { spacingHorizontal?: number; fontSize?: number } = {}
+) {
+  const { spacingHorizontal, fontSize } = {
+    spacingHorizontal: 8,
+    fontSize: 20,
+    ...options,
+  };
   if (datum.name === "") {
     return {
       width: 0,
@@ -64,14 +96,22 @@ function getTaxonomy(datum) {
       content: null,
     };
   }
-  const { width, height } = getStringSize(datum.name, "Arial", 20);
-  // calculate the width and height of the box
+
+  let { width, height } = getStringSize(datum.name, options);
+
   return {
     width: width,
     height: height,
+
     content: (
-      <svg height={height} width={width}>
-        <text x="10" y={height / 2} stroke="none" fontSize="20" fill="black">
+      <svg height={height} width={width} dominant-baseline="central">
+        <text
+          x={spacingHorizontal}
+          y={height / 2}
+          stroke="none"
+          fontSize={fontSize}
+          fill="black"
+        >
           {datum.name}
         </text>
       </svg>
@@ -81,9 +121,14 @@ function getTaxonomy(datum) {
 
 function getStringSize(
   text: string,
-  font: string,
-  fontSize: number
+  options: { font?: string; fontSize?: number; spacingHorizontal?: number }
 ): { width: number; height: number } {
+  const { font, fontSize, spacingHorizontal } = {
+    font: "Arial",
+    fontSize: 20,
+    spacingHorizontal: 8,
+    ...options,
+  };
   const tempElement = document.createElement("span");
   tempElement.style.font = `${fontSize}px ${font}`;
   tempElement.style.visibility = "hidden";
@@ -94,9 +139,9 @@ function getStringSize(
 
   document.body.appendChild(tempElement);
 
-  const { height, width } = tempElement.getBoundingClientRect();
+  let { height, width } = tempElement.getBoundingClientRect();
 
   document.body.removeChild(tempElement);
 
-  return { width, height };
+  return { width: width + spacingHorizontal, height };
 }
