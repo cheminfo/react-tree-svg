@@ -1,4 +1,4 @@
-import { MarkerDef } from "./MarkerDef";
+import { MarkerDef } from "../components/MarkerDef";
 import { getBoxes } from "../data/getBoxes";
 import { getArrows } from "../data/getArrows";
 

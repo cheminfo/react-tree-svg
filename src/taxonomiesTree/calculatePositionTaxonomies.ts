@@ -3,7 +3,7 @@ export function calculatePositionTaxonomies(data) {
     x: 0,
     y: 22,
     spacingVertical: 30,
-    spacingHorizontal: 140,
+    spacingHorizontal: 100,
   };
   calculateInnerBoxSize(data, status);
   console.log(data);
