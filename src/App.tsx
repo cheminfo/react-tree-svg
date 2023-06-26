@@ -1,8 +1,8 @@
-import { SVGBoxesTaxonomiesTree } from "./components/SVGBoxesTaxonomiesTree";
+import { SVGBoxesTaxonomiesTree } from "./taxonomiesTree/SVGBoxesTaxonomiesTree";
 import { SVGBoxesTree } from "./components/SVGBoxesTree";
 import { getDataTaxonomy } from "./data/demo/taxonomies";
-import { prepareDataTaxonomy } from "./data/prepareDataTaxonomy";
-import { taxonomyRender } from "./nodeRenderer/taxonomyRender";
+import { prepareDataTaxonomy } from "./taxonomiesTree/prepareDataTaxonomy";
+import { taxonomyRender } from "./taxonomiesTree/taxonomyRender";
 import { prepareData } from "./data/prepareData";
 import { moleculeRenderer } from "./nodeRenderer/moleculeRenderer";
 import OCL from "openchemlib/core";
@@ -10,6 +10,7 @@ import { getData } from "./data/demo/molecules";
 
 const dataTaxonomy = prepareDataTaxonomy(getDataTaxonomy(), {
   nodeRenderer: taxonomyRender,
+  maxRankDepth: 7,
 });
 const data = prepareData(getData(), {
   nodeRenderer: moleculeRenderer,
@@ -25,7 +26,6 @@ function App() {
       }}
     >
       <SVGBoxesTaxonomiesTree data={dataTaxonomy} />
-      <SVGBoxesTree data={data} />
     </div>
   );
 }
