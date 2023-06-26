@@ -3,14 +3,14 @@
  * @param data
  */
 const taxonomiesRanks = {
-  superkingdom: 0,
-  kingdom: 1,
-  phylum: 2,
-  class: 3,
-  order: 4,
-  family: 5,
-  genus: 6,
-  species: 7,
+  superkingdom: 1,
+  kingdom: 2,
+  phylum: 3,
+  class: 4,
+  order: 5,
+  family: 6,
+  genus: 7,
+  species: 8,
 };
 export function improveDataTaxonomies(data, options) {
   data = JSON.parse(JSON.stringify(data));

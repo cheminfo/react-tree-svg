@@ -10,7 +10,7 @@ import { getData } from "./data/demo/molecules";
 
 const dataTaxonomy = prepareDataTaxonomy(getDataTaxonomy(), {
   nodeRenderer: taxonomyRender,
-  maxRankDepth: 7,
+  maxRankDepth: 8,
 });
 const data = prepareData(getData(), {
   nodeRenderer: moleculeRenderer,
