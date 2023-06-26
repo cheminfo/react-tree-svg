@@ -47,7 +47,7 @@ function getLabel(datum) {
         y={-6}
         textAnchor="start"
         stroke="none"
-        font-size="20"
+        font-size="14"
         fill="black"
       >
         {datum.rank}
@@ -64,13 +64,14 @@ function getTaxonomy(datum) {
       content: null,
     };
   }
-  const { width, height } = getStringSize(datum.name, "Arial", 20, 5);
+  const { width, height } = getStringSize(datum.name, "Arial", 20);
+  // calculate the width and height of the box
   return {
-    width: width / 2,
-    height: height / 2,
+    width: width,
+    height: height,
     content: (
       <svg height={height} width={width}>
-        <text x="10" y="23" stroke="none" fontSize="20" fill="black">
+        <text x="10" y={height / 2} stroke="none" fontSize="20" fill="black">
           {datum.name}
         </text>
       </svg>
@@ -81,13 +82,8 @@ function getTaxonomy(datum) {
 function getStringSize(
   text: string,
   font: string,
-  fontSize: number,
-  padding: number
+  fontSize: number
 ): { width: number; height: number } {
-  const textWidth = text.length * fontSize;
-  const svgWidth = textWidth + padding * 2;
-  const svgHeight = fontSize * 1.5 + padding * 2;
-
   const tempElement = document.createElement("span");
   tempElement.style.font = `${fontSize}px ${font}`;
   tempElement.style.visibility = "hidden";
@@ -98,9 +94,9 @@ function getStringSize(
 
   document.body.appendChild(tempElement);
 
-  const { height } = tempElement.getBoundingClientRect();
+  const { height, width } = tempElement.getBoundingClientRect();
 
   document.body.removeChild(tempElement);
 
-  return { width: svgWidth, height: svgHeight + height + padding };
+  return { width, height };
 }
