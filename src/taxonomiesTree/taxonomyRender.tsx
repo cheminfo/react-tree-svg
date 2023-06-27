@@ -5,12 +5,13 @@ export function taxonomyRender(datum): {
   height: number;
   component: any;
 } {
-  const taxonomy = getTaxonomy(datum);
-  const label = getLabel(datum);
+  const minSize = { width: 120, height: 20 };
+  const taxonomy = getTaxonomy(datum, minSize);
+  const label = getLabel(datum, minSize);
 
   const width = Math.max(taxonomy.width, label.width);
   const height = Math.max(taxonomy.height, label.height);
-  const nbTaxonomies = getNbTaxonomies(datum, width);
+  const nbTaxonomies = getNbTaxonomies(datum, width, minSize);
   console.log({ label });
   return {
     width,
@@ -32,10 +33,10 @@ export function taxonomyRender(datum): {
     ),
   };
 }
-function getNbTaxonomies(datum, width) {
+function getNbTaxonomies(datum, width, minSize) {
   return {
-    width: 150,
-    height: 20,
+    width: minSize.width,
+    height: minSize.height,
     content: (
       <text
         x={width}
@@ -43,8 +44,9 @@ function getNbTaxonomies(datum, width) {
         textAnchor="end"
         stroke="none"
         font-size="14"
-        fill="blue"
+        fill="#00008B" // dark blue
         fontStyle={"bold"}
+        font-family="Arial, Helvetica, sans-serif"
       >
         {datum.nbTaxonomies}
       </text>
@@ -54,6 +56,7 @@ function getNbTaxonomies(datum, width) {
 
 function getLabel(
   datum,
+  minSize,
   options: { spacingHorizontal?: number; fontSize?: number } = {}
 ) {
   const { spacingHorizontal } = {
@@ -69,11 +72,11 @@ function getLabel(
     };
   }
   return {
-    width: 150,
-    height: 20,
+    width: minSize.width,
+    height: minSize.height,
     content: (
       <text
-        x={spacingHorizontal}
+        x={spacingHorizontal / 2}
         y={-6}
         textAnchor="start"
         stroke="none"
@@ -90,11 +93,13 @@ function getLabel(
 
 function getTaxonomy(
   datum,
+  minSize,
   options: { spacingHorizontal?: number; fontSize?: number } = {}
 ) {
-  const { spacingHorizontal, fontSize } = {
+  const { font, fontSize, spacingHorizontal } = {
+    font: "Arial, Helvetica, sans-serif",
+    fontSize: 16,
     spacingHorizontal: 8,
-    fontSize: 20,
     ...options,
   };
   if (datum.name === "") {
@@ -105,7 +110,20 @@ function getTaxonomy(
     };
   }
 
-  let { width, height } = getStringSize(datum.name, options);
+  let { width, height } = getStringSize(datum.name, {
+    font,
+    fontSize,
+    spacingHorizontal,
+  });
+  let textWith = width;
+  let positionX = spacingHorizontal / 2;
+  if (height <= minSize.height) {
+    height = minSize.height;
+  }
+  if (width <= minSize.width) {
+    width = minSize.width;
+    positionX = (width - textWith + spacingHorizontal) / 2;
+  }
 
   return {
     width: width,
@@ -114,12 +132,12 @@ function getTaxonomy(
     content: (
       <svg height={height} width={width} dominant-baseline="central">
         <text
-          x={spacingHorizontal / 2}
+          x={positionX}
           y={height / 2}
           stroke="none"
           fontSize={fontSize}
           fill="black"
-          font-family="Arial, Helvetica, sans-serif"
+          font-family={font}
         >
           {datum.name}
         </text>
@@ -132,12 +150,11 @@ function getStringSize(
   text: string,
   options: { font?: string; fontSize?: number; spacingHorizontal?: number }
 ): { width: number; height: number } {
-  const { font, fontSize, spacingHorizontal } = {
-    font: "Arial",
-    fontSize: 20,
-    spacingHorizontal: 8,
-    ...options,
-  };
+  const {
+    font = "Arial, Helvetica, sans-serif",
+    fontSize = 16,
+    spacingHorizontal = 8,
+  } = options;
   const tempElement = document.createElement("span");
   tempElement.style.font = `${fontSize}px ${font}`;
   tempElement.style.visibility = "hidden";
