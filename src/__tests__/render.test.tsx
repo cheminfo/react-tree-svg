@@ -1,28 +1,20 @@
+import OCL from "openchemlib/core";
+
 import { render } from "..";
+import { getData } from "../data/demo/molecules";
+import { getDataTaxonomy } from "../data/demo/taxonomies";
+import { taxonomyRender } from "../nodeRenderer/taxonomyRender";
+import { moleculeRenderer } from "../nodeRenderer/moleculeRenderer";
+import { prepareData } from "../data/prepareData";
 
 test("render", () => {
-  const data = [
-    {
-      value: "10",
-      children: [
-        {
-          value: "20",
-        },
-      ],
-    },
-  ];
-
+  const data = getData();
+  console.log(data);
   const svg = render(data, {
-    nodeRenderer,
-    nodeRendererOptions: { width: 100, height: 50 },
+    nodeRenderer: moleculeRenderer,
+    nodeRendererOptions: { OCL },
+    positionOptions: {
+      spacingHorizontal: 150,
+    },
   });
-  console.log(svg);
 });
-
-function nodeRenderer(datum, options) {
-  return {
-    component: <text>{datum.value}</text>,
-    width: options.width,
-    height: options.height,
-  };
-}
