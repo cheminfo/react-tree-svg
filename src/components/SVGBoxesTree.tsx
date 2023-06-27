@@ -11,13 +11,16 @@ export function SVGBoxesTree(props) {
     },
     labelPosition: "center",
   });
-
-  const svgSize = {
-    width: props.data[0].childrenBoxSize.width,
-    height: props.data[0].childrenBoxSize.height,
+  let svgSize = {
+    width: 0,
+    height: 0,
   };
-
-  console.log(svgSize);
+  let width: number[] = [];
+  for (const datum of props.data) {
+    width.push(datum.childrenBoxSize.width);
+    svgSize.height += datum.childrenBoxSize.height;
+  }
+  svgSize.width = Math.max(...width);
 
   const svg = (
     <svg
