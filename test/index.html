@@ -1,13 +1,22 @@
 <html>
-  <head>
-    <script src="../dist/molecules-graph.js" type="text/javascript"></script>
-  </head>
-  <body>
-    <div id="molecules-graph" style="width: 800px; height: 600px"></div>
-    <script>
-      const svg = SVGBoxesTree.render();
+
+<head>
+  <script src="../dist/molecules-graph.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <div id="molecules-graph" style="width: 800px; height: 600px"></div>
+  <script>
+
+    async function doAll() {
+      const response = await fetch('./molecules.json')
+      const molecules = await response.json()
+
+      const svg = SVGBoxesTree.render(molecules);
       console.log(svg);
       document.getElementById("molecules-graph").innerHTML = svg;
-    </script>
-  </body>
+    }
+  </script>
+</body>
+
 </html>
