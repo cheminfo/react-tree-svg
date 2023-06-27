@@ -68,6 +68,7 @@ function calculatePositionSS(data, status) {
         y: datum.position.y + datum.position.height / 2,
       },
     };
-    datum.childrenBoxSize.height = datum.childrenBoxSize.height + 30;
+    datum.childrenBoxSize.height =
+      datum.childrenBoxSize.height + status.spacingVertical;
   }
 }
