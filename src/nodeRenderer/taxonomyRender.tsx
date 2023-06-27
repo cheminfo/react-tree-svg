@@ -1,10 +1,16 @@
 import { Rectangle } from "../components/Rectangle";
 
-export function taxonomyRender(datum): {
+export function taxonomyRender(
+  datum,
+  nodeRendererOptions = {}
+): {
   width: number;
   height: number;
   component: any;
 } {
+  if (Object.keys(nodeRendererOptions).length !== 0) {
+    throw new Error("This should never happen");
+  }
   const minSize = { width: 120, height: 20 };
   const taxonomy = getTaxonomy(datum, minSize);
   const label = getLabel(datum, minSize);

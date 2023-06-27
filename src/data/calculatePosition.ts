@@ -1,16 +1,26 @@
-export function calculatePosition(data) {
-  const status = {
-    x: 0,
-    y: 0,
-    spacingVertical: 5,
-    spacingHorizontal: 140,
-  };
-  calculateInnerBoxSize(data, status);
-  console.log(data);
-  calculatePositionSS(data, status);
+export function calculatePosition(data, options) {
+  const {
+    x = 0,
+    y = 22,
+    spacingVertical = 30,
+    spacingHorizontal = 140,
+  } = options?.positionOptions || {};
+  calculateInnerBoxSize(data, {
+    x,
+    y,
+    spacingVertical,
+    spacingHorizontal,
+  });
+  calculatePositionSS(data, {
+    x,
+    y,
+    spacingVertical,
+    spacingHorizontal,
+  });
 }
 
 function calculateInnerBoxSize(data, status) {
+  console.log(data.length);
   for (let i = 0; i < data.length; i++) {
     const datum = data[i];
     if (datum.children) {
@@ -66,5 +76,7 @@ function calculatePositionSS(data, status) {
         y: datum.position.y + datum.position.height / 2,
       },
     };
+    datum.childrenBoxSize.height =
+      datum.childrenBoxSize.height + status.spacingVertical;
   }
 }
