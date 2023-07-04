@@ -18,7 +18,6 @@ export function taxonomyRender(
   const width = Math.max(taxonomy.width, label.width);
   const height = Math.max(taxonomy.height, label.height);
   const nbTaxonomies = getNbTaxonomies(datum, width, minSize);
-  console.log({ label });
   return {
     width,
     height,
