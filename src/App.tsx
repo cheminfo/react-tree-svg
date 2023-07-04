@@ -4,7 +4,7 @@ import { taxonomyRender } from "./nodeRenderer/taxonomyRender";
 import { prepareData } from "./data/prepareData";
 import { moleculeRenderer } from "./nodeRenderer/moleculeRenderer";
 import OCL from "openchemlib/core";
-import { getData } from "./data/demo/molecules";
+import { getData } from "./data/demo/reaction";
 
 const dataTaxonomy = prepareData(getDataTaxonomy(), {
   nodeRenderer: taxonomyRender,
@@ -15,9 +15,14 @@ const dataTaxonomy = prepareData(getDataTaxonomy(), {
     spacingHorizontal: 100,
   },
 });
+console.log("app", getData());
 const data = prepareData(getData(), {
   nodeRenderer: moleculeRenderer,
-  nodeRendererOptions: { OCL },
+  nodeRendererOptions: {
+    OCL,
+    masses: [105.0697, 58.065, 194.1173, 163.0752, 133.0647, 135.0439],
+    precision: 50,
+  },
   positionOptions: {
     spacingHorizontal: 150,
   },
@@ -31,7 +36,6 @@ function App() {
         overflow: "clip",
       }}
     >
-      <SVGBoxesTree data={dataTaxonomy} />
       <SVGBoxesTree data={data} />
     </div>
   );

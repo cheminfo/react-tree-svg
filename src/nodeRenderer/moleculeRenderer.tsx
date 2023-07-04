@@ -9,11 +9,22 @@ export function moleculeRenderer(
   height: number;
   component: any;
 } {
+  const { masses = [], precision = 5 } = options;
+  if (isInRange(masses, datum.em, precision)) {
+    datum.style = {
+      fillOpacity: 0.2,
+      fill: "red",
+    };
+  }
+
   const molecule = getMolecule(datum, options);
   const label = getLabel(datum);
+
   const width = Math.max(molecule.width, label.width);
   const height = Math.max(molecule.height, label.height);
-  console.log({ label });
+
+  const em = getEMLabel(datum, { width, height });
+
   return {
     width,
     height,
@@ -29,6 +40,7 @@ export function moleculeRenderer(
         />
         {molecule.content}
         {label.content}
+        {em.content}
       </g>
     ),
   };
@@ -55,6 +67,25 @@ function getLabel(datum) {
         fill="black"
       >
         {datum.label}
+      </text>
+    ),
+  };
+}
+function getEMLabel(datum, options) {
+  const { width, height } = options;
+  if (!datum.em) {
+    return {
+      width: 0,
+      height: 0,
+      content: null,
+    };
+  }
+  return {
+    width: width,
+    height: height,
+    content: (
+      <text y={-6} textAnchor="start" stroke="none" font-size="14" fill="black">
+        {`${datum.em} m/z`}
       </text>
     ),
   };
@@ -107,4 +138,18 @@ function getMoleculeSize(svg: string): { width: number; height: number } {
     throw new Error("size.height is not defined");
   }
   return { width: Number(size.width), height: Number(size.height) };
+}
+
+function isInRange(masses: number[], mass: number, precision: number): boolean {
+  if (!mass || !masses) {
+    return false;
+  }
+  let massAccuracy = (precision * mass) / 1e6;
+
+  for (const value of masses) {
+    if (Math.abs(value - mass) <= massAccuracy) {
+      return true;
+    }
+  }
+  return false;
 }
