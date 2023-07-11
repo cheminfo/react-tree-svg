@@ -15,7 +15,6 @@ const dataTaxonomy = prepareData(getDataTaxonomy(), {
     spacingHorizontal: 100,
   },
 });
-console.log("app", getData());
 const data = prepareData(getData(), {
   nodeRenderer: moleculeRenderer,
   nodeRendererOptions: {

@@ -6,11 +6,16 @@
     "buildRender": "npm run tsc-esm && cheminfo-build --entry lib-esm/render.js --root SVGBoxesTree",
     "dev": "vite",
     "build": "tsc && vite build",
+    "prettier": "prettier --check src",
     "preview": "vite preview",
+    "eslint": "eslint",
+    "eslint-fix": "npm run eslint -- --fix",
     "tsc-cjs": "tsc --project tsconfig.cjs.json",
-    "tsc-esm": "tsc --project tsconfig.esm.json"
+    "tsc-esm": "tsc --project tsconfig.esm.json",
+    "test": "vitest run --globals --config ./vite.config.ts && npm run eslint && npm run prettier"
   },
   "dependencies": {
+    "eslint": "^8.44.0",
     "openchemlib": "^8.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -24,6 +29,9 @@
     "openchemlib-utils": "^2.3.0",
     "typescript": "^4.9.4",
     "vite": "^4.0.4",
-    "vitest": "^0.28.3"
+    "vitest": "^0.28.3",
+    "eslint-config-cheminfo": "^8.2.0",
+    "prettier": "^2.8.8",
+    "cheminfo-tools": "^1.23.3"
   }
 }
