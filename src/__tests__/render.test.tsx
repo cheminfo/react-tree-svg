@@ -1,20 +1,19 @@
-import OCL from "openchemlib/core";
+import OCL from 'openchemlib/core';
 
-import { render } from "..";
-import { getData } from "../data/demo/molecules";
-import { getDataTaxonomy } from "../data/demo/taxonomies";
+import { render } from '..';
+import { getData } from '../data/demo/molecules';
 
-test("render: Molecule", () => {
+test('render: Molecule', () => {
   const data = getData();
   const svg = render(data, {
-    nodeRenderer: "molecule",
+    nodeRenderer: 'molecule',
     nodeRendererOptions: { OCL },
     positionOptions: {
       spacingHorizontal: 150,
     },
   });
   const match = svg.match(
-    /.*width="(?<width>\d+)px".*height="(?<height>\d+)px".*/
+    /.*width="(?<width>\d+)px".*height="(?<height>\d+)px".*/,
   );
   const size = match?.groups;
   expect(Number(size?.width)).toBe(174);
