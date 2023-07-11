@@ -12,7 +12,8 @@
     "eslint-fix": "npm run eslint -- --fix",
     "tsc-cjs": "tsc --project tsconfig.cjs.json",
     "tsc-esm": "tsc --project tsconfig.esm.json",
-    "test": "vitest run --globals --config ./vite.config.ts && npm run eslint && npm run prettier"
+    "test": "vitest run --globals --config ./vite.config.ts && npm run eslint && npm run prettier",
+    "test-only": "vitest run --globals "
   },
   "dependencies": {
     "eslint": "^8.44.0",
