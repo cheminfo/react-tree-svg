@@ -2,6 +2,7 @@
  * Will calculate the SVG of the molecule and the rectangle in which to place the molecule and the corresponding label
  * @param data
  */
+import { rankDept } from './rankDept';
 export function improveData(data, options) {
   data = JSON.parse(JSON.stringify(data));
   improveDataSS(data, options);
@@ -9,7 +10,14 @@ export function improveData(data, options) {
 }
 
 function improveDataSS(data, options) {
-  const { nodeRenderer, nodeRendererOptions = {} } = options;
+  const {
+    nodeRenderer,
+    nodeRendererOptions = {},
+    rankDepthOptions = {},
+  } = options;
+  if (rankDepthOptions.maxRankDepth) {
+    rankDept(data, rankDepthOptions.maxRankDepth);
+  }
   for (const datum of data) {
     if (options.level > 0) {
       datum.parent = options.parent;

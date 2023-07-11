@@ -1,6 +1,6 @@
 export function CenteredText(props: { x: number; y: number; label: string }) {
   const { x, y, label } = props;
-  const labelPosition = "translate(" + x + "," + y + ")";
+  const labelPosition = 'translate(' + x + ',' + y + ')';
   return (
     <>
       <text
@@ -10,7 +10,7 @@ export function CenteredText(props: { x: number; y: number; label: string }) {
         strokeWidth="0.5em"
         alignmentBaseline="middle"
         fill="none"
-        font-size="14"
+        fontSize="14"
       >
         {label}
       </text>

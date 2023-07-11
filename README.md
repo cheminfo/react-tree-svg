@@ -1,4 +1,4 @@
-# molecules-graph
+# react-tree-svg
 
 [![NPM version][npm-image]][npm-url]
 [![build status][ci-image]][ci-url]

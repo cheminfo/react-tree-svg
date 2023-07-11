@@ -1,19 +1,30 @@
-import { Rectangle } from "../components/Rectangle";
-import { SVG } from "../components/SVG";
+import { Rectangle } from '../components/Rectangle';
+import { SVG } from '../components/SVG';
 
 export function moleculeRenderer(
   datum,
-  options
+  options,
 ): {
   width: number;
   height: number;
   component: any;
 } {
+  const { masses = [], precision = 5 } = options;
+  if (isInRange(masses, datum.em, precision)) {
+    datum.style = {
+      fillOpacity: 0.2,
+      fill: 'red',
+    };
+  }
+
   const molecule = getMolecule(datum, options);
   const label = getLabel(datum);
+
   const width = Math.max(molecule.width, label.width);
   const height = Math.max(molecule.height, label.height);
-  console.log({ label });
+
+  const em = getEMLabel(datum, { width, height });
+
   return {
     width,
     height,
@@ -23,12 +34,13 @@ export function moleculeRenderer(
           width={width}
           height={height}
           style={{
-            ...{ stroke: "black", fill: "white" },
+            ...{ stroke: 'black', fill: 'white' },
             ...(datum.style || {}),
           }}
         />
         {molecule.content}
         {label.content}
+        {em.content}
       </g>
     ),
   };
@@ -46,8 +58,34 @@ function getLabel(datum) {
     width: 200,
     height: 20,
     content: (
-      <text textAnchor="middle" stroke="none" font-size="14" fill="black">
+      <text
+        x={20}
+        y={-6}
+        textAnchor="middle"
+        stroke="none"
+        fontSize="14"
+        fill="black"
+      >
         {datum.label}
+      </text>
+    ),
+  };
+}
+function getEMLabel(datum, options) {
+  const { width, height } = options;
+  if (!datum.em) {
+    return {
+      width: 0,
+      height: 0,
+      content: null,
+    };
+  }
+  return {
+    width: width,
+    height: height,
+    content: (
+      <text y={-6} textAnchor="start" stroke="none" fontSize="14" fill="black">
+        {`${datum.em} m/z`}
       </text>
     ),
   };
@@ -55,7 +93,7 @@ function getLabel(datum) {
 
 function getMolecule(
   datum,
-  options: any = {}
+  options: any = {},
 ): { width: number; height: number; content: any } {
   const { maxWidth = 200, maxHeight = 150, OCL } = options;
   let molecule;
@@ -87,17 +125,31 @@ function getMolecule(
 
 function getMoleculeSize(svg: string): { width: number; height: number } {
   const match = svg.match(
-    /.*width="(?<width>\d+)px".*height="(?<height>\d+)px".*/
+    /.*width="(?<width>\d+)px".*height="(?<height>\d+)px".*/,
   );
   if (!match) {
-    throw new Error("Size not found");
+    throw new Error('Size not found');
   }
   const size = match.groups;
   if (!size?.width) {
-    throw new Error("size.width is not defined");
+    throw new Error('size.width is not defined');
   }
   if (!size?.height) {
-    throw new Error("size.height is not defined");
+    throw new Error('size.height is not defined');
   }
   return { width: Number(size.width), height: Number(size.height) };
+}
+
+function isInRange(masses: number[], mass: number, precision: number): boolean {
+  if (!mass || !masses) {
+    return false;
+  }
+  let massAccuracy = (precision * mass) / 1e6;
+
+  for (const value of masses) {
+    if (Math.abs(value - mass) <= massAccuracy) {
+      return true;
+    }
+  }
+  return false;
 }

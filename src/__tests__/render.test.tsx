@@ -1,28 +1,21 @@
-import { render } from "..";
+import OCL from 'openchemlib/core';
 
-test("render", () => {
-  const data = [
-    {
-      value: "10",
-      children: [
-        {
-          value: "20",
-        },
-      ],
-    },
-  ];
+import { render } from '..';
+import { getData } from '../data/demo/molecules';
 
+test('render: Molecule', () => {
+  const data = getData();
   const svg = render(data, {
-    nodeRenderer,
-    nodeRendererOptions: { width: 100, height: 50 },
+    nodeRenderer: 'molecule',
+    nodeRendererOptions: { OCL },
+    positionOptions: {
+      spacingHorizontal: 150,
+    },
   });
-  console.log(svg);
+  const match = svg.match(
+    /.*width="(?<width>\d+)px".*height="(?<height>\d+)px".*/,
+  );
+  const size = match?.groups;
+  expect(Number(size?.width)).toBe(188);
+  expect(Number(size?.height)).toBe(156);
 });
-
-function nodeRenderer(datum, options) {
-  return {
-    component: <text>{datum.value}</text>,
-    width: options.width,
-    height: options.height,
-  };
-}
