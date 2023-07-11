@@ -1,6 +1,6 @@
 {
   "name": "react-tree-svg",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "types": "lib-esm/index.d.ts",
