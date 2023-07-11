@@ -6,7 +6,6 @@ export function SVGBoxesTree(props) {
   const boxes = getBoxes(props.data);
   const arrows = getArrows(props.data, {
     getLabel: (node) => {
-      console.log(node);
       return node?.reaction?.Label;
     },
     labelPosition: "center",

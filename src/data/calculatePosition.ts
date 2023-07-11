@@ -20,7 +20,6 @@ export function calculatePosition(data, options) {
 }
 
 function calculateInnerBoxSize(data, status) {
-  console.log(data.length);
   for (let i = 0; i < data.length; i++) {
     const datum = data[i];
     if (datum.children) {

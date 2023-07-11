@@ -48,7 +48,7 @@ function getNbTaxonomies(datum, width, minSize) {
         y={-5}
         textAnchor="end"
         stroke="none"
-        font-size="14"
+        fontSize="14"
         fill="#00008B" // dark blue
         fontStyle={"bold"}
         font-family="Arial, Helvetica, sans-serif"
@@ -85,7 +85,7 @@ function getLabel(
         y={-6}
         textAnchor="start"
         stroke="none"
-        font-size="14"
+        fontSize="14"
         fill="grey"
         fontStyle={"italic"}
         font-family="Arial, Helvetica, sans-serif"

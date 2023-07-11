@@ -9,7 +9,7 @@ export function RightText(props: { x: number; y: number; label: string }) {
         stroke="rgba(255,255,255,0.5)"
         strokeWidth="0.5em"
         fill="none"
-        font-size="14"
+        fontSize="14"
       >
         {label}
       </text>

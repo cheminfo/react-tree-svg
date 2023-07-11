@@ -46,7 +46,7 @@ function getLabel(datum) {
     width: 100,
     height: 20,
     content: (
-      <text stroke="none" font-size="14" fill="black">
+      <text stroke="none" fontSize="14" fill="black">
         datum.label
       </text>
     ),

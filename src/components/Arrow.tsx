@@ -18,9 +18,7 @@ export function Arrow(props: {
   const { from, to, label, labelPosition } = props;
   const middle = { x: (from.x + to.x) / 2, y: (from.y + to.y) / 2 };
   const refX = MarkerDef(props).props.children.props.refX;
-  console.log(to.x);
-  console.log(to.x - refX);
-  console.log(to.x - refX * 2);
+
   const headInflectionPoint = {
     x: to.x - refX * 2, // refX attribute of the marker element in the Arrow component shifts the arrow head to the left, and that the vertices of the arrow head are set to refX, which means that the beginning of the arrow head is refX * 2 to the left.
     y: to.y,

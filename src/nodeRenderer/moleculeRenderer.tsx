@@ -63,7 +63,7 @@ function getLabel(datum) {
         y={-6}
         textAnchor="middle"
         stroke="none"
-        font-size="14"
+        fontSize="14"
         fill="black"
       >
         {datum.label}
@@ -84,7 +84,7 @@ function getEMLabel(datum, options) {
     width: width,
     height: height,
     content: (
-      <text y={-6} textAnchor="start" stroke="none" font-size="14" fill="black">
+      <text y={-6} textAnchor="start" stroke="none" fontSize="14" fill="black">
         {`${datum.em} m/z`}
       </text>
     ),
