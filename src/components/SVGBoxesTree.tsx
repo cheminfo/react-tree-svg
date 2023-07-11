@@ -1,6 +1,7 @@
-import { MarkerDef } from './MarkerDef';
-import { getBoxes } from '../data/getBoxes';
 import { getArrows } from '../data/getArrows';
+import { getBoxes } from '../data/getBoxes';
+
+import { MarkerDef } from './MarkerDef';
 
 export function SVGBoxesTree(props) {
   const boxes = getBoxes(props.data);
@@ -24,9 +25,7 @@ export function SVGBoxesTree(props) {
   const svg = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="100%"
-      height="100%"
-      viewBox={'0 0 ' + svgSize.width + ' ' + svgSize.height}
+      viewBox={`0 0 ${svgSize.width} ${svgSize.height}`}
     >
       <MarkerDef />
       {boxes}
