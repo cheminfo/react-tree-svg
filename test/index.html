@@ -1,39 +1,37 @@
 <html>
+  <head>
+    <script src="../dist/react-tree-svg.js" type="text/javascript"></script>
+  </head>
 
-<head>
-  <script src="../dist/react-tree-svg.js" type="text/javascript"></script>
-</head>
+  <body>
+    <div id="react-tree-svg"></div>
+    <div id="taxonomies-graph"></div>
+    <script>
+      async function getMolecules() {
+        const response = await fetch('data/molecules.json');
+        const data = await response.json();
+        const svg = TreeSVG.render(data, {
+          nodeRenderer: 'molecule',
+          positionOptions: {
+            spacingHorizontal: 150,
+          },
+        });
 
-<body>
-  <div id="react-tree-svg"></div>
-  <div id="taxonomies-graph"></div>
-  <script>
-    async function getMolecules() {
-      const response = await fetch('data/molecules.json');
-      const data = await response.json();
-      const svg = TreeSVG.render(data, {
-        nodeRenderer: 'molecule',
-        positionOptions: {
-          spacingHorizontal: 150,
-        },
-      });
-
-      const responseTaxonomies = await fetch('data/taxonomies.json');
-      const dataTaxonomies = await responseTaxonomies.json();
-      const svgTaxonomies = TreeSVG.render(dataTaxonomies, {
-        nodeRenderer: 'taxonomy',
-        rankDepthOptions: {
-          maxRankDepth: 8,
-        },
-        positionOptions: {
-          spacingHorizontal: 100,
-        },
-      });
-      document.getElementById('react-tree-svg').innerHTML = svg;
-      document.getElementById('taxonomies-graph').innerHTML = svgTaxonomies;
-    }
-    getMolecules();
-  </script>
-</body>
-
+        const responseTaxonomies = await fetch('data/taxonomies.json');
+        const dataTaxonomies = await responseTaxonomies.json();
+        const svgTaxonomies = TreeSVG.render(dataTaxonomies, {
+          nodeRenderer: 'taxonomy',
+          rankDepthOptions: {
+            maxRankDepth: 8,
+          },
+          positionOptions: {
+            spacingHorizontal: 100,
+          },
+        });
+        document.getElementById('react-tree-svg').innerHTML = svg;
+        document.getElementById('taxonomies-graph').innerHTML = svgTaxonomies;
+      }
+      getMolecules();
+    </script>
+  </body>
 </html>

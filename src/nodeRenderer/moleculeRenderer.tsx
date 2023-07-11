@@ -81,8 +81,8 @@ function getEMLabel(datum, options) {
     };
   }
   return {
-    width: width,
-    height: height,
+    width,
+    height,
     content: (
       <text y={-6} textAnchor="start" stroke="none" fontSize="14" fill="black">
         {`${datum.em} m/z`}
@@ -104,12 +104,13 @@ function getMolecule(
     molecule = OCL.Molecule.fromSmiles(datum.smiles);
   }
 
-  if (!molecule)
+  if (!molecule) {
     return {
       width: 0,
       height: 0,
       content: undefined,
     };
+  }
   const svg = molecule.toSVG(maxWidth, maxHeight, undefined, {
     autoCrop: true,
     autoCropMargin: 10,
