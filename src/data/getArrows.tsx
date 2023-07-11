@@ -1,4 +1,4 @@
-import { Arrow } from "../components/Arrow";
+import { Arrow } from '../components/Arrow';
 
 export function getArrows(data, options = {}) {
   const status = { level: 0 };
@@ -20,7 +20,7 @@ function getArrowsSS(data, arrows, status, options: any = {}) {
             to={child.anchor.left}
             label={getLabel && getLabel(child)}
             labelPosition={labelPosition}
-          />
+          />,
         );
       }
 
@@ -31,7 +31,7 @@ function getArrowsSS(data, arrows, status, options: any = {}) {
           ...status,
           level: status.level + 1,
         },
-        options
+        options,
       );
     }
   }

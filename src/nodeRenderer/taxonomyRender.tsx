@@ -1,15 +1,15 @@
-import { Rectangle } from "../components/Rectangle";
+import { Rectangle } from '../components/Rectangle';
 
 export function taxonomyRender(
   datum,
-  nodeRendererOptions = {}
+  nodeRendererOptions = {},
 ): {
   width: number;
   height: number;
   component: any;
 } {
   if (Object.keys(nodeRendererOptions).length !== 0) {
-    throw new Error("This should never happen");
+    throw new Error('This should never happen');
   }
   const minSize = { width: 120, height: 20 };
   const taxonomy = getTaxonomy(datum, minSize);
@@ -27,7 +27,7 @@ export function taxonomyRender(
           width={width}
           height={height}
           style={{
-            ...{ stroke: "black", fill: "white" },
+            ...{ stroke: 'black', fill: 'white' },
             ...(datum.style || {}),
           }}
         />
@@ -50,7 +50,7 @@ function getNbTaxonomies(datum, width, minSize) {
         stroke="none"
         fontSize="14"
         fill="#00008B" // dark blue
-        fontStyle={"bold"}
+        fontStyle={'bold'}
         font-family="Arial, Helvetica, sans-serif"
       >
         {datum.nbTaxonomies}
@@ -62,14 +62,14 @@ function getNbTaxonomies(datum, width, minSize) {
 function getLabel(
   datum,
   minSize,
-  options: { spacingHorizontal?: number; fontSize?: number } = {}
+  options: { spacingHorizontal?: number; fontSize?: number } = {},
 ) {
   const { spacingHorizontal } = {
     spacingHorizontal: 8,
 
     ...options,
   };
-  if (datum.rank === "") {
+  if (datum.rank === '') {
     return {
       width: 0,
       height: 0,
@@ -87,7 +87,7 @@ function getLabel(
         stroke="none"
         fontSize="14"
         fill="grey"
-        fontStyle={"italic"}
+        fontStyle={'italic'}
         font-family="Arial, Helvetica, sans-serif"
       >
         {datum.rank}
@@ -99,15 +99,15 @@ function getLabel(
 function getTaxonomy(
   datum,
   minSize,
-  options: { spacingHorizontal?: number; fontSize?: number } = {}
+  options: { spacingHorizontal?: number; fontSize?: number } = {},
 ) {
   const { font, fontSize, spacingHorizontal } = {
-    font: "Arial, Helvetica, sans-serif",
+    font: 'Arial, Helvetica, sans-serif',
     fontSize: 16,
     spacingHorizontal: 8,
     ...options,
   };
-  if (datum.name === "") {
+  if (datum.name === '') {
     return {
       width: 0,
       height: 0,
@@ -153,19 +153,19 @@ function getTaxonomy(
 
 function getStringSize(
   text: string,
-  options: { font?: string; fontSize?: number; spacingHorizontal?: number }
+  options: { font?: string; fontSize?: number; spacingHorizontal?: number },
 ): { width: number; height: number } {
   const {
-    font = "Arial, Helvetica, sans-serif",
+    font = 'Arial, Helvetica, sans-serif',
     fontSize = 16,
     spacingHorizontal = 8,
   } = options;
-  const tempElement = document.createElement("span");
+  const tempElement = document.createElement('span');
   tempElement.style.font = `${fontSize}px ${font}`;
-  tempElement.style.visibility = "hidden";
-  tempElement.style.position = "absolute";
-  tempElement.style.top = "-9999px";
-  tempElement.style.left = "-9999px";
+  tempElement.style.visibility = 'hidden';
+  tempElement.style.position = 'absolute';
+  tempElement.style.top = '-9999px';
+  tempElement.style.left = '-9999px';
   tempElement.textContent = text;
 
   document.body.appendChild(tempElement);

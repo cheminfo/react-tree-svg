@@ -35,7 +35,7 @@ function calculateInnerBoxSize(data, status) {
           status.spacingVertical * (datum.children.length - 1) +
             datum.children
               .map((d) => d.childrenBoxSize.height)
-              .reduce((a, b) => a + b, 0)
+              .reduce((a, b) => a + b, 0),
         ),
       };
     } else {

@@ -7,19 +7,19 @@
     <div id="taxonomies-graph" style="width: 100%; height: 1000%"></div>
     <script>
       async function getMolecules() {
-        const response = await fetch("data/molecules.json");
+        const response = await fetch('data/molecules.json');
         const data = await response.json();
         const svg = SVGBoxesTree.render(data, {
-          nodeRenderer: "molecule",
+          nodeRenderer: 'molecule',
           positionOptions: {
             spacingHorizontal: 150,
           },
         });
 
-        const responseTaxonomies = await fetch("data/taxonomies.json");
+        const responseTaxonomies = await fetch('data/taxonomies.json');
         const dataTaxonomies = await responseTaxonomies.json();
         const svgTaxonomies = SVGBoxesTree.render(dataTaxonomies, {
-          nodeRenderer: "taxonomy",
+          nodeRenderer: 'taxonomy',
           rankDepthOptions: {
             maxRankDepth: 8,
           },
@@ -27,8 +27,8 @@
             spacingHorizontal: 100,
           },
         });
-        document.getElementById("molecules-graph").innerHTML = svg;
-        document.getElementById("taxonomies-graph").innerHTML = svgTaxonomies;
+        document.getElementById('molecules-graph').innerHTML = svg;
+        document.getElementById('taxonomies-graph').innerHTML = svgTaxonomies;
       }
       getMolecules();
     </script>

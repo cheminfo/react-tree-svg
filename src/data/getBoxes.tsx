@@ -10,11 +10,11 @@ function getBoxesSS(data, boxes) {
     boxes.push(
       <g
         transform={
-          "translate(" + datum.position.x + " " + datum.position.y + ")"
+          'translate(' + datum.position.x + ' ' + datum.position.y + ')'
         }
       >
         {datum.content}
-      </g>
+      </g>,
     );
 
     if (datum.children) {

@@ -2,7 +2,7 @@
  * Will calculate the SVG of the molecule and the rectangle in which to place the molecule and the corresponding label
  * @param data
  */
-import { rankDept } from "./rankDept";
+import { rankDept } from './rankDept';
 export function improveData(data, options) {
   data = JSON.parse(JSON.stringify(data));
   improveDataSS(data, options);

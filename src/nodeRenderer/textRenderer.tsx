@@ -1,9 +1,9 @@
-import { Rectangle } from "../components/Rectangle";
-import { SVG } from "../components/SVG";
+import { Rectangle } from '../components/Rectangle';
+import { SVG } from '../components/SVG';
 
 export function textRenderer(
   datum,
-  options
+  options,
 ): {
   width: number;
   height: number;
@@ -24,7 +24,7 @@ export function textRenderer(
           width={width}
           height={height}
           style={{
-            ...{ stroke: "black", fill: "white" },
+            ...{ stroke: 'black', fill: 'white' },
             ...(datum.style || {}),
           }}
         />
@@ -55,7 +55,7 @@ function getLabel(datum) {
 
 function getMolecule(
   datum,
-  options: any = {}
+  options: any = {},
 ): { width: number; height: number; content: any } {
   const { maxWidth = 200, maxHeight = 150, OCL } = options;
   let molecule;
@@ -87,17 +87,17 @@ function getMolecule(
 
 function getMoleculeSize(svg: string): { width: number; height: number } {
   const match = svg.match(
-    /.*width="(?<width>\d+)px".*height="(?<height>\d+)px".*/
+    /.*width="(?<width>\d+)px".*height="(?<height>\d+)px".*/,
   );
   if (!match) {
-    throw new Error("Size not found");
+    throw new Error('Size not found');
   }
   const size = match.groups;
   if (!size?.width) {
-    throw new Error("size.width is not defined");
+    throw new Error('size.width is not defined');
   }
   if (!size?.height) {
-    throw new Error("size.height is not defined");
+    throw new Error('size.height is not defined');
   }
   return { width: Number(size.width), height: Number(size.height) };
 }

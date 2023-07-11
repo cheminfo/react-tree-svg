@@ -1,4 +1,4 @@
-import { Molecule } from "openchemlib/core";
+import { Molecule } from 'openchemlib/core';
 
 export function SVGMolecule(props) {
   let molecule;
