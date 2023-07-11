@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.2](https://github.com/cheminfo/react-tree-svg/compare/v0.0.1...v0.0.2) (2023-07-11)
+
+
+### Bug Fixes
+
+* remove svg 100% ([8d9b365](https://github.com/cheminfo/react-tree-svg/commit/8d9b365ad6133460b16d3df2b25bd5e20825ed29))
+
 ## 0.0.1 (2023-07-11)
 
 
