@@ -1,10 +1,17 @@
 {
-  "name": "molecules-graph",
-  "private": true,
+  "name": "react-tree-svg",
   "version": "0.0.0",
+  "main": "lib/index.js",
+  "module": "lib-esm/index.js",
+  "types": "lib-esm/index.d.ts",
+  "files": [
+    "lib",
+    "lib-esm",
+    "src"
+  ],
   "scripts": {
     "check-types": "tsc --noEmit",
-    "buildRender": "npm run tsc-esm && cheminfo-build --entry lib-esm/render.js --root SVGBoxesTree",
+    "buildRender": "npm run tsc-esm && cheminfo-build --entry lib-esm/render.js --root TreeSVG",
     "dev": "vite",
     "build": "tsc && vite build",
     "prettier": "prettier --check src",
@@ -12,6 +19,7 @@
     "preview": "vite preview",
     "eslint": "eslint",
     "eslint-fix": "npm run eslint -- --fix",
+    "prepack": "npm run build",
     "tsc-cjs": "tsc --project tsconfig.cjs.json",
     "tsc-esm": "tsc --project tsconfig.esm.json",
     "test": "vitest run --globals --config ./vite.config.ts && npm run eslint && npm run prettier",
