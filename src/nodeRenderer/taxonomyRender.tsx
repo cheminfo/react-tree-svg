@@ -31,9 +31,11 @@ export function taxonomyRender(
             ...{ stroke: 'black', fill: 'white' },
             ...(datum.style || {}),
           }}
-          onClick={
-            datum?.url ? () => window.open(datum.url, '_blank') : undefined
-          }
+          onClick={() => {
+            if (datum?.url) {
+              window.open(datum.url, '_blank');
+            }
+          }}
         />
         {label.content}
         {taxonomy.content}
