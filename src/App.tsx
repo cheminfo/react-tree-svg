@@ -1,12 +1,13 @@
 import OCL from 'openchemlib/core';
 
 import { SVGBoxesTree } from './components/SVGBoxesTree';
-import { getData } from './data/demo/reaction';
+import { getData } from './data/demo/reactionGraph';
 import { getDataTaxonomy } from './data/demo/taxonomiesWithUrl';
 import { prepareData } from './data/prepareData';
 import { moleculeRenderer } from './nodeRenderer/moleculeRenderer';
+import { reactionGraphRender } from './nodeRenderer/reactionGraphRender';
 import { taxonomyRender } from './nodeRenderer/taxonomyRender';
-
+/*
 const dataTaxonomy = prepareData(getDataTaxonomy(), {
   nodeRenderer: taxonomyRender,
   rankDepthOptions: {
@@ -15,7 +16,7 @@ const dataTaxonomy = prepareData(getDataTaxonomy(), {
   positionOptions: {
     spacingHorizontal: 100,
   },
-});
+});*/
 const data = prepareData(getData(), {
   nodeRenderer: moleculeRenderer,
   nodeRendererOptions: {
@@ -27,7 +28,6 @@ const data = prepareData(getData(), {
     spacingHorizontal: 150,
   },
 });
-
 function App() {
   return (
     <div
@@ -36,7 +36,7 @@ function App() {
         overflow: 'clip',
       }}
     >
-      <SVGBoxesTree data={dataTaxonomy} />
+      <SVGBoxesTree data={data} />
     </div>
   );
 }
