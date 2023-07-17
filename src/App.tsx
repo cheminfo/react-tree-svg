@@ -1,7 +1,5 @@
 import OCL from 'openchemlib/core';
 
-//import { reactions } from '../../mass-tools/packages/mass-fragmentation/src/__tests__/test';
-
 import { SVGBoxesTree } from './components/SVGBoxesTree';
 import { getData } from './data/demo/reactionGraph';
 import { getDataTaxonomy } from './data/demo/taxonomiesWithUrl';
@@ -29,6 +27,7 @@ const data = prepareData(getData(), {
     spacingHorizontal: 150,
   },
 });
+
 function App() {
   return (
     <div
@@ -37,7 +36,7 @@ function App() {
         overflow: 'clip',
       }}
     >
-      <SVGBoxesTree data={dataTaxonomy} />
+      <SVGBoxesTree data={data} />
     </div>
   );
 }
