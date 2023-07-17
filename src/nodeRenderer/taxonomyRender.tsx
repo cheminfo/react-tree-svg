@@ -18,6 +18,7 @@ export function taxonomyRender(
   const width = Math.max(taxonomy.width, label.width);
   const height = Math.max(taxonomy.height, label.height);
   const nbTaxonomies = getNbTaxonomies(datum, width, minSize);
+
   return {
     width,
     height,
@@ -51,7 +52,7 @@ function getNbTaxonomies(datum, width, minSize) {
         fontSize="14"
         fill="#00008B" // dark blue
         fontStyle={'bold'}
-        font-family="Arial, Helvetica, sans-serif"
+        fontFamily="Arial, Helvetica, sans-serif"
       >
         {datum.nbTaxonomies}
       </text>
@@ -88,7 +89,7 @@ function getLabel(
         fontSize="14"
         fill="grey"
         fontStyle={'italic'}
-        font-family="Arial, Helvetica, sans-serif"
+        fontFamily="Arial, Helvetica, sans-serif"
       >
         {datum.rank}
       </text>
@@ -131,18 +132,19 @@ function getTaxonomy(
   }
 
   return {
-    width: width,
-    height: height,
+    width,
+    height,
 
     content: (
-      <svg height={height} width={width} dominant-baseline="central">
+      <svg height={height} width={width} dominantBaseline="central">
         <text
           x={positionX}
           y={height / 2}
           stroke="none"
           fontSize={fontSize}
           fill="black"
-          font-family={font}
+          {...(datum.url ? { 'data-url': datum.url } : {})}
+          fontFamily={font}
         >
           {datum.name}
         </text>

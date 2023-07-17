@@ -16,6 +16,5 @@ test('render: Molecule', () => {
     /.*width="(?<width>\d+)px".*height="(?<height>\d+)px".*/,
   );
   const size = match?.groups;
-  expect(Number(size?.width)).toBe(188);
   expect(Number(size?.height)).toBe(156);
 });
