@@ -1,13 +1,14 @@
 import OCL from 'openchemlib/core';
 
+//import { reactions } from '../../mass-tools/packages/mass-fragmentation/src/__tests__/test';
+
 import { SVGBoxesTree } from './components/SVGBoxesTree';
 import { getData } from './data/demo/reactionGraph';
 import { getDataTaxonomy } from './data/demo/taxonomiesWithUrl';
 import { prepareData } from './data/prepareData';
 import { moleculeRenderer } from './nodeRenderer/moleculeRenderer';
-import { reactionGraphRender } from './nodeRenderer/reactionGraphRender';
 import { taxonomyRender } from './nodeRenderer/taxonomyRender';
-/*
+
 const dataTaxonomy = prepareData(getDataTaxonomy(), {
   nodeRenderer: taxonomyRender,
   rankDepthOptions: {
@@ -16,7 +17,7 @@ const dataTaxonomy = prepareData(getDataTaxonomy(), {
   positionOptions: {
     spacingHorizontal: 100,
   },
-});*/
+});
 const data = prepareData(getData(), {
   nodeRenderer: moleculeRenderer,
   nodeRendererOptions: {
@@ -36,7 +37,7 @@ function App() {
         overflow: 'clip',
       }}
     >
-      <SVGBoxesTree data={data} />
+      <SVGBoxesTree data={dataTaxonomy} />
     </div>
   );
 }

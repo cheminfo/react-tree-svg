@@ -5,7 +5,7 @@
 
   <body>
     <div id="react-tree-svg"></div>
-    <div id="taxonomies-graph"></div>
+    <div id="taxonomies-graph" onclick="handleClick(event)"></div>
     <script>
       async function getMolecules() {
         const response = await fetch('data/molecules.json');
@@ -32,6 +32,16 @@
         document.getElementById('taxonomies-graph').innerHTML = svgTaxonomies;
       }
       getMolecules();
+      function handleClick(event) {
+        const target = event.target;
+        console.log(target);
+        if (target.tagName === 'text') {
+          const url = target.getAttribute('data-url');
+          if (url) {
+            window.open(url, '_blank');
+          }
+        }
+      }
     </script>
   </body>
 </html>

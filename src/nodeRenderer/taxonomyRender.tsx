@@ -31,11 +31,6 @@ export function taxonomyRender(
             ...{ stroke: 'black', fill: 'white' },
             ...(datum.style || {}),
           }}
-          onClick={() => {
-            if (datum?.url) {
-              window.open(datum.url, '_blank');
-            }
-          }}
         />
         {label.content}
         {taxonomy.content}
@@ -148,6 +143,7 @@ function getTaxonomy(
           stroke="none"
           fontSize={fontSize}
           fill="black"
+          {...(datum.url ? { 'data-url': datum.url } : {})}
           fontFamily={font}
         >
           {datum.name}
