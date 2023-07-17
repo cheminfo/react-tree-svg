@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.0](https://github.com/cheminfo/react-tree-svg/compare/v0.0.2...v0.1.0) (2023-07-17)
+
+
+### Features
+
+* link in rectangle ([#7](https://github.com/cheminfo/react-tree-svg/issues/7)) ([5f94f51](https://github.com/cheminfo/react-tree-svg/commit/5f94f51ec6c45cf147600db442a2ee13bdb93532))
+
 ## [0.0.2](https://github.com/cheminfo/react-tree-svg/compare/v0.0.1...v0.0.2) (2023-07-11)
 
 
