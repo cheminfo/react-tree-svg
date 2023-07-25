@@ -4,9 +4,9 @@ import { SVGMolecule } from './SVGMolecule';
 
 export function MoleculeLabel(props) {
   return (
-    <svg>
-      <SVGMolecule {...props}></SVGMolecule>
+    <g>
+      <SVGMolecule {...props} />
       <text y="20px">{props.label}</text>
-    </svg>
+    </g>
   );
 }

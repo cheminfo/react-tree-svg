@@ -1,7 +1,7 @@
 import OCL from 'openchemlib/core';
 
 import { SVGBoxesTree } from './components/SVGBoxesTree';
-import { getData } from './data/demo/reactionGraph';
+import { getData } from './data/demo/molecules';
 import { getDataTaxonomy } from './data/demo/taxonomiesWithUrl';
 import { prepareData } from './data/prepareData';
 import { moleculeRenderer } from './nodeRenderer/moleculeRenderer';
@@ -36,7 +36,7 @@ function App() {
         overflow: 'clip',
       }}
     >
-      <SVGBoxesTree data={data} />
+      <SVGBoxesTree data={dataTaxonomy} />
     </div>
   );
 }

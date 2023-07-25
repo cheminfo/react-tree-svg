@@ -136,7 +136,7 @@ function getTaxonomy(
     height,
 
     content: (
-      <svg height={height} width={width} dominantBaseline="central">
+      <g height={height} width={width} dominantBaseline="central">
         <text
           x={positionX}
           y={height / 2}
@@ -148,7 +148,7 @@ function getTaxonomy(
         >
           {datum.name}
         </text>
-      </svg>
+      </g>
     ),
   };
 }
