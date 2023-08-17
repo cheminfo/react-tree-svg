@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.0](https://github.com/cheminfo/react-tree-svg/compare/v0.1.1...v0.2.0) (2023-08-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* render was overwriting options
+
+### Bug Fixes
+
+* render was overwriting options ([97f3e69](https://github.com/cheminfo/react-tree-svg/commit/97f3e6977bf3e916020094fa69df3c84fa803810))
+
 ## [0.1.1](https://github.com/cheminfo/react-tree-svg/compare/v0.1.0...v0.1.1) (2023-07-25)
 
 
