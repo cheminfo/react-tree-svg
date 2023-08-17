@@ -12,6 +12,12 @@
         const data = await response.json();
         const svg = TreeSVG.render(data, {
           nodeRenderer: 'molecule',
+          nodeRendererOptions: {
+            masses: [
+              58.065, 105.0697, 133.0647, 135.0439, 163.0752, 194.1173, 530.15,
+            ],
+            precision: 50,
+          },
           positionOptions: {
             spacingHorizontal: 150,
           },

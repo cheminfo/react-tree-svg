@@ -11,7 +11,10 @@ export function render(data, options) {
     options.nodeRenderer = taxonomyRender;
   } else if (options.nodeRenderer === 'molecule') {
     options.nodeRenderer = moleculeRenderer;
-    options.nodeRendererOptions = { OCL };
+    options.nodeRendererOptions = {
+      ...options.nodeRendererOptions,
+      OCL,
+    };
   }
   data = prepareData(data, options);
   const result = renderToStaticMarkup(<SVGBoxesTree data={data} />);

@@ -5,135 +5,79 @@
       {
         "smiles": "CCCCCOCCCCCC",
         "transformation": "Ether",
-        "label": "123.12",
-        "style": {
-          "fillOpacity": 0.2,
-          "fill": "red"
-        }
+        "em": "123.12"
       },
       {
         "smiles": "CCCCCCCC(=O)CC",
-        "label": "123.12",
-        "style": {
-          "fillOpacity": 0.5,
-          "fill": "red"
-        },
+        "em": "123.12",
+
         "children": [
           {
             "smiles": "COC",
-            "label": "123.12",
+            "em": "123.12",
             "transformation": "Elimination",
-            "style": {
-              "fillOpacity": 0.2,
-              "fill": "red"
-            },
+
             "children": [
               {
                 "smiles": "COCCCCCC",
-                "label": "123.12",
-                "transformation": "Elimination",
-                "style": {
-                  "fillOpacity": 0.2,
-                  "fill": "red"
-                }
+                "em": "123.12",
+                "transformation": "Elimination"
               }
             ]
           },
           {
             "smiles": "C(=O)C",
-            "label": "123.12",
-            "style": {
-              "fillOpacity": 0.5,
-              "fill": "red"
-            },
+            "em": "123.12",
+
             "children": [
               {
                 "smiles": "COCCCCCC",
-                "label": "123.12",
-                "transformation": "Elimination",
-                "style": {
-                  "fillOpacity": 0.2,
-                  "fill": "red"
-                }
+                "em": "123.12",
+                "transformation": "Elimination"
               },
               {
                 "smiles": "COCCCC",
-                "label": "123.12",
-                "transformation": "Elimination",
-                "style": {
-                  "fillOpacity": 0.2,
-                  "fill": "red"
-                }
+                "em": "123.12",
+                "transformation": "Elimination"
               },
               {
                 "smiles": "COCC",
-                "label": "123.12",
-                "transformation": "Elimination",
-                "style": {
-                  "fillOpacity": 0.2,
-                  "fill": "red"
-                }
+
+                "em": 530.15,
+                "transformation": "Elimination"
               }
             ]
           },
           {
             "smiles": "CC",
-            "label": "123.12",
-            "style": {
-              "fillOpacity": 0.5,
-              "fill": "red"
-            }
+            "em": "123.12"
           }
         ]
       },
       {
         "smiles": "C(=O)CC",
-        "label": "123.12",
-        "style": {
-          "fillOpacity": 0.5,
-          "fill": "red"
-        },
+        "em": "123.12",
         "children": [
           {
             "idCode": "fjuQP@JV@bVRiLmkMr{pTmUTpTDLHqEP@",
-            "label": "123.12",
-            "transformation": "Elimination",
-            "style": {
-              "fillOpacity": 0.2,
-              "fill": "red"
-            }
+            "em": "123.12",
+            "transformation": "Elimination"
           },
           {
             "idCode": "fdeQ@@DXAdTTtTTRbqUXp_QZh@``A@@@",
-            "label": "123.12",
-            "style": {
-              "fillOpacity": 0.5,
-              "fill": "red"
-            }
+            "em": "123.12"
           },
           {
             "idCode": "dcLF@@siWTify^ajjjjIHRiB`@",
-            "label": "123.12",
-            "style": {
-              "fillOpacity": 0.5,
-              "fill": "red"
-            }
+            "em": "123.12"
           },
           {
             "idCode": "fmaP@N`QrH|bbtTRTrTTRRqbeiQoYRVoVhHHjjjjZJZbdZVgee@@",
-            "label": "123.12",
-            "style": {
-              "fillOpacity": 0.5,
-              "fill": "red"
-            }
+            "em": "123.12"
           },
           {
             "idCode": "fmaP@N`QrH|bbtTRTrTTRRqbeiQoYRVoVhHHjjjjZJZbdZVgee@@",
-            "label": "123.12",
-            "style": {
-              "fillOpacity": 0.5,
-              "fill": "red"
-            }
+            "em": "123.12"
           }
         ]
       }
