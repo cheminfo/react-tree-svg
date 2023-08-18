@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.0](https://github.com/cheminfo/react-tree-svg/compare/v0.2.0...v0.3.0) (2023-08-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* display mz not em
+
+### Bug Fixes
+
+* display mz not em ([490a314](https://github.com/cheminfo/react-tree-svg/commit/490a314f8e7904b3b4a8bbdeed0c0a500460a793))
+
 ## [0.2.0](https://github.com/cheminfo/react-tree-svg/compare/v0.1.1...v0.2.0) (2023-08-17)
 
 
