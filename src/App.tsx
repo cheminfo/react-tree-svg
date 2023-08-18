@@ -1,7 +1,7 @@
 import OCL from 'openchemlib/core';
 
 import { SVGBoxesTree } from './components/SVGBoxesTree';
-import { getData } from './data/demo/molecules';
+import { getData } from './data/demo/reactionGraph';
 import { getDataTaxonomy } from './data/demo/taxonomiesWithUrl';
 import { prepareData } from './data/prepareData';
 import { moleculeRenderer } from './nodeRenderer/moleculeRenderer';
@@ -22,12 +22,12 @@ const data = prepareData(getData(), {
     OCL,
     masses: [105.0697, 58.065, 194.1173, 163.0752, 133.0647, 135.0439],
     precision: 50,
+    numberFormat: '0.0000',
   },
   positionOptions: {
     spacingHorizontal: 150,
   },
 });
-
 function App() {
   return (
     <div
@@ -36,7 +36,7 @@ function App() {
         overflow: 'clip',
       }}
     >
-      <SVGBoxesTree data={dataTaxonomy} />
+      <SVGBoxesTree data={data} />
     </div>
   );
 }

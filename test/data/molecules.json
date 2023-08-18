@@ -5,79 +5,79 @@
       {
         "smiles": "CCCCCOCCCCCC",
         "transformation": "Ether",
-        "em": "123.12"
+        "mz": 123.12
       },
       {
         "smiles": "CCCCCCCC(=O)CC",
-        "em": "123.12",
+        "mz": 123.12,
 
         "children": [
           {
             "smiles": "COC",
-            "em": "123.12",
+            "mz": 123.12,
             "transformation": "Elimination",
 
             "children": [
               {
                 "smiles": "COCCCCCC",
-                "em": "123.12",
+                "mz": 123.12,
                 "transformation": "Elimination"
               }
             ]
           },
           {
             "smiles": "C(=O)C",
-            "em": "123.12",
+            "mz": 123.12,
 
             "children": [
               {
                 "smiles": "COCCCCCC",
-                "em": "123.12",
+                "mz": 123.12,
                 "transformation": "Elimination"
               },
               {
                 "smiles": "COCCCC",
-                "em": "123.12",
+                "mz": 123.12,
                 "transformation": "Elimination"
               },
               {
                 "smiles": "COCC",
 
-                "em": 530.15,
+                "mz": 530.15,
                 "transformation": "Elimination"
               }
             ]
           },
           {
             "smiles": "CC",
-            "em": "123.12"
+            "mz": 123.12
           }
         ]
       },
       {
         "smiles": "C(=O)CC",
-        "em": "123.12",
+        "mz": 123.12,
         "children": [
           {
             "idCode": "fjuQP@JV@bVRiLmkMr{pTmUTpTDLHqEP@",
-            "em": "123.12",
+            "mz": 123.12,
             "transformation": "Elimination"
           },
           {
             "idCode": "fdeQ@@DXAdTTtTTRbqUXp_QZh@``A@@@",
-            "em": "123.12"
+            "mz": 123.12
           },
           {
             "idCode": "dcLF@@siWTify^ajjjjIHRiB`@",
-            "em": "123.12"
+            "mz": 123.12
           },
           {
             "idCode": "fmaP@N`QrH|bbtTRTrTTRRqbeiQoYRVoVhHHjjjjZJZbdZVgee@@",
-            "em": "123.12"
+            "mz": 123.12
           },
           {
             "idCode": "fmaP@N`QrH|bbtTRTrTTRRqbeiQoYRVoVhHHjjjjZJZbdZVgee@@",
-            "em": "123.12"
+            "mz": 123.12
           }
         ]
       }

@@ -1,3 +1,5 @@
+import numeral from 'numeral';
+
 import { Rectangle } from '../components/Rectangle';
 import { SVG } from '../components/SVG';
 
@@ -9,7 +11,7 @@ export function moleculeRenderer(
   height: number;
   component: any;
 } {
-  const { masses = [], precision = 5 } = options;
+  const { masses = [], precision = 5, numberFormat = '0.0000' } = options;
   if (isInRange(masses, datum.mz, precision)) {
     datum.style = {
       fillOpacity: 0.2,
@@ -23,7 +25,7 @@ export function moleculeRenderer(
   const width = Math.max(molecule.width, label.width);
   const height = Math.max(molecule.height, label.height);
 
-  const em = getEMLabel(datum, { width, height });
+  const em = getMZLabel(datum, { width, height, numberFormat });
 
   return {
     width,
@@ -71,8 +73,8 @@ function getLabel(datum) {
     ),
   };
 }
-function getEMLabel(datum, options) {
-  const { width, height } = options;
+function getMZLabel(datum, options) {
+  const { width, height, numberFormat } = options;
   if (!datum.mz) {
     return {
       width: 0,
@@ -85,7 +87,7 @@ function getEMLabel(datum, options) {
     height,
     content: (
       <text y={-6} textAnchor="start" stroke="none" fontSize="14" fill="black">
-        {`${datum.mz} m/z`}
+        {`${numeral(datum.mz).format(numberFormat)} m/z`}
       </text>
     ),
   };
