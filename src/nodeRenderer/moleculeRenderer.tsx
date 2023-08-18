@@ -10,7 +10,7 @@ export function moleculeRenderer(
   component: any;
 } {
   const { masses = [], precision = 5 } = options;
-  if (isInRange(masses, datum.em, precision)) {
+  if (isInRange(masses, datum.mz, precision)) {
     datum.style = {
       fillOpacity: 0.2,
       fill: 'red',
@@ -73,7 +73,7 @@ function getLabel(datum) {
 }
 function getEMLabel(datum, options) {
   const { width, height } = options;
-  if (!datum.em) {
+  if (!datum.mz) {
     return {
       width: 0,
       height: 0,
@@ -85,7 +85,7 @@ function getEMLabel(datum, options) {
     height,
     content: (
       <text y={-6} textAnchor="start" stroke="none" fontSize="14" fill="black">
-        {`${datum.em} m/z`}
+        {`${datum.mz} m/z`}
       </text>
     ),
   };
