@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/cheminfo/react-tree-svg/compare/v0.4.0...v0.5.0) (2023-08-25)
+
+
+### Features
+
+* filter tree by experimental masses matched ([6526d39](https://github.com/cheminfo/react-tree-svg/commit/6526d39393aea8aa912e0e068281d7528656d8b7))
+
 ## [0.4.0](https://github.com/cheminfo/react-tree-svg/compare/v0.3.0...v0.4.0) (2023-08-18)
 
 
