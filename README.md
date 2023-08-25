@@ -88,6 +88,51 @@ const svg = render(data, {
 
 ```
 
+### Reaction Trees
+
+````js
+const {render} = require('react-tree-svg');
+const dataTrees= [
+  {
+    reaction: {
+      Label: Ionization,
+      rxnCode: "eM`BN`~b@!eM``fN`~c@#Q[ Q[#!R@AM?DquRo@ !R@AM?Dqtzo@"
+    },
+    reactant: {
+      molfile: "",
+      idCode: "dg~D@MBdie]v\\kahHBjh@@",
+      mf: "C11H15NO2",
+      em: 193.11027900000002,
+      mz: 193.11027900000002,
+      charge: 0
+    },
+    products: [
+      {
+        molfile: "",
+        idCode: "dg~DBMBmeJYW]gJxZB@jj@@",
+        mf: "C11H16NO2(+)",
+        em: 194.11810400000002,
+        mz: 194.11810400000002,
+        charge: 1,
+        children: [...],
+      }
+    ]
+  }
+];
+const svgTrees = TreeSVG.render(dataTrees, {
+          nodeRenderer: 'trees',
+          nodeRendererOptions: {
+            masses: [
+              58.065, 105.0697, 133.0647, 135.0439, 163.0752, 194.1173, 530.15,
+            ],
+            precision: 50,
+            numberFormat: '0.0000',
+          },
+          positionOptions: {
+            spacingHorizontal: 150,
+          },
+        });
+        ```
 ## License
 
 [MIT](./LICENSE)
@@ -100,3 +145,4 @@ const svg = render(data, {
 [codecov-url]: https://codecov.io/gh/cheminfo/react-tree-svg
 [download-image]: https://img.shields.io/npm/dm/react-tree-svg.svg
 [download-url]: https://www.npmjs.com/package/react-tree-svg
+````

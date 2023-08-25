@@ -13151,9 +13151,9 @@ export const reactionGraph = [
   },
 ];
 export function getData() {
-  let reactionGraphData = JSON.parse(JSON.stringify(reactionGraph));
-  let trees: any[] = [];
-  for (let entry of reactionGraphData) {
+  const reactionGraphData = JSON.parse(JSON.stringify(reactionGraph));
+  const trees: any[] = [];
+  for (const entry of reactionGraphData) {
     entry.trees = convertReactionsToData(entry.trees);
     trees.push(...entry.trees);
   }

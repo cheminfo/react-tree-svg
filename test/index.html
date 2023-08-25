@@ -4,6 +4,7 @@
   </head>
 
   <body>
+    <div id="trees-graph"></div>
     <div id="react-tree-svg"></div>
     <div id="taxonomies-graph" onclick="handleClick(event)"></div>
     <script>
@@ -13,9 +14,7 @@
         const svg = TreeSVG.render(data, {
           nodeRenderer: 'molecule',
           nodeRendererOptions: {
-            masses: [
-              58.065, 105.0697, 133.0647, 135.0439, 163.0752, 194.1173, 530.15,
-            ],
+            masses: [105.0697, 58.065, 194.1173, 163.0752, 133.0647, 135.0439],
             precision: 50,
             numberFormat: '0.0000',
           },
@@ -35,8 +34,24 @@
             spacingHorizontal: 100,
           },
         });
+        const responseTrees = await fetch('data/trees.json');
+        const dataTrees = await responseTrees.json();
+        const svgTrees = TreeSVG.render(dataTrees, {
+          nodeRenderer: 'trees',
+          nodeRendererOptions: {
+            masses: [
+              58.065, 105.0697, 133.0647, 135.0439, 163.0752, 194.1173, 530.15,
+            ],
+            precision: 50,
+            numberFormat: '0.0000',
+          },
+          positionOptions: {
+            spacingHorizontal: 150,
+          },
+        });
         document.getElementById('react-tree-svg').innerHTML = svg;
         document.getElementById('taxonomies-graph').innerHTML = svgTaxonomies;
+        document.getElementById('trees-graph').innerHTML = svgTrees;
       }
       getMolecules();
       function handleClick(event) {

@@ -3,9 +3,11 @@
  * @param data
  */
 import { rankDept } from './rankDept';
+
 export function improveData(data, options) {
   data = JSON.parse(JSON.stringify(data));
   improveDataSS(data, options);
+
   return data;
 }
 

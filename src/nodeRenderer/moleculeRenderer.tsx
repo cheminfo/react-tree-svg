@@ -12,11 +12,13 @@ export function moleculeRenderer(
   component: any;
 } {
   const { masses = [], precision = 5, numberFormat = '0.0000' } = options;
+  datum.matchedMass = false;
   if (isInRange(masses, datum.mz, precision)) {
     datum.style = {
       fillOpacity: 0.2,
       fill: 'red',
     };
+    datum.matchedMass = true;
   }
 
   const molecule = getMolecule(datum, options);
@@ -147,7 +149,7 @@ function isInRange(masses: number[], mass: number, precision: number): boolean {
   if (!mass || !masses) {
     return false;
   }
-  let massAccuracy = (precision * mass) / 1e6;
+  const massAccuracy = (precision * mass) / 1e6;
 
   for (const value of masses) {
     if (Math.abs(value - mass) <= massAccuracy) {
