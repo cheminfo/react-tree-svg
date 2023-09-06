@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/cheminfo/react-tree-svg/compare/v0.5.0...v0.5.1) (2023-09-06)
+
+
+### Bug Fixes
+
+* if masses undefined keep full tree ([7c33d10](https://github.com/cheminfo/react-tree-svg/commit/7c33d10bb2e7e733570916e9dbccf991930a5122))
+
 ## [0.5.0](https://github.com/cheminfo/react-tree-svg/compare/v0.4.0...v0.5.0) (2023-08-25)
 
 
