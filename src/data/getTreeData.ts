@@ -47,7 +47,8 @@ function convertReactionsToData(reactions, masses, precision) {
           reaction: reaction.reaction,
           mz: product.mz,
           children: getChildren(product, masses, precision),
-          massMatched: isInRange(masses, product.mz, precision),
+          massMatched:
+            masses.length > 0 ? isInRange(masses, product.mz, precision) : true,
         });
       }
     }
@@ -67,7 +68,8 @@ function getChildren(reactionProducts, masses, precision) {
         reaction: reactionProduct.reaction,
         mz: product.mz,
         children: getChildren(product, masses, precision),
-        massMatched: isInRange(masses, product.mz, precision),
+        massMatched:
+          masses.length > 0 ? isInRange(masses, product.mz, precision) : true,
       });
     }
   }
