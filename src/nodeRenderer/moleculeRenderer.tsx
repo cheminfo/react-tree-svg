@@ -101,6 +101,9 @@ function getMolecule(
 ): { width: number; height: number; content: any } {
   const { maxWidth = 200, maxHeight = 150, OCL } = options;
   let molecule;
+  if (datum.molecules) {
+    molecule = OCL.Molecule.fromIDCode(datum.molecules[0].idCode);
+  }
   if (datum.idCode) {
     molecule = OCL.Molecule.fromIDCode(datum.idCode);
   }

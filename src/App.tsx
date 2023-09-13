@@ -3,6 +3,7 @@ import OCL from 'openchemlib/core';
 import { SVGBoxesTree } from './components/SVGBoxesTree';
 //import { getData } from './data/demo/reactionGraph';
 import { reactionTree } from './data/demo/reactionTree';
+import { reactionTree2 } from './data/demo/reactionTree2';
 import { getDataTaxonomy } from './data/demo/taxonomiesWithUrl';
 import { getData } from './data/getTreeData';
 import { prepareData } from './data/prepareData';
@@ -22,7 +23,8 @@ const dataTree = getData(reactionTree, {
   masses: [105.0697, 58.065, 194.1173, 163.0752, 133.0647, 135.0439],
   precision: 50,
 });
-const data = prepareData(dataTree, {
+
+const data = prepareData(reactionTree2, {
   nodeRenderer: moleculeRenderer,
   nodeRendererOptions: {
     OCL,
