@@ -16,7 +16,7 @@ export function Arrow(props: {
   label: string;
   labelPosition: 'center' | 'right';
 }) {
-  const { from, to, label, labelPosition } = props;
+  const { from, to, label, labelPosition = 'center' } = props;
   const middle = { x: (from.x + to.x) / 2, y: (from.y + to.y) / 2 };
   const refX = MarkerDef(props).props.children.props.refX;
 

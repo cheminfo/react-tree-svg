@@ -2,24 +2,15 @@
  * Will calculate the SVG of the molecule and the rectangle in which to place the molecule and the corresponding label
  * @param data
  */
-import { rankDept } from './rankDept';
 
-export function improveData(data, options) {
+export function prepareTree(data, options) {
   data = JSON.parse(JSON.stringify(data));
-  improveDataSS(data, options);
-
+  prepareTreeSS(data, options);
   return data;
 }
 
-function improveDataSS(data, options) {
-  const {
-    nodeRenderer,
-    nodeRendererOptions = {},
-    rankDepthOptions = {},
-  } = options;
-  if (rankDepthOptions.maxRankDepth) {
-    rankDept(data, rankDepthOptions.maxRankDepth);
-  }
+function prepareTreeSS(data, options) {
+  const { nodeRenderer, nodeRendererOptions = {} } = options;
   for (const datum of data) {
     if (options.level > 0) {
       datum.parent = options.parent;
@@ -36,7 +27,7 @@ function improveDataSS(data, options) {
       delete datum.children;
     }
     if (datum.children) {
-      improveDataSS(datum.children, {
+      prepareTreeSS(datum.children, {
         ...options,
         parent: datum,
       });

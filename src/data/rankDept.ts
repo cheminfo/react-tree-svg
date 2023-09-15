@@ -9,12 +9,12 @@ const taxonomiesRanks = {
   species: 8,
 };
 export function rankDept(data, maxRankDepth) {
-  for (let datum of data) {
-    if (taxonomiesRanks[datum.rank] >= maxRankDepth) {
-      delete datum.children;
+  for (const node of data) {
+    if (taxonomiesRanks[node.rank] >= maxRankDepth) {
+      delete node.children;
     }
-    if (datum.children) {
-      rankDept(datum.children, maxRankDepth);
+    if (node.children) {
+      rankDept(node.children, maxRankDepth);
     }
   }
 }

@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { Rectangle } from '../components/Rectangle';
 
-export function taxonomyRender(
+export function taxonomyRenderer(
   node,
   nodeRendererOptions = {},
 ): {
@@ -10,9 +10,6 @@ export function taxonomyRender(
   height: number;
   element: ReactElement;
 } {
-  if (Object.keys(nodeRendererOptions).length !== 0) {
-    throw new Error('This should never happen');
-  }
   const minSize = { width: 120, height: 20 };
   const taxonomy = getTaxonomy(node, minSize);
   const label = getLabel(node, minSize);

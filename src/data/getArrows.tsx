@@ -1,31 +1,31 @@
 import { Arrow } from '../components/Arrow';
 
-export function getArrows(data, options = {}) {
+export function getArrows(nodes, options = {}) {
   const status = { level: 0 };
   const arrows = [];
-  getArrowsSS(data, arrows, status, options);
+  getArrowsSS(nodes, arrows, status, options);
   return arrows;
 }
 
-function getArrowsSS(data, arrows, status, options: any = {}) {
+function getArrowsSS(nodes, arrows, status, options: any = {}) {
   const { getLabel, labelPosition } = options;
 
-  for (let i = 0; i < data.length; i++) {
-    const datum = data[i];
-    if (datum.children) {
-      for (const child of datum.children) {
+  for (const node of nodes) {
+    if (node.children) {
+      for (const child of node.children) {
         arrows.push(
           <Arrow
-            from={datum.anchor.right}
+            key={arrows.length}
+            from={node.anchor.right}
             to={child.anchor.left}
-            label={getLabel && getLabel(child)}
+            label={getLabel?.(child)}
             labelPosition={labelPosition}
           />,
         );
       }
 
       getArrowsSS(
-        datum.children,
+        node.children,
         arrows,
         {
           ...status,

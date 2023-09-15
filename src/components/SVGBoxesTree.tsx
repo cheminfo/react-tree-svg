@@ -1,22 +1,24 @@
+import { calculatePosition } from '../data/calculatePosition';
 import { getArrows } from '../data/getArrows';
 import { getBoxes } from '../data/getBoxes';
+import { prepareTree } from '../data/prepareTree';
 
 import { MarkerDef } from './MarkerDef';
 
 export function SVGBoxesTree(props) {
-  const boxes = getBoxes(props.data);
-  const arrows = getArrows(props.data, {
-    getLabel: (node) => {
-      return node?.reaction?.Label;
-    },
-    labelPosition: 'center',
-  });
-  let svgSize = {
+  const { tree, ...options } = props;
+
+  const data = prepareTree(tree, options);
+  calculatePosition(data, options);
+  const boxes = getBoxes(data);
+
+  const arrows = getArrows(data, options.arrowRendererOptions);
+  const svgSize = {
     width: 0,
     height: 0,
   };
-  let width: number[] = [];
-  for (const datum of props.data) {
+  const width: number[] = [];
+  for (const datum of data) {
     width.push(datum.childrenBoxSize.width);
     svgSize.height += datum.childrenBoxSize.height;
   }

@@ -75,19 +75,11 @@ function getMolecules(
   node,
   options: any = {},
 ): { width: number; height: number; element: any } {
-  const { maxWidth = 200, maxHeight = 150, OCL } = options;
-  let molecules;
-  if (node.molecules) {
-    molecules = node.molecules.map((molecule) =>
-      OCL.Molecule.fromIDCode(molecule.idCode),
-    );
+  const { maxWidth = 200, maxHeight = 150, getMolecules } = options;
+  if (!getMolecules) {
+    throw new Error('getMolecules is not defined');
   }
-  if (node.idCode) {
-    molecules = [OCL.Molecule.fromIDCode(node.idCode)];
-  }
-  if (node.smiles) {
-    molecules = [OCL.Molecule.fromSmiles(node.smiles)];
-  }
+  const molecules = getMolecules(node);
 
   if (!molecules) {
     return {

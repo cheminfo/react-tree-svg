@@ -1,20 +1,20 @@
-export function getBoxes(data) {
+export function getBoxes(nodes) {
   const boxes: any[] = [];
-  getBoxesSS(data, boxes);
+  appendBoxes(nodes, boxes);
   return boxes;
 }
 
-function getBoxesSS(data, boxes) {
-  for (let i = 0; i < data.length; i++) {
-    const datum = data[i];
+function appendBoxes(nodes, boxes) {
+  for (let i = 0; i < nodes.length; i++) {
+    const node = nodes[i];
     boxes.push(
-      <g transform={`translate(${datum.position.x} ${datum.position.y})`}>
-        {datum.element}
+      <g key={i} transform={`translate(${node.position.x} ${node.position.y})`}>
+        {node.element}
       </g>,
     );
 
-    if (datum.children) {
-      getBoxesSS(datum.children, boxes);
+    if (node.children) {
+      appendBoxes(node.children, boxes);
     }
   }
 }
