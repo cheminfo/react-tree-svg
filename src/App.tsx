@@ -1,3 +1,4 @@
+import numeral from 'numeral';
 import OCL from 'openchemlib/core';
 
 import { SVGBoxesTree } from './components/SVGBoxesTree';
@@ -24,13 +25,29 @@ const dataTree = getData(reactionTree, {
   precision: 50,
 });
 
+const masses = [105.0697, 58.065, 194.1173, 163.0752, 133.0647, 135.0439];
+const accuracy = 50;
+
 const data = prepareData(reactionTree2, {
   nodeRenderer: moleculeRenderer,
+  arrowRendererOptions: {
+    getLabel: (node) => {},
+  },
   nodeRendererOptions: {
     OCL,
-    masses: [105.0697, 58.065, 194.1173, 163.0752, 133.0647, 135.0439],
-    precision: 50,
-    numberFormat: '0.0000',
+    getTopLabel: (node) => {
+      const mz = node?.molecules[0]?.info?.mz;
+      if (mz === undefined) return;
+      return `${numeral(mz).format('0.0000')} m/z`;
+    },
+    getBoxStyle: (node) => {
+      if (isInRange(masses, node.mz, accuracy)) {
+        return {
+          fillOpacity: 0.2,
+          fill: 'red',
+        };
+      }
+    },
   },
   positionOptions: {
     spacingHorizontal: 150,
@@ -47,6 +64,20 @@ function App() {
       <SVGBoxesTree data={data} />
     </div>
   );
+}
+
+function isInRange(masses: number[], mass: number, precision: number): boolean {
+  if (!mass || !masses) {
+    return false;
+  }
+  const massAccuracy = (precision * mass) / 1e6;
+
+  for (const value of masses) {
+    if (Math.abs(value - mass) <= massAccuracy) {
+      return true;
+    }
+  }
+  return false;
 }
 
 export default App;

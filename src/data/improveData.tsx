@@ -24,14 +24,14 @@ function improveDataSS(data, options) {
     if (options.level > 0) {
       datum.parent = options.parent;
     }
-    const componentAndSize = nodeRenderer(datum, nodeRendererOptions);
+    const elementAndSize = nodeRenderer(datum, nodeRendererOptions);
     datum.position = {
       x: 0,
       y: 0,
-      width: componentAndSize.width,
-      height: componentAndSize.height,
+      width: elementAndSize.width,
+      height: elementAndSize.height,
     };
-    datum.content = componentAndSize.component;
+    datum.element = elementAndSize.element;
     if (datum.children && datum.children.length === 0) {
       delete datum.children;
     }

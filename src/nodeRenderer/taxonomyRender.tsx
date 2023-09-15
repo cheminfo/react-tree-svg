@@ -1,49 +1,51 @@
+import { ReactElement } from 'react';
+
 import { Rectangle } from '../components/Rectangle';
 
 export function taxonomyRender(
-  datum,
+  node,
   nodeRendererOptions = {},
 ): {
   width: number;
   height: number;
-  component: any;
+  element: ReactElement;
 } {
   if (Object.keys(nodeRendererOptions).length !== 0) {
     throw new Error('This should never happen');
   }
   const minSize = { width: 120, height: 20 };
-  const taxonomy = getTaxonomy(datum, minSize);
-  const label = getLabel(datum, minSize);
+  const taxonomy = getTaxonomy(node, minSize);
+  const label = getLabel(node, minSize);
 
   const width = Math.max(taxonomy.width, label.width);
   const height = Math.max(taxonomy.height, label.height);
-  const nbTaxonomies = getNbTaxonomies(datum, width, minSize);
+  const nbTaxonomies = getNbTaxonomies(node, width, minSize);
 
   return {
     width,
     height,
-    component: (
+    element: (
       <g>
         <Rectangle
           width={width}
           height={height}
           style={{
             ...{ stroke: 'black', fill: 'white' },
-            ...(datum.style || {}),
+            ...(node.style || {}),
           }}
         />
-        {label.content}
-        {taxonomy.content}
-        {nbTaxonomies.content}
+        {label.element}
+        {taxonomy.element}
+        {nbTaxonomies.element}
       </g>
     ),
   };
 }
-function getNbTaxonomies(datum, width, minSize) {
+function getNbTaxonomies(node, width, minSize) {
   return {
     width: minSize.width,
     height: minSize.height,
-    content: (
+    element: (
       <text
         x={width}
         y={-5}
@@ -54,14 +56,14 @@ function getNbTaxonomies(datum, width, minSize) {
         fontStyle={'bold'}
         fontFamily="Arial, Helvetica, sans-serif"
       >
-        {datum.nbTaxonomies}
+        {node.nbTaxonomies}
       </text>
     ),
   };
 }
 
 function getLabel(
-  datum,
+  node,
   minSize,
   options: { spacingHorizontal?: number; fontSize?: number } = {},
 ) {
@@ -70,17 +72,17 @@ function getLabel(
 
     ...options,
   };
-  if (datum.rank === '') {
+  if (node.rank === '') {
     return {
       width: 0,
       height: 0,
-      content: null,
+      element: null,
     };
   }
   return {
     width: minSize.width,
     height: minSize.height,
-    content: (
+    element: (
       <text
         x={spacingHorizontal / 2}
         y={-6}
@@ -91,14 +93,14 @@ function getLabel(
         fontStyle={'italic'}
         fontFamily="Arial, Helvetica, sans-serif"
       >
-        {datum.rank}
+        {node.rank}
       </text>
     ),
   };
 }
 
 function getTaxonomy(
-  datum,
+  node,
   minSize,
   options: { spacingHorizontal?: number; fontSize?: number } = {},
 ) {
@@ -108,20 +110,20 @@ function getTaxonomy(
     spacingHorizontal: 8,
     ...options,
   };
-  if (datum.name === '') {
+  if (node.name === '') {
     return {
       width: 0,
       height: 0,
-      content: null,
+      element: null,
     };
   }
 
-  let { width, height } = getStringSize(datum.name, {
+  let { width, height } = getStringSize(node.name, {
     font,
     fontSize,
     spacingHorizontal,
   });
-  let textWith = width;
+  const textWith = width;
   let positionX = spacingHorizontal / 2;
   if (height <= minSize.height) {
     height = minSize.height;
@@ -135,7 +137,7 @@ function getTaxonomy(
     width,
     height,
 
-    content: (
+    element: (
       <g height={height} width={width} dominantBaseline="central">
         <text
           x={positionX}
@@ -143,10 +145,10 @@ function getTaxonomy(
           stroke="none"
           fontSize={fontSize}
           fill="black"
-          {...(datum.url ? { 'data-url': datum.url } : {})}
+          {...(node.url ? { 'data-url': node.url } : {})}
           fontFamily={font}
         >
-          {datum.name}
+          {node.name}
         </text>
       </g>
     ),
@@ -172,7 +174,7 @@ function getStringSize(
 
   document.body.appendChild(tempElement);
 
-  let { height, width } = tempElement.getBoundingClientRect();
+  const { height, width } = tempElement.getBoundingClientRect();
 
   document.body.removeChild(tempElement);
 

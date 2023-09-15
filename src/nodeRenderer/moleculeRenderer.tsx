@@ -1,137 +1,161 @@
-import numeral from 'numeral';
+import { ReactElement } from 'react';
 
 import { Rectangle } from '../components/Rectangle';
 import { SVG } from '../components/SVG';
 
 export function moleculeRenderer(
-  datum,
-  options,
+  node,
+  nodeRendererOptions,
 ): {
   width: number;
   height: number;
-  component: any;
+  element: ReactElement;
 } {
-  const { masses = [], precision = 5, numberFormat = '0.0000' } = options;
-  datum.matchedMass = false;
-  if (isInRange(masses, datum.mz, precision)) {
-    datum.style = {
-      fillOpacity: 0.2,
-      fill: 'red',
-    };
-    datum.matchedMass = true;
-  }
+  const molecules = getMolecules(node, nodeRendererOptions);
+  const topLabel = getTopLabel(node, nodeRendererOptions);
 
-  const molecule = getMolecule(datum, options);
-  const label = getLabel(datum);
-
-  const width = Math.max(molecule.width, label.width);
-  const height = Math.max(molecule.height, label.height);
-
-  const em = getMZLabel(datum, { width, height, numberFormat });
+  const width = Math.max(molecules.width, topLabel.width);
+  const height = Math.max(molecules.height, topLabel.height);
 
   return {
     width,
     height,
-    component: (
+    element: (
       <g>
         <Rectangle
           width={width}
           height={height}
           style={{
             ...{ stroke: 'black', fill: 'white' },
-            ...(datum.style || {}),
+            ...(node.style || {}),
+            ...(nodeRendererOptions.getBoxStyle?.(node) || {}),
           }}
         />
-        {molecule.content}
-        {label.content}
-        {em.content}
+        {molecules.element}
+        {topLabel.element}
       </g>
     ),
   };
 }
 
-function getLabel(datum) {
-  if (!datum.label) {
+function getTopLabel(node, options: any = {}) {
+  const label = options.getTopLabel?.(node) || node.label;
+  if (!label) {
     return {
       width: 0,
       height: 0,
-      content: null,
+      element: null,
     };
   }
   return {
     width: 200,
     height: 20,
-    content: (
+    element: (
       <text
-        x={20}
+        x={0}
         y={-6}
-        textAnchor="middle"
+        textAnchor="left"
         stroke="none"
         fontSize="14"
         fill="black"
       >
-        {datum.label}
+        {label}
       </text>
     ),
   };
 }
-function getMZLabel(datum, options) {
-  const { width, height, numberFormat } = options;
-  if (!datum.mz) {
+
+/**
+ * This code is designed to also allow reactions for which we have many molecules
+ * @param node
+ * @param options
+ * @returns
+ */
+function getMolecules(
+  node,
+  options: any = {},
+): { width: number; height: number; element: any } {
+  const { maxWidth = 200, maxHeight = 150, OCL } = options;
+  let molecules;
+  if (node.molecules) {
+    molecules = node.molecules.map((molecule) =>
+      OCL.Molecule.fromIDCode(molecule.idCode),
+    );
+  }
+  if (node.idCode) {
+    molecules = [OCL.Molecule.fromIDCode(node.idCode)];
+  }
+  if (node.smiles) {
+    molecules = [OCL.Molecule.fromSmiles(node.smiles)];
+  }
+
+  if (!molecules) {
     return {
       width: 0,
       height: 0,
-      content: null,
+      element: undefined,
     };
   }
+  const svgs = molecules.map((molecule) =>
+    molecule.toSVG(maxWidth, maxHeight, undefined, {
+      autoCrop: true,
+      autoCropMargin: 10,
+      suppressChiralText: true,
+    }),
+  );
+
+  const { svg, width, height } = joinSVGs(svgs);
+
   return {
     width,
     height,
-    content: (
-      <text y={-6} textAnchor="start" stroke="none" fontSize="14" fill="black">
-        {`${numeral(datum.mz).format(numberFormat)} m/z`}
-      </text>
-    ),
+    element: <SVG svg={svg} />,
   };
 }
 
-function getMolecule(
-  datum,
-  options: any = {},
-): { width: number; height: number; content: any } {
-  const { maxWidth = 200, maxHeight = 150, OCL } = options;
-  let molecule;
-  if (datum.molecules) {
-    molecule = OCL.Molecule.fromIDCode(datum.molecules[0].idCode);
-  }
-  if (datum.idCode) {
-    molecule = OCL.Molecule.fromIDCode(datum.idCode);
-  }
-  if (datum.smiles) {
-    molecule = OCL.Molecule.fromSmiles(datum.smiles);
-  }
-
-  if (!molecule) {
-    return {
-      width: 0,
-      height: 0,
-      content: undefined,
-    };
-  }
-  const svg = molecule.toSVG(maxWidth, maxHeight, undefined, {
-    autoCrop: true,
-    autoCropMargin: 10,
-    suppressChiralText: true,
-  });
-  const size = getMoleculeSize(svg);
+function getPlus(options: any = {}) {
+  const { size = 11, padding = 5, strokeWidth = 2 } = options;
+  const x1 = padding + size / 2;
+  const y1 = padding;
+  const x2 = padding + size / 2;
+  const y2 = padding + size;
   return {
-    width: size.width,
-    height: size.height,
-    content: <SVG svg={svg} />,
+    svg:
+      `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="rgb(0,0,0)" stroke-width="${strokeWidth}"></line>` +
+      `<line x1="${y1}" y1="${x1}" x2="${y2}" y2="${x2}" stroke="rgb(0,0,0)" stroke-width="${strokeWidth}"></line>`,
+    width: size + padding * 2,
+    height: size + padding * 2,
   };
 }
 
-function getMoleculeSize(svg: string): { width: number; height: number } {
+function joinSVGs(svgs: string[]) {
+  const results: any = [];
+  let maxHeight = 0;
+  for (const svg of svgs) {
+    const size = getSVGSize(svg);
+    if (results.length) {
+      results.push(getPlus());
+    }
+    results.push({ svg, width: size.width, height: size.height });
+    maxHeight = Math.max(maxHeight, size.height);
+  }
+
+  let currentWidth = 0;
+  for (const result of results) {
+    const shiftX = currentWidth;
+    const shiftY = (maxHeight - result.height) / 2;
+    result.shiftedSVG = `<g transform="translate(${shiftX},${shiftY})">${result.svg}</g>`;
+    currentWidth += result.width;
+  }
+
+  return {
+    width: currentWidth,
+    height: maxHeight,
+    svg: results.map((result) => result.shiftedSVG).join('\n'),
+  };
+}
+
+function getSVGSize(svg: string): { width: number; height: number } {
   const match = svg.match(
     /.*width="(?<width>\d+)px".*height="(?<height>\d+)px".*/,
   );
@@ -146,18 +170,4 @@ function getMoleculeSize(svg: string): { width: number; height: number } {
     throw new Error('size.height is not defined');
   }
   return { width: Number(size.width), height: Number(size.height) };
-}
-
-function isInRange(masses: number[], mass: number, precision: number): boolean {
-  if (!mass || !masses) {
-    return false;
-  }
-  const massAccuracy = (precision * mass) / 1e6;
-
-  for (const value of masses) {
-    if (Math.abs(value - mass) <= massAccuracy) {
-      return true;
-    }
-  }
-  return false;
 }

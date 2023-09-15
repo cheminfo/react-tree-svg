@@ -1,7 +1,8 @@
-import { CenteredText } from './CenteredText';
 import { Point } from '../types/Point';
-import { RightText } from './RightText';
+
+import { CenteredText } from './CenteredText';
 import { MarkerDef } from './MarkerDef';
+import { RightText } from './RightText';
 /**
  * Creates a simple arrow between 2 points. The arrow has one inflection point, which is the middle of the line.
  * The SVG must define a marker with id="arrowhead" for this to work.
