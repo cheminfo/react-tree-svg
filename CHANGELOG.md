@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.2](https://github.com/cheminfo/react-tree-svg/compare/v0.5.1...v0.5.2) (2023-09-25)
+
+
+### Bug Fixes
+
+* correct taxonomy renderer export name ([57ef378](https://github.com/cheminfo/react-tree-svg/commit/57ef3787eb9ff33ece050ab134aabb2d1e58f383))
+
 ## [0.5.1](https://github.com/cheminfo/react-tree-svg/compare/v0.5.0...v0.5.1) (2023-09-06)
 
 
