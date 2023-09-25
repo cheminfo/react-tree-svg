@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/cheminfo/react-tree-svg/compare/v0.5.2...v0.6.0) (2023-09-25)
+
+
+### Features
+
+* expose react predefined components ([e068c7d](https://github.com/cheminfo/react-tree-svg/commit/e068c7d41a8cd082b62a06d45f82a3d5ff1a7e75))
+
 ## [0.5.2](https://github.com/cheminfo/react-tree-svg/compare/v0.5.1...v0.5.2) (2023-09-25)
 
 
