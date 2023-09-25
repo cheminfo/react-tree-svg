@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "check-types": "tsc --noEmit",
-    "buildRender": "npm run tsc-esm && cheminfo-build --entry lib-esm/render.js --root TreeSVG",
+    "buildRender": "npm run tsc-esm && cheminfo-build --entry lib-esm/index.js --root TreeSVG",
     "dev": "vite",
     "build": "tsc && vite build",
     "prettier": "prettier --check src",
