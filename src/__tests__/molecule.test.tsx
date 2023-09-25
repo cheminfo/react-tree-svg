@@ -1,12 +1,11 @@
 import OCL from 'openchemlib/core';
 
 import { render } from '..';
-import { getData } from '../demo/data/molecules';
+import { reactionTree } from '../demo/data/reactionTree';
 import { moleculeRenderer } from '../nodeRenderer/moleculeRenderer';
 
 test('render: Molecule', () => {
-  const data = getData();
-  const svg = render(data, {
+  const svg = render(reactionTree, {
     nodeRenderer: moleculeRenderer,
     nodeRendererOptions: {
       getTopLabel: (node) => {
@@ -18,14 +17,11 @@ test('render: Molecule', () => {
           fill: 'red',
         };
       },
+
       getMolecules: (node) => {
-        if (node.smiles) {
-          return [OCL.Molecule.fromSmiles(node.smiles)];
-        }
-        if (node.idCode) {
-          return [OCL.Molecule.fromIDCode(node.idCode)];
-        }
-        return [];
+        return node.molecules.map((molecule) =>
+          OCL.Molecule.fromIDCode(molecule.idCode),
+        );
       },
     },
     arrowRendererOptions: {
@@ -42,6 +38,6 @@ test('render: Molecule', () => {
     /.*width="(?<width>\d+)px".*height="(?<height>\d+)px".*/,
   );
   const size = match?.groups;
-  expect(Number(size?.height)).toBe(156);
+  expect(Number(size?.height)).toBe(96);
   expect(svg).toMatchSnapshot();
 });
