@@ -1,7 +1,7 @@
 import OCL from 'openchemlib/core';
 
 import { render } from '..';
-import { getData } from '../data/demo/molecules';
+import { getData } from '../demo/data/molecules';
 import { moleculeRenderer } from '../nodeRenderer/moleculeRenderer';
 
 test('render: Molecule', () => {

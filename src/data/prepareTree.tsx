@@ -1,5 +1,5 @@
 /**
- * Will calculate the SVG of the molecule and the rectangle in which to place the molecule and the corresponding label
+ * Will calculate the SVG of all the node
  * @param data
  */
 

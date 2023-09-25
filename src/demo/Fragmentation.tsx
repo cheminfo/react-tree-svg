@@ -1,10 +1,11 @@
 import numeral from 'numeral';
 import OCL from 'openchemlib/core';
 
-import { SVGBoxesTree } from './components/SVGBoxesTree';
-//import { getData } from './data/demo/reactionGraph';
-import { reactionTree2 } from './data/demo/reactionTree2';
-import { moleculeRenderer } from './nodeRenderer/moleculeRenderer';
+import { SVGBoxesTree } from '../components/SVGBoxesTree';
+
+import { moleculeRenderer } from '../nodeRenderer/moleculeRenderer';
+
+import { reactionTree } from './data/reactionTree';
 
 const masses = [
   97.5624, 105.0697, 58.065, 194.1173, 163.0752, 133.0647, 135.0439,
@@ -12,7 +13,7 @@ const masses = [
 const accuracy = 50;
 
 const props = {
-  tree: reactionTree2,
+  tree: reactionTree,
   nodeRenderer: moleculeRenderer,
   arrowRendererOptions: {
     getLabel: (node) => {

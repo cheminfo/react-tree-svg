@@ -20,8 +20,7 @@ export function calculatePosition(data, options) {
 }
 
 function calculateInnerBoxSize(data, status) {
-  for (let i = 0; i < data.length; i++) {
-    const datum = data[i];
+  for (const datum of data) {
     if (datum.children) {
       calculateInnerBoxSize(datum.children, status);
 
@@ -49,13 +48,12 @@ function calculateInnerBoxSize(data, status) {
 
 function calculatePositionSS(data, status) {
   let y = status.y;
-  for (let i = 0; i < data.length; i++) {
-    const datum = data[i];
+  for (const datum of data) {
     if (datum.children) {
       calculatePositionSS(datum.children, {
         ...status,
         x: status.x + datum.position.width + status.spacingHorizontal,
-        y: y,
+        y,
       });
     }
 

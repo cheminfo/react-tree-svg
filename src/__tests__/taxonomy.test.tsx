@@ -1,5 +1,5 @@
 import { render } from '..';
-import { getDataTaxonomy } from '../data/demo/taxonomiesWithUrl';
+import { getDataTaxonomy } from '../demo/data/taxonomiesWithUrl';
 import { taxonomyRenderer } from '../nodeRenderer/taxonomyRenderer';
 
 test.skip('render: Taxonomy', () => {

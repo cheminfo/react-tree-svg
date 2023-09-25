@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import Fragmentation from './Fragmentation';
-import Taxonomy from './Taxonomy';
+import Fragmentation from './demo/Fragmentation';
+import Taxonomy from './demo/Taxonomy';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
