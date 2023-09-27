@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build project
-        run: npm run buildRender
+        run: npm run build
       - name: Deploy to lactame.com
         uses: zakodium/lactame-action@v1
         with:
