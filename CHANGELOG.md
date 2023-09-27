@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/cheminfo/react-tree-svg/compare/v0.6.0...v0.6.1) (2023-09-27)
+
+
+### Bug Fixes
+
+* build was wrong and not published on npm ([790fdc4](https://github.com/cheminfo/react-tree-svg/commit/790fdc40c2bf5c2d16b12a2b957f1a9b5176da54))
+
 ## [0.6.0](https://github.com/cheminfo/react-tree-svg/compare/v0.5.2...v0.6.0) (2023-09-25)
 
 
