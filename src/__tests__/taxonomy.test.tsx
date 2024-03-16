@@ -1,3 +1,5 @@
+import { test } from 'vitest';
+
 import { render } from '..';
 import { getDataTaxonomy } from '../demo/data/taxonomiesWithUrl';
 import { taxonomyRenderer } from '../nodeRenderer/taxonomyRenderer';
