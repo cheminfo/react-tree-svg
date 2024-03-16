@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0](https://github.com/cheminfo/react-tree-svg/compare/v0.6.1...v1.0.0) (2024-03-16)
+
+
+### release-as
+
+* v1.0.0 ([b56d0b3](https://github.com/cheminfo/react-tree-svg/commit/b56d0b33e993958a1c2eec3a4183a0ec2d0cd0df))
+
+
+### Bug Fixes
+
+* remove eslint from dependencies ([afdea85](https://github.com/cheminfo/react-tree-svg/commit/afdea852eaf947688757568bf3d3b0f63c31f07d))
+
 ## [0.6.1](https://github.com/cheminfo/react-tree-svg/compare/v0.6.0...v0.6.1) (2023-09-27)
 
 
