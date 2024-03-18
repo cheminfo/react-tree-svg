@@ -5,10 +5,12 @@ export function getBoxes(nodes) {
 }
 
 function appendBoxes(nodes, boxes) {
-  for (let i = 0; i < nodes.length; i++) {
-    const node = nodes[i];
+  for (const node of nodes) {
     boxes.push(
-      <g key={i} transform={`translate(${node.position.x} ${node.position.y})`}>
+      <g
+        key={boxes.length}
+        transform={`translate(${node.position.x} ${node.position.y})`}
+      >
         {node.element}
       </g>,
     );

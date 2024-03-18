@@ -24,7 +24,7 @@ export function SVGBoxesTree(props) {
   }
   svgSize.width = Math.max(...width);
 
-  const svg = (
+  return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox={`0 0 ${svgSize.width} ${svgSize.height}`}
@@ -34,6 +34,4 @@ export function SVGBoxesTree(props) {
       {arrows}
     </svg>
   );
-
-  return svg;
 }
