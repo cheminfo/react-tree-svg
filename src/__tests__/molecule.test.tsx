@@ -2,7 +2,7 @@ import OCL from 'openchemlib/core';
 import { test, expect } from 'vitest';
 
 import { render } from '..';
-import { reactionTree } from '../demo/data/reactionTree';
+import { reactionTree } from '../../demo/data/reactionTree';
 import { moleculeRenderer } from '../nodeRenderer/moleculeRenderer';
 
 test('render: Molecule', () => {
@@ -12,7 +12,7 @@ test('render: Molecule', () => {
       getTopLabel: (node) => {
         return node.label;
       },
-      getBoxStyle: (node) => {
+      getBoxStyle: () => {
         return {
           fillOpacity: 0.2,
           fill: 'red',

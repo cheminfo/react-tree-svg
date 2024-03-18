@@ -1,5 +1,5 @@
-import { SVGBoxesTree } from '../components/SVGBoxesTree';
-import { taxonomyRenderer } from '../nodeRenderer/taxonomyRenderer';
+import { SVGBoxesTree } from '../src/components/SVGBoxesTree';
+import { taxonomyRenderer } from '../src/nodeRenderer/taxonomyRenderer';
 
 import { getDataTaxonomy } from './data/taxonomiesWithUrl';
 
@@ -7,7 +7,7 @@ const props = {
   tree: getDataTaxonomy(),
   nodeRenderer: taxonomyRenderer,
   arrowRendererOptions: {
-    getLabel: (node) => {},
+    getLabel: () => {},
   },
   nodeRendererOptions: {
     maxRankDepth: 8,
