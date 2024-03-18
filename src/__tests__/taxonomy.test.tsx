@@ -1,7 +1,7 @@
 import { test, expect } from 'vitest';
 
 import { render } from '..';
-import { getDataTaxonomy } from '../demo/data/taxonomiesWithUrl';
+import { getDataTaxonomy } from '../../demo/data/taxonomiesWithUrl';
 import { taxonomyRenderer } from '../nodeRenderer/taxonomyRenderer';
 
 test.skip('render: Taxonomy', () => {
@@ -10,7 +10,7 @@ test.skip('render: Taxonomy', () => {
   const options = {
     nodeRenderer: taxonomyRenderer,
     arrowRendererOptions: {
-      getLabel: (node) => {},
+      getLabel: () => {},
     },
     nodeRendererOptions: {
       maxRankDepth: 8,

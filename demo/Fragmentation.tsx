@@ -1,7 +1,7 @@
 import OCL from 'openchemlib/core';
 
-import { SVGBoxesTree } from '../components/SVGBoxesTree';
-import { moleculeRenderer } from '../nodeRenderer/moleculeRenderer';
+import { SVGBoxesTree } from '../src/components/SVGBoxesTree';
+import { moleculeRenderer } from '../src/nodeRenderer/moleculeRenderer';
 
 import { reactionTree } from './data/reactionTree';
 

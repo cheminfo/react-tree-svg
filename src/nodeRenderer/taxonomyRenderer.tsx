@@ -2,10 +2,7 @@ import { ReactElement } from 'react';
 
 import { Rectangle } from '../components/Rectangle';
 
-export function taxonomyRenderer(
-  node,
-  nodeRendererOptions = {},
-): {
+export function taxonomyRenderer(node): {
   width: number;
   height: number;
   element: ReactElement;
