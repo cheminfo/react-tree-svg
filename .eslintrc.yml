@@ -3,5 +3,3 @@ extends:
   - cheminfo-typescript/base
 parserOptions:
   sourceType: module
-env:
-  node: true
