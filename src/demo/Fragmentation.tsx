@@ -1,8 +1,6 @@
-import numeral from 'numeral';
 import OCL from 'openchemlib/core';
 
 import { SVGBoxesTree } from '../components/SVGBoxesTree';
-
 import { moleculeRenderer } from '../nodeRenderer/moleculeRenderer';
 
 import { reactionTree } from './data/reactionTree';
@@ -25,7 +23,7 @@ const props = {
     getTopLabel: (node) => {
       const mz = node?.molecules[0]?.info?.mz;
       if (mz === undefined) return;
-      return `${numeral(mz).format('0.0000')} m/z`;
+      return `${mz.toFixed(4)} m/z`;
     },
     getBoxStyle: (node) => {
       for (const molecule of node.molecules) {

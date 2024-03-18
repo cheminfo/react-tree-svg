@@ -1,4 +1,4 @@
-import { test } from 'vitest';
+import { test, expect } from 'vitest';
 
 import { render } from '..';
 import { getDataTaxonomy } from '../demo/data/taxonomiesWithUrl';
