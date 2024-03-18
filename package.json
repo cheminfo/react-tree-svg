@@ -41,6 +41,7 @@
     "eslint": "^8.57.0",
     "eslint-config-cheminfo-react": "^10.1.0",
     "eslint-config-cheminfo-typescript": "^12.2.0",
+    "jsdom": "^24.0.0",
     "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
