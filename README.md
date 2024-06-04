@@ -90,7 +90,7 @@ const svg = render(data, {
 
 ### Reaction Trees
 
-````js
+```js
 const {render} = require('react-tree-svg');
 const dataTrees= [
   {
@@ -132,7 +132,8 @@ const svgTrees = TreeSVG.render(dataTrees, {
             spacingHorizontal: 150,
           },
         });
-        ```
+```
+
 ## License
 
 [MIT](./LICENSE)
@@ -145,4 +146,4 @@ const svgTrees = TreeSVG.render(dataTrees, {
 [codecov-url]: https://codecov.io/gh/cheminfo/react-tree-svg
 [download-image]: https://img.shields.io/npm/dm/react-tree-svg.svg
 [download-url]: https://www.npmjs.com/package/react-tree-svg
-````
+
