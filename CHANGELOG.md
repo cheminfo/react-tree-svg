@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.0](https://github.com/cheminfo/react-tree-svg/compare/v1.0.0...v1.1.0) (2024-08-09)
+
+
+### Features
+
+* give possibility to add unique identifier to boxes and arrows ([2d8797f](https://github.com/cheminfo/react-tree-svg/commit/2d8797f6948639d0e3bebdcfdecb5628c4818fde))
+
+
+### Bug Fixes
+
+* improve project config and remove numeral dependency ([dfab17e](https://github.com/cheminfo/react-tree-svg/commit/dfab17e87a5b12dd6e22982410a6599a710daeed))
+* update dependencies ([c0f9262](https://github.com/cheminfo/react-tree-svg/commit/c0f9262a067c159d69116ef34beec8ae60ab8102))
+* use client version of react-dom ([758b063](https://github.com/cheminfo/react-tree-svg/commit/758b0635e144301a0438accc01caa23c400cc679))
+
 ## [1.0.0](https://github.com/cheminfo/react-tree-svg/compare/v0.6.1...v1.0.0) (2024-03-16)
 
 
