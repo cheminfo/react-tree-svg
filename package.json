@@ -31,22 +31,22 @@
     "react-dom": ">=18.2.0"
   },
   "dependencies": {
-    "openchemlib": "^8.9.0"
+    "openchemlib": "^8.15.0"
   },
   "devDependencies": {
-    "@types/react": "^18.3.1",
+    "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react": "^4.3.1",
     "cheminfo-build": "^1.2.0",
     "eslint": "^8.57.0",
     "eslint-config-cheminfo-react": "^11.0.1",
     "eslint-config-cheminfo-typescript": "^12.4.0",
-    "jsdom": "^24.0.0",
-    "prettier": "^3.2.5",
+    "jsdom": "^24.1.1",
+    "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "typescript": "^5.4.5",
-    "vite": "^5.2.11",
-    "vitest": "^1.6.0"
+    "typescript": "^5.5.4",
+    "vite": "^5.4.0",
+    "vitest": "^2.0.5"
   }
 }
