@@ -1,10 +1,20 @@
-export function calculatePosition(data, options) {
+interface CalculatePositionOptions {
+  x?: number;
+  y?: number;
+  spacingVertical?: number;
+  spacingHorizontal?: number;
+}
+
+export function calculatePosition(
+  data,
+  options: CalculatePositionOptions = {},
+) {
   const {
     x = 0,
     y = 22,
     spacingVertical = 30,
     spacingHorizontal = 140,
-  } = options?.positionOptions || {};
+  } = options;
   calculateInnerBoxSize(data, {
     x,
     y,
@@ -19,19 +29,29 @@ export function calculatePosition(data, options) {
   });
 }
 
-function calculateInnerBoxSize(data, status) {
+interface CalculatePositionMandatoryOptions {
+  x: number;
+  y: number;
+  spacingVertical: number;
+  spacingHorizontal: number;
+}
+
+function calculateInnerBoxSize(
+  data,
+  options: CalculatePositionMandatoryOptions,
+) {
   for (const datum of data) {
     if (datum.children) {
-      calculateInnerBoxSize(datum.children, status);
+      calculateInnerBoxSize(datum.children, options);
 
       datum.childrenBoxSize = {
         width:
           datum.position.width +
-          status.spacingHorizontal +
+          options.spacingHorizontal +
           Math.max(...datum.children.map((d) => d.childrenBoxSize.width)),
         height: Math.max(
           datum.position.height,
-          status.spacingVertical * (datum.children.length - 1) +
+          options.spacingVertical * (datum.children.length - 1) +
             datum.children
               .map((d) => d.childrenBoxSize.height)
               .reduce((a, b) => a + b, 0),
@@ -46,22 +66,22 @@ function calculateInnerBoxSize(data, status) {
   }
 }
 
-function calculatePositionSS(data, status) {
-  let y = status.y;
+function calculatePositionSS(data, options: CalculatePositionMandatoryOptions) {
+  let y = options.y;
   for (const datum of data) {
     if (datum.children) {
       calculatePositionSS(datum.children, {
-        ...status,
-        x: status.x + datum.position.width + status.spacingHorizontal,
+        ...options,
+        x: options.x + datum.position.width + options.spacingHorizontal,
         y,
       });
     }
 
-    datum.position.x = status.x;
+    datum.position.x = options.x;
     datum.position.y =
       datum.childrenBoxSize.height / 2 - datum.position.height / 2 + y;
 
-    y += datum.childrenBoxSize.height + status.spacingVertical;
+    y += datum.childrenBoxSize.height + options.spacingVertical;
 
     datum.anchor = {
       left: {
@@ -74,6 +94,6 @@ function calculatePositionSS(data, status) {
       },
     };
     datum.childrenBoxSize.height =
-      datum.childrenBoxSize.height + status.spacingVertical;
+      datum.childrenBoxSize.height + options.spacingVertical;
   }
 }

@@ -105,7 +105,13 @@ function getMolecules(
   };
 }
 
-function getPlus(options: any = {}) {
+interface GetPlusOptions {
+  size?: number;
+  padding?: number;
+  strokeWidth?: number;
+}
+
+function getPlus(options: GetPlusOptions = {}) {
   const { size = 11, padding = 5, strokeWidth = 2 } = options;
   const x1 = padding + size / 2;
   const y1 = padding;
