@@ -7,12 +7,13 @@ import { MarkerDef } from './MarkerDef';
 
 export function SVGBoxesTree(props) {
   const { tree, ...options } = props;
+  const { arrowRendererOptions, nodeRendererOptions } = options;
 
   const data = prepareTree(tree, options);
   calculatePosition(data, options);
-  const boxes = getBoxes(data);
+  const boxes = getBoxes(data, nodeRendererOptions);
 
-  const arrows = getArrows(data, options.arrowRendererOptions);
+  const arrows = getArrows(data, arrowRendererOptions);
   const svgSize = {
     width: 0,
     height: 0,

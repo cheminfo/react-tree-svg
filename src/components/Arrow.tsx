@@ -11,12 +11,13 @@ import { RightText } from './RightText';
  */
 
 export function Arrow(props: {
+  id: string;
   from: Point;
   to: Point;
   label: string;
   labelPosition: 'center' | 'right';
 }) {
-  const { from, to, label, labelPosition = 'center' } = props;
+  const { id, from, to, label, labelPosition = 'center' } = props;
   const middle = { x: (from.x + to.x) / 2, y: (from.y + to.y) / 2 };
 
   const headInflectionPoint = {
@@ -26,7 +27,7 @@ export function Arrow(props: {
   const d = `M ${from.x} ${from.y} C ${middle.x} ${from.y}  ${middle.x} ${to.y}  ${headInflectionPoint.x} ${to.y} Q ${headInflectionPoint.x} ${to.y}  ${to.x} ${to.y} `;
 
   return (
-    <g>
+    <g id={id}>
       <path
         d={d}
         style={{

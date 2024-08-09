@@ -17,9 +17,15 @@ const props = {
     getLabel: (node) => {
       return node?.reaction?.label;
     },
+    getID: () => {
+      return Math.random().toString();
+    },
     labelPosition: 'center',
   },
   nodeRendererOptions: {
+    getID: () => {
+      return Math.random().toString();
+    },
     getTopLabel: (node) => {
       const mz = node?.molecules[0]?.info?.mz;
       if (mz === undefined) return;

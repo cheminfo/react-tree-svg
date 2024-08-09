@@ -8,13 +8,14 @@ export function getArrows(nodes, options = {}) {
 }
 
 function getArrowsSS(nodes, arrows, status, options: any = {}) {
-  const { getLabel, labelPosition } = options;
+  const { getLabel, labelPosition, getID } = options;
 
   for (const node of nodes) {
     if (node.children) {
       for (const child of node.children) {
         arrows.push(
           <Arrow
+            id={getID ? getID(node) : undefined}
             key={arrows.length}
             from={node.anchor.right}
             to={child.anchor.left}
