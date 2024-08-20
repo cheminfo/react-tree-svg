@@ -13,6 +13,9 @@ export const reactionTree = [
           charge: 0,
         },
       },
+      {
+        smiles: '[H+]',
+      },
     ],
     children: [
       {

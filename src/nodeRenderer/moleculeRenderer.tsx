@@ -88,13 +88,15 @@ function getMolecules(
       element: undefined,
     };
   }
-  const svgs = molecules.map((molecule) =>
-    molecule.toSVG(maxWidth, maxHeight, undefined, {
-      autoCrop: true,
-      autoCropMargin: 10,
-      suppressChiralText: true,
-    }),
-  );
+  const svgs = molecules
+    .filter((molecule) => molecule)
+    .map((molecule) =>
+      molecule.toSVG(maxWidth, maxHeight, undefined, {
+        autoCrop: true,
+        autoCropMargin: 10,
+        suppressChiralText: true,
+      }),
+    );
 
   const { svg, width, height } = joinSVGs(svgs);
 

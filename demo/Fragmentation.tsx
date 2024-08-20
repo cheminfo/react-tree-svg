@@ -42,9 +42,15 @@ const props = {
       }
     },
     getMolecules: (node) => {
-      return node.molecules.map((molecule) =>
-        OCL.Molecule.fromIDCode(molecule.idCode),
-      );
+      return node.molecules.map((molecule) => {
+        if (molecule.idCode) {
+          return OCL.Molecule.fromIDCode(molecule.idCode);
+        }
+        if (molecule.smiles) {
+          return OCL.Molecule.fromSmiles(molecule.smiles);
+        }
+        return null;
+      });
     },
   },
   positionOptions: {
