@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import OCL from 'openchemlib/core';
 
 import { SVGBoxesTree } from '../src/components/SVGBoxesTree';
@@ -65,7 +66,7 @@ const props = {
   positionOptions: {
     spacingHorizontal: 150,
   },
-  shouldSkipBranch: (node) => {
+  shouldSkipBranch: (node, parents) => {
     return node.skipBranch;
   },
 };

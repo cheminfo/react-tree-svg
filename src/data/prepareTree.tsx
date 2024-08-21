@@ -12,7 +12,7 @@ export function prepareTree(data, options) {
 function prepareTreeSS(data, options) {
   const { nodeRenderer, nodeRendererOptions = {}, shouldSkipBranch } = options;
   for (const datum of data) {
-    if (options.level > 0) {
+    if (options.parent) {
       datum.parent = options.parent;
     }
     const elementAndSize = nodeRenderer(datum, nodeRendererOptions);
@@ -28,8 +28,14 @@ function prepareTreeSS(data, options) {
     }
     if (datum.children) {
       if (shouldSkipBranch) {
+        const parents = [datum];
+        let parent = datum.parent;
+        while (parent) {
+          parents.push(parent);
+          parent = parent.parent;
+        }
         datum.children = datum.children.filter(
-          (child) => !shouldSkipBranch(child),
+          (child) => !shouldSkipBranch(child, parents),
         );
       }
       prepareTreeSS(datum.children, {
