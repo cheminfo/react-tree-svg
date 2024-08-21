@@ -3,9 +3,17 @@ import { ReactElement } from 'react';
 import { Rectangle } from '../components/Rectangle';
 import { SVG } from '../components/SVG';
 
+interface OtherOptions {
+  getBoxStyle: (node: any) => Record<string, string | number>;
+}
+
+type NodeRendererOptions = GetTopLabelOptions &
+  GetMoleculesOptions &
+  OtherOptions;
+
 export function moleculeRenderer(
   node,
-  nodeRendererOptions,
+  nodeRendererOptions: NodeRendererOptions,
 ): {
   width: number;
   height: number;
@@ -38,7 +46,12 @@ export function moleculeRenderer(
   };
 }
 
-function getTopLabel(node, options: any = {}) {
+interface GetTopLabelOptions {
+  getTopLabel?: (node: any) => string;
+  label?: string;
+}
+
+function getTopLabel(node, options: GetTopLabelOptions = {}) {
   const label = options.getTopLabel?.(node) || node.label;
   if (!label) {
     return {
@@ -65,6 +78,25 @@ function getTopLabel(node, options: any = {}) {
   };
 }
 
+interface GetMoleculesOptions {
+  /**
+   * Maximum width of the molecule
+   * @default 200
+   */
+  maxWidth?: number;
+  /**
+   * Maximum height of the molecule
+   * @default 150
+   */
+  maxHeight?: number;
+  getMolecules: (node: any) => any[];
+  getMoleculeStyle: (
+    molecule: any,
+    node: any,
+    index: number,
+  ) => Record<string, string | number> | undefined;
+}
+
 /**
  * This code is designed to also allow reactions for which we have many molecules
  * @param node
@@ -73,9 +105,14 @@ function getTopLabel(node, options: any = {}) {
  */
 function getMolecules(
   node,
-  options: any = {},
+  options: GetMoleculesOptions,
 ): { width: number; height: number; element: any } {
-  const { maxWidth = 200, maxHeight = 150, getMolecules } = options;
+  const {
+    maxWidth = 200,
+    maxHeight = 150,
+    getMolecules,
+    getMoleculeStyle,
+  } = options;
   if (!getMolecules) {
     throw new Error('getMolecules is not defined');
   }
@@ -90,13 +127,17 @@ function getMolecules(
   }
   const svgs = molecules
     .filter((molecule) => molecule)
-    .map((molecule) =>
-      molecule.toSVG(maxWidth, maxHeight, undefined, {
+    .map((molecule, index) => {
+      const svg = molecule.toSVG(maxWidth, maxHeight, undefined, {
         autoCrop: true,
         autoCropMargin: 10,
         suppressChiralText: true,
-      }),
-    );
+      });
+      if (getMoleculeStyle) {
+        return addStyleToSVG(svg, getMoleculeStyle(molecule, node, index));
+      }
+      return svg;
+    });
 
   const { svg, width, height } = joinSVGs(svgs);
 
@@ -132,7 +173,7 @@ function joinSVGs(svgs: string[]) {
   const results: any = [];
   let maxHeight = 0;
   for (const svg of svgs) {
-    const size = getSVGSize(svg);
+    const size = getSVGViewBox(svg);
     if (results.length) {
       results.push(getPlus());
     }
@@ -155,19 +196,49 @@ function joinSVGs(svgs: string[]) {
   };
 }
 
-function getSVGSize(svg: string): { width: number; height: number } {
+function getSVGViewBox(svg: string): {
+  minX: number;
+  minY: number;
+  width: number;
+  height: number;
+} {
   const match = svg.match(
-    /.*width="(?<width>\d+)px".*height="(?<height>\d+)px".*/,
+    /.*viewBox="(?<minX>-?\d+) (?<minY>-?\d+) (?<width>\d+) (?<height>\d+)".*/,
   );
+  if (!match?.groups) {
+    throw new Error('ViewBox not found');
+  }
+  // convert to numbers and return the object
+  return {
+    minX: Number(match.groups.minX),
+    minY: Number(match.groups.minY),
+    width: Number(match.groups.width),
+    height: Number(match.groups.height),
+  } as { minX: number; minY: number; width: number; height: number };
+}
+
+function styleObjectToString(style: Record<string, string | number>): string {
+  const styleArray: string[] = [];
+  for (const property in style) {
+    if (Object.hasOwn(style, property)) {
+      const kebabCaseProperty = property
+        .replace(/([A-Z])/g, '-$1')
+        .toLowerCase();
+      styleArray.push(`${kebabCaseProperty}: ${style[property]}`);
+    }
+  }
+  return styleArray.join('; ');
+}
+
+function addStyleToSVG(svg: string, style?: Record<string, string | number>) {
+  if (!style) return svg;
+  const size = getSVGViewBox(svg);
+  const match = svg.match(/<svg.*>/);
   if (!match) {
-    throw new Error('Size not found');
+    throw new Error('SVG tag not found');
   }
-  const size = match.groups;
-  if (!size?.width) {
-    throw new Error('size.width is not defined');
-  }
-  if (!size?.height) {
-    throw new Error('size.height is not defined');
-  }
-  return { width: Number(size.width), height: Number(size.height) };
+  const svgTag = match[0];
+  const styleString = styleObjectToString(style);
+  const styleRectange = `<rect x="${size.minX}" y="${size.minY}" width="${size.width}" height="${size.height}" style="${styleString}"></rect>`;
+  return svg.replace(svgTag, `${svgTag}${styleRectange}`);
 }

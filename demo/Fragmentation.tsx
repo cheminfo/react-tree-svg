@@ -41,6 +41,15 @@ const props = {
         }
       }
     },
+    getMoleculeStyle: (molecule, node, index) => {
+      if (node.depth) return;
+      if (index === 0) {
+        return { fill: 'green', fillOpacity: 0.4 };
+      }
+      if (index === 1) {
+        return { fill: 'blue', fillOpacity: 0.4 };
+      }
+    },
     getMolecules: (node) => {
       return node.molecules.map((molecule) => {
         if (molecule.idCode) {
