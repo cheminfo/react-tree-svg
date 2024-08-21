@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/cheminfo/react-tree-svg/compare/v1.3.0...v1.4.0) (2024-08-21)
+
+
+### Features
+
+* shouldSkipBranch callback has access to all the parents ([8b7ab12](https://github.com/cheminfo/react-tree-svg/commit/8b7ab121317d68222a5f4b074f0675c8040913e4))
+
 ## [1.3.0](https://github.com/cheminfo/react-tree-svg/compare/v1.2.1...v1.3.0) (2024-08-21)
 
 
