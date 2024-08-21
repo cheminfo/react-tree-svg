@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/cheminfo/react-tree-svg/compare/v1.2.0...v1.2.1) (2024-08-21)
+
+
+### Bug Fixes
+
+* target to es2022 ([072eb04](https://github.com/cheminfo/react-tree-svg/commit/072eb0484078782f1ac1f15fdd2d7ebc68b04e33))
+
 ## [1.2.0](https://github.com/cheminfo/react-tree-svg/compare/v1.1.0...v1.2.0) (2024-08-21)
 
 
