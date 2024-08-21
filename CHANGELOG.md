@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/cheminfo/react-tree-svg/compare/v1.1.0...v1.2.0) (2024-08-21)
+
+
+### Features
+
+* add molecule style and improve TS definition ([75c728c](https://github.com/cheminfo/react-tree-svg/commit/75c728c8a136b3e351a17f6b6e9a6b52dfa3da99))
+* add molecule style and improve TS definition ([ee83b36](https://github.com/cheminfo/react-tree-svg/commit/ee83b369258be8a4711e4fd481e3c96b3928f2e6))
+
 ## [1.1.0](https://github.com/cheminfo/react-tree-svg/compare/v1.0.0...v1.1.0) (2024-08-09)
 
 
