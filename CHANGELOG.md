@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/cheminfo/react-tree-svg/compare/v1.2.1...v1.3.0) (2024-08-21)
+
+
+### Features
+
+* add call back shouldSkipBranch ([b83c28e](https://github.com/cheminfo/react-tree-svg/commit/b83c28e0ce2dd0dc93953f4edf849c04851d6d54))
+
 ## [1.2.1](https://github.com/cheminfo/react-tree-svg/compare/v1.2.0...v1.2.1) (2024-08-21)
 
 
