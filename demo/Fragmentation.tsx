@@ -65,6 +65,9 @@ const props = {
   positionOptions: {
     spacingHorizontal: 150,
   },
+  shouldSkipBranch: (node) => {
+    return node.skipBranch;
+  },
 };
 
 export default function Fragmentation() {

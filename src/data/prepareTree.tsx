@@ -4,13 +4,13 @@
  */
 
 export function prepareTree(data, options) {
-  data = JSON.parse(JSON.stringify(data));
+  data = structuredClone(data);
   prepareTreeSS(data, options);
   return data;
 }
 
 function prepareTreeSS(data, options) {
-  const { nodeRenderer, nodeRendererOptions = {} } = options;
+  const { nodeRenderer, nodeRendererOptions = {}, shouldSkipBranch } = options;
   for (const datum of data) {
     if (options.level > 0) {
       datum.parent = options.parent;
@@ -27,6 +27,11 @@ function prepareTreeSS(data, options) {
       delete datum.children;
     }
     if (datum.children) {
+      if (shouldSkipBranch) {
+        datum.children = datum.children.filter(
+          (child) => !shouldSkipBranch(child),
+        );
+      }
       prepareTreeSS(datum.children, {
         ...options,
         parent: datum,

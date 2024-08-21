@@ -275,6 +275,7 @@ export const reactionTree = [
           kind: 'ionization',
         },
         depth: 1,
+        skipBranch: true,
         molecules: [
           {
             idCode: 'dg~DBMB`eJYWugJxZB@jj@@',
