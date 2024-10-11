@@ -1,8 +1,7 @@
 import { Point } from '../types/Point';
 
-import { CenteredText } from './CenteredText';
 import { refX } from './MarkerDef.utils';
-import { RightText } from './RightText';
+import { Text } from './Text';
 /**
  * Creates a simple arrow between 2 points. The arrow has one inflection point, which is the middle of the line.
  * The SVG must define a marker with id="arrowhead" for this to work.
@@ -15,9 +14,17 @@ export function Arrow(props: {
   from: Point;
   to: Point;
   label: string;
-  labelPosition: 'center' | 'right';
+  horizontalPosition: 'left' | 'center' | 'right';
+  verticalPosition?: 'top' | 'bottom' | 'center';
 }) {
-  const { id, from, to, label, labelPosition = 'center' } = props;
+  const {
+    id,
+    from,
+    to,
+    label,
+    horizontalPosition = 'center',
+    verticalPosition = 'center',
+  } = props;
   const middle = { x: (from.x + to.x) / 2, y: (from.y + to.y) / 2 };
 
   const headInflectionPoint = {
@@ -37,11 +44,32 @@ export function Arrow(props: {
           markerEnd: 'url(#arrowhead)',
         }}
       />
-      {labelPosition === 'center' && (
-        <CenteredText x={middle.x} y={middle.y} label={label} />
+      {horizontalPosition === 'center' && (
+        <Text
+          x={middle.x}
+          y={middle.y}
+          label={label}
+          horizontalPosition={horizontalPosition}
+          verticalPosition={verticalPosition}
+        />
       )}
-      {labelPosition === 'right' && (
-        <RightText x={to.x - 12} y={to.y - 8} label={label} />
+      {horizontalPosition === 'right' && (
+        <Text
+          x={to.x - 12}
+          y={to.y - 8}
+          label={label}
+          horizontalPosition="right"
+          verticalPosition={verticalPosition}
+        />
+      )}
+      {horizontalPosition === 'left' && (
+        <Text
+          x={from.x + 12}
+          y={from.y + 8}
+          label={label}
+          horizontalPosition="left"
+          verticalPosition={verticalPosition}
+        />
       )}
     </g>
   );

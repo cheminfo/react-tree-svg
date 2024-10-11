@@ -8,7 +8,7 @@ export function getArrows(nodes, options = {}) {
 }
 
 function getArrowsSS(nodes, arrows, status, options: any = {}) {
-  const { getLabel, labelPosition, getID } = options;
+  const { getLabel, horizontalPosition, getID, verticalPosition } = options;
 
   for (const node of nodes) {
     if (node.children) {
@@ -20,7 +20,8 @@ function getArrowsSS(nodes, arrows, status, options: any = {}) {
             from={node.anchor.right}
             to={child.anchor.left}
             label={getLabel?.(child)}
-            labelPosition={labelPosition}
+            horizontalPosition={horizontalPosition}
+            verticalPosition={verticalPosition}
           />,
         );
       }

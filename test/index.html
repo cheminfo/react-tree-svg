@@ -1,69 +1,71 @@
 <html>
-  <head>
-    <script src="../dist/react-tree-svg.js" type="text/javascript"></script>
-  </head>
 
-  <body>
-    <div id="trees-graph"></div>
-    <div id="react-tree-svg"></div>
-    <div id="taxonomies-graph" onclick="handleClick(event)"></div>
-    <script>
-      async function getMolecules() {
-        const response = await fetch('data/molecules.json');
-        const data = await response.json();
-        const svg = TreeSVG.render(data, {
-          nodeRenderer: 'molecule',
-          nodeRendererOptions: {
-            masses: [105.0697, 58.065, 194.1173, 163.0752, 133.0647, 135.0439],
-            precision: 50,
-            numberFormat: '0.0000',
-          },
-          positionOptions: {
-            spacingHorizontal: 150,
-          },
-        });
+<head>
+  <script src="../dist/react-tree-svg.js" type="text/javascript"></script>
+</head>
 
-        const responseTaxonomies = await fetch('data/taxonomies.json');
-        const dataTaxonomies = await responseTaxonomies.json();
-        const svgTaxonomies = TreeSVG.render(dataTaxonomies, {
-          nodeRenderer: 'taxonomy',
-          rankDepthOptions: {
-            maxRankDepth: 8,
-          },
-          positionOptions: {
-            spacingHorizontal: 100,
-          },
-        });
-        const responseTrees = await fetch('data/trees.json');
-        const dataTrees = await responseTrees.json();
-        const svgTrees = TreeSVG.render(dataTrees, {
-          nodeRenderer: 'trees',
-          nodeRendererOptions: {
-            masses: [
-              58.065, 105.0697, 133.0647, 135.0439, 163.0752, 194.1173, 530.15,
-            ],
-            precision: 50,
-            numberFormat: '0.0000',
-          },
-          positionOptions: {
-            spacingHorizontal: 150,
-          },
-        });
-        document.getElementById('react-tree-svg').innerHTML = svg;
-        document.getElementById('taxonomies-graph').innerHTML = svgTaxonomies;
-        document.getElementById('trees-graph').innerHTML = svgTrees;
-      }
-      getMolecules();
-      function handleClick(event) {
-        const target = event.target;
-        console.log(target);
-        if (target.tagName === 'text') {
-          const url = target.getAttribute('data-url');
-          if (url) {
-            window.open(url, '_blank');
-          }
+<body>
+  <div id="trees-graph"></div>
+  <div id="react-tree-svg"></div>
+  <div id="taxonomies-graph" onclick="handleClick(event)"></div>
+  <script>
+    async function getMolecules() {
+      const response = await fetch('data/molecules.json');
+      const data = await response.json();
+      const svg = TreeSVG.render(data, {
+        nodeRenderer: 'molecule',
+        nodeRendererOptions: {
+          masses: [105.0697, 58.065, 194.1173, 163.0752, 133.0647, 135.0439],
+          precision: 50,
+          numberFormat: '0.0000',
+        },
+        positionOptions: {
+          spacingHorizontal: 150,
+        },
+      });
+
+      const responseTaxonomies = await fetch('data/taxonomies.json');
+      const dataTaxonomies = await responseTaxonomies.json();
+      const svgTaxonomies = TreeSVG.render(dataTaxonomies, {
+        nodeRenderer: 'taxonomy',
+        rankDepthOptions: {
+          maxRankDepth: 8,
+        },
+        positionOptions: {
+          spacingHorizontal: 100,
+        },
+      });
+      const responseTrees = await fetch('data/trees.json');
+      const dataTrees = await responseTrees.json();
+      const svgTrees = TreeSVG.render(dataTrees, {
+        nodeRenderer: 'trees',
+        nodeRendererOptions: {
+          masses: [
+            58.065, 105.0697, 133.0647, 135.0439, 163.0752, 194.1173, 530.15,
+          ],
+          precision: 50,
+          numberFormat: '0.0000',
+        },
+        positionOptions: {
+          spacingHorizontal: 150,
+        },
+      });
+      document.getElementById('react-tree-svg').innerHTML = svg;
+      document.getElementById('taxonomies-graph').innerHTML = svgTaxonomies;
+      document.getElementById('trees-graph').innerHTML = svgTrees;
+    }
+    getMolecules();
+    function handleClick(event) {
+      const target = event.target;
+      console.log(target);
+      if (target.tagName === 'text') {
+        const url = target.getAttribute('data-url');
+        if (url) {
+          window.open(url, '_blank');
         }
       }
-    </script>
-  </body>
+    }
+  </script>
+</body>
+
 </html>

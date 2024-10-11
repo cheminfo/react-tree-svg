@@ -29,7 +29,7 @@ test('render: Molecule', () => {
       getLabel: (node) => {
         return node.transformation;
       },
-      labelPosition: 'center',
+      horizontalPosition: 'center',
     },
     positionOptions: {
       spacingHorizontal: 150,

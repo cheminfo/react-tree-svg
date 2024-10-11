@@ -16,12 +16,13 @@ const props = {
   nodeRenderer: moleculeRenderer,
   arrowRendererOptions: {
     getLabel: (node) => {
-      return node?.reaction?.label;
+      return `Hello\n${node?.reaction?.label}\nWorld`;
     },
+    verticalPosition: 'top',
     getID: () => {
       return Math.random().toString();
     },
-    labelPosition: 'center',
+    horizontalPosition: 'left',
   },
   nodeRendererOptions: {
     getID: () => {
