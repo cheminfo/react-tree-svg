@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/cheminfo/react-tree-svg/compare/v1.4.0...v2.0.0) (2026-03-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* update dependencies and migrate to type=module
+
+### Features
+
+* update dependencies and migrate to type=module ([468141a](https://github.com/cheminfo/react-tree-svg/commit/468141aab99f4d7f0a6fab1f840a38c71b4dda8f))
+
 ## [1.4.0](https://github.com/cheminfo/react-tree-svg/compare/v1.3.0...v1.4.0) (2024-10-11)
 
 
