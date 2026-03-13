@@ -1,9 +1,9 @@
-import { calculatePosition } from '../data/calculatePosition';
-import { getArrows } from '../data/getArrows';
-import { getBoxes } from '../data/getBoxes';
-import { prepareTree } from '../data/prepareTree';
+import { calculatePosition } from '../data/calculatePosition.ts';
+import { getArrows } from '../data/getArrows.tsx';
+import { getBoxes } from '../data/getBoxes.tsx';
+import { prepareTree } from '../data/prepareTree.tsx';
 
-import { MarkerDef } from './MarkerDef';
+import { MarkerDef } from './MarkerDef.tsx';
 
 export function SVGBoxesTree(props) {
   const { tree, ...options } = props;

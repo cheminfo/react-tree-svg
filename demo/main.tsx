@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import Fragmentation from './Fragmentation';
-import Taxonomy from './Taxonomy';
+import Fragmentation from './Fragmentation.tsx';
+import Taxonomy from './Taxonomy.tsx';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.createRoot(document.querySelector('#root') as HTMLElement).render(
   <React.StrictMode>
     <h1>Fragmentation</h1>
     <Fragmentation />

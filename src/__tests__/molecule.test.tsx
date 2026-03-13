@@ -1,9 +1,9 @@
-import OCL from 'openchemlib/core';
-import { test, expect } from 'vitest';
+import { Molecule } from 'openchemlib';
+import { expect, test } from 'vitest';
 
-import { render } from '..';
-import { reactionTree } from '../../demo/data/reactionTree';
-import { moleculeRenderer } from '../nodeRenderer/moleculeRenderer';
+import { reactionTree } from '../../demo/data/reactionTree.ts';
+import { render } from '../index.tsx';
+import { moleculeRenderer } from '../nodeRenderer/moleculeRenderer.tsx';
 
 test('render: Molecule', () => {
   const svg = render(reactionTree, {
@@ -21,7 +21,7 @@ test('render: Molecule', () => {
 
       getMolecules: (node) => {
         return node.molecules.map((molecule) =>
-          OCL.Molecule.fromIDCode(molecule.idCode),
+          Molecule.fromIDCode(molecule.idCode),
         );
       },
     },
@@ -39,6 +39,7 @@ test('render: Molecule', () => {
     /.*width="(?<width>\d+)px".*height="(?<height>\d+)px".*/,
   );
   const size = match?.groups;
+
   expect(Number(size?.height)).toBe(96);
   expect(svg).toMatchSnapshot();
 });

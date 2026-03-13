@@ -1,4 +1,4 @@
-import { MultilineText } from './MultilineText';
+import { MultilineText } from './MultilineText.tsx';
 
 export function Text(props: {
   x: number;

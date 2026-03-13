@@ -1,6 +1,6 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
-import { Rectangle } from '../components/Rectangle';
+import { Rectangle } from '../components/Rectangle.tsx';
 
 export function taxonomyRenderer(node): {
   width: number;
@@ -24,8 +24,9 @@ export function taxonomyRenderer(node): {
           width={width}
           height={height}
           style={{
-            ...{ stroke: 'black', fill: 'white' },
-            ...(node.style || {}),
+            stroke: 'black',
+            fill: 'white',
+            ...node.style,
           }}
         />
         {label.element}
@@ -166,11 +167,11 @@ function getStringSize(
   tempElement.style.left = '-9999px';
   tempElement.textContent = text;
 
-  document.body.appendChild(tempElement);
+  document.body.append(tempElement);
 
   const { height, width } = tempElement.getBoundingClientRect();
 
-  document.body.removeChild(tempElement);
+  tempElement.remove();
 
   return { width: width + spacingHorizontal, height };
 }

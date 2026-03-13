@@ -1,4 +1,4 @@
-import { refX } from './MarkerDef.utils';
+import { refX } from './MarkerDef.utils.tsx';
 
 export function MarkerDef() {
   return (

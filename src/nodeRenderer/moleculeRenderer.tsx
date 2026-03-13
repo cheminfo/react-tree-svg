@@ -1,7 +1,7 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
-import { Rectangle } from '../components/Rectangle';
-import { SVG } from '../components/SVG';
+import { Rectangle } from '../components/Rectangle.tsx';
+import { SVG } from '../components/SVG.tsx';
 
 interface OtherOptions {
   getBoxStyle: (node: any) => Record<string, string | number>;
@@ -34,9 +34,10 @@ export function moleculeRenderer(
           width={width}
           height={height}
           style={{
-            ...{ stroke: 'black', fill: 'white' },
-            ...(node.style || {}),
-            ...(nodeRendererOptions.getBoxStyle?.(node) || {}),
+            stroke: 'black',
+            fill: 'white',
+            ...node.style,
+            ...nodeRendererOptions.getBoxStyle?.(node),
           }}
         />
         {molecules.element}
@@ -67,7 +68,7 @@ function getTopLabel(node, options: GetTopLabelOptions = {}) {
       <text
         x={0}
         y={-6}
-        textAnchor="left"
+        textAnchor="start"
         stroke="none"
         fontSize="14"
         fill="black"
@@ -125,19 +126,17 @@ function getMolecules(
       element: undefined,
     };
   }
-  const svgs = molecules
-    .filter((molecule) => molecule)
-    .map((molecule, index) => {
-      const svg = molecule.toSVG(maxWidth, maxHeight, undefined, {
-        autoCrop: true,
-        autoCropMargin: 10,
-        suppressChiralText: true,
-      });
-      if (getMoleculeStyle) {
-        return addStyleToSVG(svg, getMoleculeStyle(molecule, node, index));
-      }
-      return svg;
+  const svgs = molecules.filter(Boolean).map((molecule, index) => {
+    const svg = molecule.toSVG(maxWidth, maxHeight, undefined, {
+      autoCrop: true,
+      autoCropMargin: 10,
+      suppressChiralText: true,
     });
+    if (getMoleculeStyle) {
+      return addStyleToSVG(svg, getMoleculeStyle(molecule, node, index));
+    }
+    return svg;
+  });
 
   const { svg, width, height } = joinSVGs(svgs);
 
@@ -174,7 +173,7 @@ function joinSVGs(svgs: string[]) {
   let maxHeight = 0;
   for (const svg of svgs) {
     const size = getSVGViewBox(svg);
-    if (results.length) {
+    if (results.length > 0) {
       results.push(getPlus());
     }
     results.push({ svg, width: size.width, height: size.height });
@@ -222,7 +221,7 @@ function styleObjectToString(style: Record<string, string | number>): string {
   for (const property in style) {
     if (Object.hasOwn(style, property)) {
       const kebabCaseProperty = property
-        .replace(/([A-Z])/g, '-$1')
+        .replaceAll(/([A-Z])/g, '-$1')
         .toLowerCase();
       styleArray.push(`${kebabCaseProperty}: ${style[property]}`);
     }

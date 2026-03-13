@@ -1,6 +1,7 @@
 /**
  * Will calculate the SVG of all the node
  * @param data
+ * @param options
  */
 
 export function prepareTree(data, options) {
@@ -23,7 +24,7 @@ function prepareTreeSS(data, options) {
       height: elementAndSize.height,
     };
     datum.element = elementAndSize.element;
-    if (datum.children && datum.children.length === 0) {
+    if (datum.children?.length === 0) {
       delete datum.children;
     }
     if (datum.children) {

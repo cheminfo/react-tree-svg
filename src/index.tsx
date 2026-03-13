@@ -1,4 +1,4 @@
-export { render } from './render';
+export { render } from './render.tsx';
 
-export { moleculeRenderer } from './nodeRenderer/moleculeRenderer';
-export { taxonomyRenderer } from './nodeRenderer/taxonomyRenderer';
+export { moleculeRenderer } from './nodeRenderer/moleculeRenderer.tsx';
+export { taxonomyRenderer } from './nodeRenderer/taxonomyRenderer.tsx';

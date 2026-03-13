@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import OCL from 'openchemlib/core';
+import { Molecule } from 'openchemlib';
 
-import { SVGBoxesTree } from '../src/components/SVGBoxesTree';
-import { moleculeRenderer } from '../src/nodeRenderer/moleculeRenderer';
+import { SVGBoxesTree } from '../src/components/SVGBoxesTree.tsx';
+import { moleculeRenderer } from '../src/nodeRenderer/moleculeRenderer.tsx';
 
-import { reactionTree } from './data/reactionTree';
+import { reactionTree } from './data/reactionTree.ts';
 
 const masses = [
   97.5624, 105.0697, 58.065, 194.1173, 163.0752, 133.0647, 135.0439,
@@ -42,23 +41,25 @@ const props = {
           };
         }
       }
+      return undefined;
     },
     getMoleculeStyle: (molecule, node, index) => {
-      if (node.depth) return;
+      if (node.depth) return undefined;
       if (index === 0) {
         return { fill: 'green', fillOpacity: 0.4 };
       }
       if (index === 1) {
         return { fill: 'blue', fillOpacity: 0.4 };
       }
+      return undefined;
     },
     getMolecules: (node) => {
       return node.molecules.map((molecule) => {
         if (molecule.idCode) {
-          return OCL.Molecule.fromIDCode(molecule.idCode);
+          return Molecule.fromIDCode(molecule.idCode);
         }
         if (molecule.smiles) {
-          return OCL.Molecule.fromSmiles(molecule.smiles);
+          return Molecule.fromSmiles(molecule.smiles);
         }
         return null;
       });
@@ -67,7 +68,7 @@ const props = {
   positionOptions: {
     spacingHorizontal: 150,
   },
-  shouldSkipBranch: (node, parents) => {
+  shouldSkipBranch: (node) => {
     return node.skipBranch;
   },
 };

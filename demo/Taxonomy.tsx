@@ -1,7 +1,7 @@
-import { SVGBoxesTree } from '../src/components/SVGBoxesTree';
-import { taxonomyRenderer } from '../src/nodeRenderer/taxonomyRenderer';
+import { SVGBoxesTree } from '../src/components/SVGBoxesTree.tsx';
+import { taxonomyRenderer } from '../src/nodeRenderer/taxonomyRenderer.tsx';
 
-import { getDataTaxonomy } from './data/taxonomiesWithUrl';
+import { getDataTaxonomy } from './data/taxonomiesWithUrl.ts';
 
 const props = {
   tree: getDataTaxonomy(),

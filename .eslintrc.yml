@@ -1,7 +1,0 @@
-extends:
-  - cheminfo-react/base
-  - cheminfo-typescript/base
-parserOptions:
-  sourceType: module
-rules:
-  '@typescript-eslint/restrict-plus-operands': off

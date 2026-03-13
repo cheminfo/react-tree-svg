@@ -1,21 +1,8 @@
 {
+  "extends": "@zakodium/tsconfig/jsx",
   "compilerOptions": {
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "allowJs": false,
-    "skipLibCheck": true,
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
     "noImplicitAny": false,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "outDir": "lib"
   },
-  "include": ["demo", "src", "vite.config.mts"]
+  "include": ["src", "demo", "vite.config.ts"]
 }

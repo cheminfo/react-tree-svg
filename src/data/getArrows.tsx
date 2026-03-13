@@ -1,4 +1,4 @@
-import { Arrow } from '../components/Arrow';
+import { Arrow } from '../components/Arrow.tsx';
 
 export function getArrows(nodes, options = {}) {
   const status = { level: 0 };

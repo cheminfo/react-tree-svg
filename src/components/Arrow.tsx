@@ -1,11 +1,17 @@
-import { Point } from '../types/Point';
+import type { Point } from '../types/Point.ts';
 
-import { refX } from './MarkerDef.utils';
-import { Text } from './Text';
+import { refX } from './MarkerDef.utils.tsx';
+import { Text } from './Text.tsx';
 /**
  * Creates a simple arrow between 2 points. The arrow has one inflection point, which is the middle of the line.
  * The SVG must define a marker with id="arrowhead" for this to work.
  * @param props
+ * @param props.id
+ * @param props.from
+ * @param props.to
+ * @param props.label
+ * @param props.horizontalPosition
+ * @param props.verticalPosition
  * @returns
  */
 
@@ -22,7 +28,7 @@ export function Arrow(props: {
     from,
     to,
     label,
-    horizontalPosition = 'center',
+    horizontalPosition,
     verticalPosition = 'center',
   } = props;
   const middle = { x: (from.x + to.x) / 2, y: (from.y + to.y) / 2 };
