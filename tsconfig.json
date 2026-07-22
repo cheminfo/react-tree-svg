@@ -2,6 +2,7 @@
   "extends": "@zakodium/tsconfig/jsx",
   "compilerOptions": {
     "noImplicitAny": false,
+    "noUncheckedIndexedAccess": true,
     "outDir": "lib"
   },
   "include": ["src", "demo", "vite.config.ts"]

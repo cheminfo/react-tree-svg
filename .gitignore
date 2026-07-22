@@ -25,4 +25,5 @@ dist-ssr
 
 lib
 lib-esm
+coverage
 .claude

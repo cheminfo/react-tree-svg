@@ -13,41 +13,43 @@
   "scripts": {
     "build": "npm run tsc && cheminfo-build --entry lib/index.js --root TreeSVG",
     "check-types": "tsc --noEmit",
-    "clean": "rimraf lib",
+    "clean": "rimraf coverage lib",
     "dev": "vite",
-    "eslint": "eslint src demo",
-    "eslint-fix": "npm run eslint -- --fix",
+    "eslint": "eslint .",
+    "eslint-fix": "eslint . --fix",
     "prepack": "npm run tsc",
-    "prettier": "prettier --check src demo",
-    "prettier-write": "prettier --write src demo",
+    "prettier": "prettier --check .",
+    "prettier-write": "prettier --write .",
     "preview": "vite preview",
-    "test": "vitest && npm run eslint && npm run prettier && npm run check-types",
-    "test-only": "vitest",
-    "tsc": "npm run clean && tsc --project tsconfig.build.json"
+    "test": "npm run test-only && npm run check-types && npm run eslint && npm run prettier",
+    "test-only": "vitest run --coverage",
+    "tsc": "npm run clean && npm run tsc-build",
+    "tsc-build": "tsc --project tsconfig.build.json"
   },
   "peerDependencies": {
     "react": ">=18.2.0",
     "react-dom": ">=18.2.0"
   },
   "dependencies": {
-    "openchemlib": "^9.21.0"
+    "openchemlib": "^9.24.0"
   },
   "devDependencies": {
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.0",
-    "@zakodium/tsconfig": "^1.0.3",
-    "cheminfo-build": "^1.3.2",
+    "@vitejs/plugin-react": "^6.0.4",
+    "@vitest/coverage-v8": "^4.1.10",
+    "@zakodium/tsconfig": "^1.0.5",
+    "cheminfo-build": "^1.4.0",
     "eslint": "^9.39.4",
-    "eslint-config-cheminfo-react": "^19.1.0",
-    "eslint-config-cheminfo-typescript": "^21.1.0",
-    "jsdom": "^28.1.0",
-    "prettier": "^3.8.1",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "eslint-config-cheminfo-react": "^20.1.0",
+    "eslint-config-cheminfo-typescript": "^22.1.0",
+    "jsdom": "^29.1.1",
+    "prettier": "^3.9.6",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "rimraf": "^6.1.3",
     "typescript": "^5.9.3",
-    "vite": "^8.0.0",
-    "vitest": "^4.1.0"
+    "vite": "^8.1.5",
+    "vitest": "^4.1.10"
   }
 }
