@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.5.0](https://github.com/cheminfo/react-tree-svg/compare/v1.4.0...v1.5.0) (2026-07-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* update dependencies and migrate to type=module
+
+### Features
+
+* align tooling with current cheminfo standards ([96a71ac](https://github.com/cheminfo/react-tree-svg/commit/96a71ac0522a4ae6e8f7a5a54aa49270641ad85b))
+* update dependencies and migrate to type=module ([468141a](https://github.com/cheminfo/react-tree-svg/commit/468141aab99f4d7f0a6fab1f840a38c71b4dda8f))
+
+
+### Miscellaneous Chores
+
+* release 1.5.0 ([2686e07](https://github.com/cheminfo/react-tree-svg/commit/2686e0727f1b84b373a9f9158c862ea991aa330f))
+
 ## [1.4.0](https://github.com/cheminfo/react-tree-svg/compare/v1.3.0...v1.4.0) (2024-10-11)
 
 
