@@ -1,5 +1,9 @@
 import { refX } from './MarkerDef.utils.tsx';
 
+/**
+ * Define the shared "arrowhead" marker reused as the tip of every connector arrow.
+ * @returns SVG `<defs>` holding the arrowhead marker.
+ */
 export function MarkerDef() {
   return (
     <defs>

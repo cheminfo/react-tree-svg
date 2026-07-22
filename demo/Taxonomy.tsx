@@ -17,6 +17,10 @@ const props = {
   },
 };
 
+/**
+ * Demo page rendering a species taxonomy tree.
+ * @returns The demo view.
+ */
 export default function Taxonomy() {
   return (
     <div

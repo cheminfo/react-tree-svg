@@ -73,6 +73,10 @@ const props = {
   },
 };
 
+/**
+ * Demo page rendering a mass-spectrometry fragmentation tree.
+ * @returns The demo view.
+ */
 export default function Fragmentation() {
   return (
     <div

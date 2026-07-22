@@ -11,6 +11,13 @@ type NodeRendererOptions = GetTopLabelOptions &
   GetMoleculesOptions &
   OtherOptions;
 
+/**
+ * Node renderer for reaction/molecule trees: draw a node's molecule(s) and its
+ * top label inside a bordered box, and report the box's measured size.
+ * @param node - The tree node to render.
+ * @param nodeRendererOptions - Callbacks and limits controlling molecule extraction and styling.
+ * @returns The node's rendered `element` with its `width` and `height`.
+ */
 export function moleculeRenderer(
   node,
   nodeRendererOptions: NodeRendererOptions,
@@ -99,10 +106,11 @@ interface GetMoleculesOptions {
 }
 
 /**
- * This code is designed to also allow reactions for which we have many molecules
- * @param node
- * @param options
- * @returns
+ * Lay out every molecule of a node side by side, scaling each to fit the size
+ * limits; supports reaction nodes that carry several molecules.
+ * @param node - The tree node whose molecules are drawn.
+ * @param options - Molecule extraction callbacks and per-molecule size limits.
+ * @returns The combined drawing with its overall `width` and `height`.
  */
 function getMolecules(
   node,
@@ -213,7 +221,7 @@ function getSVGViewBox(svg: string): {
     minY: Number(match.groups.minY),
     width: Number(match.groups.width),
     height: Number(match.groups.height),
-  } as { minX: number; minY: number; width: number; height: number };
+  };
 }
 
 function styleObjectToString(style: Record<string, string | number>): string {

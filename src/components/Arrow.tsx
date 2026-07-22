@@ -3,16 +3,16 @@ import type { Point } from '../types/Point.ts';
 import { refX } from './MarkerDef.utils.tsx';
 import { Text } from './Text.tsx';
 /**
- * Creates a simple arrow between 2 points. The arrow has one inflection point, which is the middle of the line.
- * The SVG must define a marker with id="arrowhead" for this to work.
- * @param props
- * @param props.id
- * @param props.from
- * @param props.to
- * @param props.label
- * @param props.horizontalPosition
- * @param props.verticalPosition
- * @returns
+ * Draw a curved arrow between two points, bending at their midpoint.
+ * Relies on a marker with id="arrowhead" being defined in the SVG.
+ * @param props - Arrow configuration.
+ * @param props.id - Optional id set on the arrow's group.
+ * @param props.from - Start point (parent's right anchor).
+ * @param props.to - End point (child's left anchor).
+ * @param props.label - Text drawn next to the arrow.
+ * @param props.horizontalPosition - Where the label sits along the arrow.
+ * @param props.verticalPosition - Vertical alignment of the label.
+ * @returns The arrow group: the path and, when a label is given, its text.
  */
 
 export function Arrow(props: {

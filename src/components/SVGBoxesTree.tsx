@@ -5,6 +5,12 @@ import { prepareTree } from '../data/prepareTree.tsx';
 
 import { MarkerDef } from './MarkerDef.tsx';
 
+/**
+ * Top-level component: prepare, lay out and draw the whole tree as one SVG,
+ * sized to fit its content, with node boxes and the arrows connecting them.
+ * @param props - The `tree` plus node, arrow and position option objects.
+ * @returns The complete `<svg>` element.
+ */
 export function SVGBoxesTree(props) {
   const { tree, ...options } = props;
   const { arrowRendererOptions, nodeRendererOptions, positionOptions } =

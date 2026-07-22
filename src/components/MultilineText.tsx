@@ -1,3 +1,11 @@
+/**
+ * Render a label split on newlines as stacked `<tspan>` lines, offset so the
+ * block sits above, centered on, or below the baseline.
+ * @param props - The multi-line label and its vertical anchoring.
+ * @param props.label - Text to draw; each newline starts a new line.
+ * @param props.verticalPosition - Anchors the block above, on, or below the baseline.
+ * @returns One `<tspan>` per line.
+ */
 export function MultilineText(props: {
   label: string;
   verticalPosition: 'top' | 'center' | 'bottom';

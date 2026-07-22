@@ -1,9 +1,10 @@
 /**
- * Will calculate the SVG of all the node
- * @param data
- * @param options
+ * Deep-clone the tree and attach, to every node, the rendered SVG `element` and
+ * its intrinsic `position` size produced by the node renderer.
+ * @param data - Root nodes of the tree to render.
+ * @param options - Node renderer, its options and the optional branch-skipping callback.
+ * @returns The annotated clone, ready to be laid out and drawn.
  */
-
 export function prepareTree(data, options) {
   data = structuredClone(data);
   prepareTreeSS(data, options);

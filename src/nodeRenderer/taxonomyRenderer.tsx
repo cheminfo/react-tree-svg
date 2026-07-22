@@ -2,6 +2,12 @@ import type { ReactElement } from 'react';
 
 import { Rectangle } from '../components/Rectangle.tsx';
 
+/**
+ * Node renderer for taxonomy trees: draw the taxon name, its rank and the count
+ * of taxonomies inside a box, and report the box's measured size.
+ * @param node - The taxonomy node to render.
+ * @returns The node's rendered `element` with its `width` and `height`.
+ */
 export function taxonomyRenderer(node): {
   width: number;
   height: number;

@@ -5,6 +5,12 @@ interface CalculatePositionOptions {
   spacingHorizontal?: number;
 }
 
+/**
+ * Assign x/y coordinates to every node in place, stacking children vertically
+ * and spreading tree depth horizontally.
+ * @param data - Nodes to lay out; mutated in place.
+ * @param options - Layout origin and spacing between nodes.
+ */
 export function calculatePosition(
   data,
   options: CalculatePositionOptions = {},

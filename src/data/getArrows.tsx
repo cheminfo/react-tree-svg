@@ -1,5 +1,11 @@
 import { Arrow } from '../components/Arrow.tsx';
 
+/**
+ * Build the connector arrows that link each parent node to its children.
+ * @param nodes - Positioned nodes, each carrying left/right `anchor` points.
+ * @param options - Label and id callbacks plus label placement.
+ * @returns One arrow element per parent-to-child edge.
+ */
 export function getArrows(nodes, options = {}) {
   const status = { level: 0 };
   const arrows = [];
