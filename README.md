@@ -22,8 +22,7 @@ In order to be able to generate the SVG on the server and on the client we need 
 ### Taxonomy Tree
 
 ```js
-
-const {render} = require('react-tree-svg');
+import { render } from 'react-tree-svg';
 
 const data = [
   {
@@ -51,7 +50,7 @@ const svg = render(data, {
 ### Molecules Tree
 
 ```js
-const {render} = require('react-tree-svg');
+import { render } from 'react-tree-svg';
 
 const data = [
   {
@@ -91,8 +90,9 @@ const svg = render(data, {
 ### Reaction Trees
 
 ```js
-const {render} = require('react-tree-svg');
-const dataTrees= [
+import { render } from 'react-tree-svg';
+
+const dataTrees = [
   {
     reaction: {
       Label: Ionization,
@@ -146,4 +146,3 @@ const svgTrees = TreeSVG.render(dataTrees, {
 [codecov-url]: https://codecov.io/gh/cheminfo/react-tree-svg
 [download-image]: https://img.shields.io/npm/dm/react-tree-svg.svg
 [download-url]: https://www.npmjs.com/package/react-tree-svg
-
