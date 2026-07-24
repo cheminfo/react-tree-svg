@@ -10,7 +10,7 @@ import { Text } from './Text.tsx';
  * @param props.from - Start point (parent's right anchor).
  * @param props.to - End point (child's left anchor).
  * @param props.label - Text drawn next to the arrow.
- * @param props.horizontalPosition - Where the label sits along the arrow.
+ * @param props.horizontalPosition - Where the label sits along the arrow. Defaults to `'center'`.
  * @param props.verticalPosition - Vertical alignment of the label.
  * @returns The arrow group: the path and, when a label is given, its text.
  */
@@ -20,7 +20,7 @@ export function Arrow(props: {
   from: Point;
   to: Point;
   label: string;
-  horizontalPosition: 'left' | 'center' | 'right';
+  horizontalPosition?: 'left' | 'center' | 'right';
   verticalPosition?: 'top' | 'bottom' | 'center';
 }) {
   const {
@@ -28,7 +28,7 @@ export function Arrow(props: {
     from,
     to,
     label,
-    horizontalPosition,
+    horizontalPosition = 'center',
     verticalPosition = 'center',
   } = props;
   const middle = { x: (from.x + to.x) / 2, y: (from.y + to.y) / 2 };
