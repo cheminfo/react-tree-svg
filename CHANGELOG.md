@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/cheminfo/react-tree-svg/compare/v1.5.0...v1.5.1) (2026-07-24)
+
+
+### Bug Fixes
+
+* add default position for arrow horizontal label ([dce0ab0](https://github.com/cheminfo/react-tree-svg/commit/dce0ab07243f5b8b1d11f716fd9bc87255f52bb0))
+
 ## [1.5.0](https://github.com/cheminfo/react-tree-svg/compare/v1.4.0...v1.5.0) (2026-07-22)
 
 
