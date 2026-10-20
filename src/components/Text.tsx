@@ -21,7 +21,7 @@ export function Text(props: {
   const { x, y, label, verticalPosition, horizontalPosition } = props;
   const transform = `translate(${x},${y})`;
 
-  let textAnchor;
+  let textAnchor: 'start' | 'middle' | 'end';
   switch (horizontalPosition) {
     case 'left':
       textAnchor = 'start';

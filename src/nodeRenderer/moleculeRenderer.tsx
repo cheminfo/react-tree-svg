@@ -1,33 +1,98 @@
-import type { ReactElement } from 'react';
+import type { Molecule } from 'openchemlib';
+import type { CSSProperties, ReactElement } from 'react';
 
 import { Rectangle } from '../components/Rectangle.tsx';
 import { SVG } from '../components/SVG.tsx';
+import type { RenderedNode } from '../types/tree.ts';
 
-interface OtherOptions {
-  getBoxStyle: (node: any) => Record<string, string | number>;
+import { addStyleToSVG, joinSVGs } from './moleculeSvg.ts';
+
+/** What {@link moleculeRenderer} is told besides the node. */
+export interface MoleculeRendererOptions<TNode> {
+  /**
+   * The molecules drawn in a node's box, side by side with a plus sign
+   * between them; an empty entry is left out.
+   */
+  getMolecules: (
+    node: TNode,
+  ) => ReadonlyArray<Molecule | null | undefined> | null | undefined;
+  /**
+   * Text drawn over the box.
+   * @default the node's `label`
+   */
+  getTopLabel?: (node: TNode) => string | undefined;
+  /**
+   * Style of the box, over its default (a black stroke, a white fill) and the
+   * node's `style`.
+   * @default undefined
+   */
+  getBoxStyle?: (node: TNode) => Record<string, string | number> | undefined;
+  /**
+   * Style of a rectangle painted behind one molecule.
+   * @default undefined
+   */
+  getMoleculeStyle?: (
+    molecule: Molecule,
+    node: TNode,
+    index: number,
+  ) => Record<string, string | number> | undefined;
+  /**
+   * Maximum width of a molecule.
+   * @default 200
+   */
+  maxWidth?: number;
+  /**
+   * Maximum height of a molecule.
+   * @default 150
+   */
+  maxHeight?: number;
+  /**
+   * Id of the group the node is drawn in, read by the drawing.
+   * @default undefined — no id
+   */
+  getID?: (node: TNode) => string | undefined;
 }
 
-type NodeRendererOptions = GetTopLabelOptions &
-  GetMoleculesOptions &
-  OtherOptions;
+/** The fields of a node {@link moleculeRenderer} reads itself. */
+interface MoleculeNodeFields {
+  label?: string;
+  style?: CSSProperties;
+}
+
+/** How far the top label, drawn over the box, reaches above it. */
+const LABEL_OVERFLOW = 20;
+
+/** What {@link moleculeRenderer} returns for a node. */
+type RenderedMolecule = RenderedNode & { element: ReactElement };
+
+/**
+ * The type of {@link moleculeRenderer}: typed callbacks when the node type is
+ * named, callbacks receiving `any` when the renderer is passed as is.
+ */
+export interface MoleculeRenderer {
+  <TNode>(
+    node: TNode,
+    options: MoleculeRendererOptions<TNode>,
+  ): RenderedMolecule;
+  (node: any, options: MoleculeRendererOptions<any>): RenderedMolecule;
+}
 
 /**
  * Node renderer for reaction/molecule trees: draw a node's molecule(s) and its
- * top label inside a bordered box, and report the box's measured size.
- * @param node - The tree node to render.
- * @param nodeRendererOptions - Callbacks and limits controlling molecule extraction and styling.
- * @returns The node's rendered `element` with its `width` and `height`.
+ * top label inside a bordered box, and report the box's measured size, with
+ * the room its label takes above the box. Name the node type,
+ * `moleculeRenderer<MyNode>`, to have the callbacks of its options typed;
+ * without it they receive `any`.
  */
-export function moleculeRenderer(
-  node,
-  nodeRendererOptions: NodeRendererOptions,
-): {
-  width: number;
-  height: number;
-  element: ReactElement;
-} {
-  const molecules = getMolecules(node, nodeRendererOptions);
-  const topLabel = getTopLabel(node, nodeRendererOptions);
+export const moleculeRenderer: MoleculeRenderer = renderMolecules;
+
+function renderMolecules<TNode>(
+  node: TNode,
+  options: MoleculeRendererOptions<TNode>,
+): RenderedMolecule {
+  const molecules = getMolecules(node, options);
+  const topLabel = getTopLabel(node, options);
+  const { style } = node as MoleculeNodeFields;
 
   const width = Math.max(molecules.width, topLabel.width);
   const height = Math.max(molecules.height, topLabel.height);
@@ -35,6 +100,7 @@ export function moleculeRenderer(
   return {
     width,
     height,
+    overflow: topLabel.element ? { top: LABEL_OVERFLOW } : undefined,
     element: (
       <g>
         <Rectangle
@@ -43,8 +109,8 @@ export function moleculeRenderer(
           style={{
             stroke: 'black',
             fill: 'white',
-            ...node.style,
-            ...nodeRendererOptions.getBoxStyle?.(node),
+            ...style,
+            ...options.getBoxStyle?.(node),
           }}
         />
         {molecules.element}
@@ -54,19 +120,14 @@ export function moleculeRenderer(
   };
 }
 
-interface GetTopLabelOptions {
-  getTopLabel?: (node: any) => string;
-  label?: string;
-}
-
-function getTopLabel(node, options: GetTopLabelOptions = {}) {
-  const label = options.getTopLabel?.(node) || node.label;
+function getTopLabel<TNode>(
+  node: TNode,
+  options: MoleculeRendererOptions<TNode>,
+) {
+  const label =
+    options.getTopLabel?.(node) || (node as MoleculeNodeFields).label;
   if (!label) {
-    return {
-      width: 0,
-      height: 0,
-      element: null,
-    };
+    return { width: 0, height: 0, element: null };
   }
   return {
     width: 200,
@@ -86,25 +147,6 @@ function getTopLabel(node, options: GetTopLabelOptions = {}) {
   };
 }
 
-interface GetMoleculesOptions {
-  /**
-   * Maximum width of the molecule
-   * @default 200
-   */
-  maxWidth?: number;
-  /**
-   * Maximum height of the molecule
-   * @default 150
-   */
-  maxHeight?: number;
-  getMolecules: (node: any) => any[];
-  getMoleculeStyle: (
-    molecule: any,
-    node: any,
-    index: number,
-  ) => Record<string, string | number> | undefined;
-}
-
 /**
  * Lay out every molecule of a node side by side, scaling each to fit the size
  * limits; supports reaction nodes that carry several molecules.
@@ -112,10 +154,10 @@ interface GetMoleculesOptions {
  * @param options - Molecule extraction callbacks and per-molecule size limits.
  * @returns The combined drawing with its overall `width` and `height`.
  */
-function getMolecules(
-  node,
-  options: GetMoleculesOptions,
-): { width: number; height: number; element: any } {
+function getMolecules<TNode>(
+  node: TNode,
+  options: MoleculeRendererOptions<TNode>,
+): { width: number; height: number; element: ReactElement | undefined } {
   const {
     maxWidth = 200,
     maxHeight = 150,
@@ -128,124 +170,24 @@ function getMolecules(
   const molecules = getMolecules(node);
 
   if (!molecules) {
-    return {
-      width: 0,
-      height: 0,
-      element: undefined,
-    };
+    return { width: 0, height: 0, element: undefined };
   }
-  const svgs = molecules.filter(Boolean).map((molecule, index) => {
+  const svgs: string[] = [];
+  for (const molecule of molecules) {
+    if (!molecule) continue;
     const svg = molecule.toSVG(maxWidth, maxHeight, undefined, {
       autoCrop: true,
       autoCropMargin: 10,
       suppressChiralText: true,
     });
-    if (getMoleculeStyle) {
-      return addStyleToSVG(svg, getMoleculeStyle(molecule, node, index));
-    }
-    return svg;
-  });
+    svgs.push(
+      getMoleculeStyle
+        ? addStyleToSVG(svg, getMoleculeStyle(molecule, node, svgs.length))
+        : svg,
+    );
+  }
 
   const { svg, width, height } = joinSVGs(svgs);
 
-  return {
-    width,
-    height,
-    element: <SVG svg={svg} />,
-  };
-}
-
-interface GetPlusOptions {
-  size?: number;
-  padding?: number;
-  strokeWidth?: number;
-}
-
-function getPlus(options: GetPlusOptions = {}) {
-  const { size = 11, padding = 5, strokeWidth = 2 } = options;
-  const x1 = padding + size / 2;
-  const y1 = padding;
-  const x2 = padding + size / 2;
-  const y2 = padding + size;
-  return {
-    svg:
-      `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="rgb(0,0,0)" stroke-width="${strokeWidth}"></line>` +
-      `<line x1="${y1}" y1="${x1}" x2="${y2}" y2="${x2}" stroke="rgb(0,0,0)" stroke-width="${strokeWidth}"></line>`,
-    width: size + padding * 2,
-    height: size + padding * 2,
-  };
-}
-
-function joinSVGs(svgs: string[]) {
-  const results: any = [];
-  let maxHeight = 0;
-  for (const svg of svgs) {
-    const size = getSVGViewBox(svg);
-    if (results.length > 0) {
-      results.push(getPlus());
-    }
-    results.push({ svg, width: size.width, height: size.height });
-    maxHeight = Math.max(maxHeight, size.height);
-  }
-
-  let currentWidth = 0;
-  for (const result of results) {
-    const shiftX = currentWidth;
-    const shiftY = (maxHeight - result.height) / 2;
-    result.shiftedSVG = `<g transform="translate(${shiftX},${shiftY})">${result.svg}</g>`;
-    currentWidth += result.width;
-  }
-
-  return {
-    width: currentWidth,
-    height: maxHeight,
-    svg: results.map((result) => result.shiftedSVG).join('\n'),
-  };
-}
-
-function getSVGViewBox(svg: string): {
-  minX: number;
-  minY: number;
-  width: number;
-  height: number;
-} {
-  const match = svg.match(
-    /.*viewBox="(?<minX>-?\d+) (?<minY>-?\d+) (?<width>\d+) (?<height>\d+)".*/,
-  );
-  if (!match?.groups) {
-    throw new Error('ViewBox not found');
-  }
-  // convert to numbers and return the object
-  return {
-    minX: Number(match.groups.minX),
-    minY: Number(match.groups.minY),
-    width: Number(match.groups.width),
-    height: Number(match.groups.height),
-  };
-}
-
-function styleObjectToString(style: Record<string, string | number>): string {
-  const styleArray: string[] = [];
-  for (const property in style) {
-    if (Object.hasOwn(style, property)) {
-      const kebabCaseProperty = property
-        .replaceAll(/([A-Z])/g, '-$1')
-        .toLowerCase();
-      styleArray.push(`${kebabCaseProperty}: ${style[property]}`);
-    }
-  }
-  return styleArray.join('; ');
-}
-
-function addStyleToSVG(svg: string, style?: Record<string, string | number>) {
-  if (!style) return svg;
-  const size = getSVGViewBox(svg);
-  const match = svg.match(/<svg.*>/);
-  if (!match) {
-    throw new Error('SVG tag not found');
-  }
-  const svgTag = match[0];
-  const styleString = styleObjectToString(style);
-  const styleRectange = `<rect x="${size.minX}" y="${size.minY}" width="${size.width}" height="${size.height}" style="${styleString}"></rect>`;
-  return svg.replace(svgTag, `${svgTag}${styleRectange}`);
+  return { width, height, element: <SVG svg={svg} /> };
 }

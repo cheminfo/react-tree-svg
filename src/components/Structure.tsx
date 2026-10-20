@@ -5,9 +5,11 @@ import { SVGMolecule } from './SVGMolecule.tsx';
 /**
  * Draw a molecule depiction with its text label underneath.
  * @param props - Molecule props (`smiles` and `label`).
+ * @param props.smiles - SMILES of the molecule.
+ * @param props.label - Text drawn under the molecule.
  * @returns Group containing the molecule SVG and the label text.
  */
-export function MoleculeLabel(props) {
+export function MoleculeLabel(props: { smiles?: string; label?: string }) {
   return (
     <g>
       <SVGMolecule {...props} />

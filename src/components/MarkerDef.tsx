@@ -1,14 +1,16 @@
 import { refX } from './MarkerDef.utils.tsx';
 
 /**
- * Define the shared "arrowhead" marker reused as the tip of every connector arrow.
+ * Define the arrowhead marker reused as the tip of every connector of a tree.
+ * @param props - Marker configuration.
+ * @param props.id - Id of the marker, unique on the page: connectors refer to it.
  * @returns SVG `<defs>` holding the arrowhead marker.
  */
-export function MarkerDef() {
+export function MarkerDef(props: { id: string }) {
   return (
     <defs>
       <marker
-        id="arrowhead"
+        id={props.id}
         markerWidth="10"
         markerHeight="7"
         refX={refX}

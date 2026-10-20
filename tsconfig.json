@@ -1,7 +1,6 @@
 {
   "extends": "@zakodium/tsconfig/jsx",
   "compilerOptions": {
-    "noImplicitAny": false,
     "noUncheckedIndexedAccess": true,
     "outDir": "lib"
   },

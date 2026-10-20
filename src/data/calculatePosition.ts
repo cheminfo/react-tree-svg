@@ -1,105 +1,103 @@
-interface CalculatePositionOptions {
-  x?: number;
-  y?: number;
-  spacingVertical?: number;
-  spacingHorizontal?: number;
+import type { PositionOptions, PositionedNode } from '../types/tree.ts';
+
+interface Size {
+  width: number;
+  height: number;
+}
+
+interface Spacing {
+  vertical: number;
+  horizontal: number;
 }
 
 /**
- * Assign x/y coordinates to every node in place, stacking children vertically
- * and spreading tree depth horizontally.
- * @param data - Nodes to lay out; mutated in place.
+ * Assign x/y coordinates to every node in place, stacking sibling subtrees
+ * vertically, centring each node on its subtree and spreading tree depth
+ * horizontally.
+ * @param roots - Nodes to lay out; their `x` and `y` are written in place.
  * @param options - Layout origin and spacing between nodes.
+ * @returns The frame the layout reserves, from (0, 0): as wide as the widest
+ * subtree, and as tall as the subtrees with the spacing below each root.
  */
-export function calculatePosition(
-  data,
-  options: CalculatePositionOptions = {},
-) {
+export function calculatePosition<TNode>(
+  roots: ReadonlyArray<PositionedNode<TNode>>,
+  options: PositionOptions = {},
+): Size {
   const {
     x = 0,
     y = 22,
     spacingVertical = 30,
     spacingHorizontal = 140,
   } = options;
-  calculateInnerBoxSize(data, {
-    x,
-    y,
-    spacingVertical,
-    spacingHorizontal,
-  });
-  calculatePositionSS(data, {
-    x,
-    y,
-    spacingVertical,
-    spacingHorizontal,
-  });
-}
-
-interface CalculatePositionMandatoryOptions {
-  x: number;
-  y: number;
-  spacingVertical: number;
-  spacingHorizontal: number;
-}
-
-function calculateInnerBoxSize(
-  data,
-  options: CalculatePositionMandatoryOptions,
-) {
-  for (const datum of data) {
-    if (datum.children) {
-      calculateInnerBoxSize(datum.children, options);
-
-      datum.childrenBoxSize = {
-        width:
-          datum.position.width +
-          options.spacingHorizontal +
-          Math.max(...datum.children.map((d) => d.childrenBoxSize.width)),
-        height: Math.max(
-          datum.position.height,
-          options.spacingVertical * (datum.children.length - 1) +
-            datum.children
-              .map((d) => d.childrenBoxSize.height)
-              .reduce((a, b) => a + b, 0),
-        ),
-      };
-    } else {
-      datum.childrenBoxSize = {
-        width: datum.position.width,
-        height: datum.position.height,
-      };
-    }
+  const spacing = { vertical: spacingVertical, horizontal: spacingHorizontal };
+  const blocks = new Map<PositionedNode<TNode>, Size>();
+  for (const root of roots) {
+    measureBlock(root, spacing, blocks);
   }
+  placeNodes(roots, x, y, spacing, blocks);
+
+  const frame = { width: 0, height: 0 };
+  for (const root of roots) {
+    const block = blocks.get(root) as Size;
+    frame.width = Math.max(frame.width, block.width);
+    frame.height += block.height + spacingVertical;
+  }
+  return frame;
 }
 
-function calculatePositionSS(data, options: CalculatePositionMandatoryOptions) {
-  let y = options.y;
-  for (const datum of data) {
-    if (datum.children) {
-      calculatePositionSS(datum.children, {
-        ...options,
-        x: options.x + datum.position.width + options.spacingHorizontal,
-        y,
-      });
+/**
+ * Size of the block a node and its descendants need, recorded for every node
+ * of the subtree.
+ * @param node - Root of the subtree.
+ * @param spacing - Gaps between subtrees and between depths.
+ * @param blocks - Where each node's block is recorded.
+ * @returns The size of the node's block.
+ */
+function measureBlock<TNode>(
+  node: PositionedNode<TNode>,
+  spacing: Spacing,
+  blocks: Map<PositionedNode<TNode>, Size>,
+): Size {
+  let block: Size = { width: node.width, height: node.height };
+  if (node.children.length > 0) {
+    let widest = -Infinity;
+    let total = 0;
+    for (const child of node.children) {
+      const childBlock = measureBlock(child, spacing, blocks);
+      widest = Math.max(widest, childBlock.width);
+      total += childBlock.height;
     }
-
-    datum.position.x = options.x;
-    datum.position.y =
-      datum.childrenBoxSize.height / 2 - datum.position.height / 2 + y;
-
-    y += datum.childrenBoxSize.height + options.spacingVertical;
-
-    datum.anchor = {
-      left: {
-        x: datum.position.x,
-        y: datum.position.y + datum.position.height / 2,
-      },
-      right: {
-        x: datum.position.x + datum.position.width,
-        y: datum.position.y + datum.position.height / 2,
-      },
+    block = {
+      width: node.width + spacing.horizontal + widest,
+      height: Math.max(
+        node.height,
+        spacing.vertical * (node.children.length - 1) + total,
+      ),
     };
-    datum.childrenBoxSize.height =
-      datum.childrenBoxSize.height + options.spacingVertical;
+  }
+  blocks.set(node, block);
+  return block;
+}
+
+function placeNodes<TNode>(
+  nodes: ReadonlyArray<PositionedNode<TNode>>,
+  x: number,
+  top: number,
+  spacing: Spacing,
+  blocks: Map<PositionedNode<TNode>, Size>,
+): void {
+  let y = top;
+  for (const node of nodes) {
+    const block = blocks.get(node) as Size;
+    placeNodes(
+      node.children,
+      x + node.width + spacing.horizontal,
+      y,
+      spacing,
+      blocks,
+    );
+    node.x = x;
+    node.y = block.height / 2 - node.height / 2 + y;
+    y += block.height + spacing.vertical;
   }
 }

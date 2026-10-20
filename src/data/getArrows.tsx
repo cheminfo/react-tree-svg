@@ -1,46 +1,53 @@
+import type { ReactElement } from 'react';
+
 import { Arrow } from '../components/Arrow.tsx';
+import type { ArrowRendererOptions } from '../types/drawing.ts';
+import type { TreeConnector } from '../types/tree.ts';
 
 /**
- * Build the connector arrows that link each parent node to its children.
- * @param nodes - Positioned nodes, each carrying left/right `anchor` points.
- * @param options - Label and id callbacks plus label placement.
- * @returns One arrow element per parent-to-child edge.
+ * Build the arrows that link each parent node to its children.
+ * @param connectors - The parent-to-child links of a laid-out tree.
+ * @param options - Label, id, shape and style of the arrows.
+ * @param markerId - Id of the arrowhead marker, or undefined for no heads.
+ * @returns One arrow element per link.
  */
-export function getArrows(nodes, options = {}) {
-  const status = { level: 0 };
-  const arrows = [];
-  getArrowsSS(nodes, arrows, status, options);
-  return arrows;
-}
-
-function getArrowsSS(nodes, arrows, status, options: any = {}) {
-  const { getLabel, horizontalPosition, getID, verticalPosition } = options;
-
-  for (const node of nodes) {
-    if (node.children) {
-      for (const child of node.children) {
-        arrows.push(
-          <Arrow
-            id={getID ? getID(node) : undefined}
-            key={arrows.length}
-            from={node.anchor.right}
-            to={child.anchor.left}
-            label={getLabel?.(child)}
-            horizontalPosition={horizontalPosition}
-            verticalPosition={verticalPosition}
-          />,
-        );
-      }
-
-      getArrowsSS(
-        node.children,
-        arrows,
-        {
-          ...status,
-          level: status.level + 1,
-        },
-        options,
-      );
-    }
+export function getArrows<TNode>(
+  connectors: ReadonlyArray<TreeConnector<TNode>>,
+  options: ArrowRendererOptions<TNode>,
+  markerId: string | undefined,
+): ReactElement[] {
+  const {
+    getLabel,
+    getID,
+    horizontalPosition,
+    verticalPosition,
+    shape,
+    className,
+    style,
+  } = options;
+  const arrows: ReactElement[] = [];
+  for (const { key, parent, child, from, to } of connectors) {
+    arrows.push(
+      <Arrow
+        key={key}
+        id={getID?.(parent.node, child.node)}
+        from={from}
+        to={to}
+        label={getLabel?.(child.node)}
+        horizontalPosition={horizontalPosition}
+        verticalPosition={verticalPosition}
+        markerId={markerId}
+        shape={shape}
+        className={
+          typeof className === 'function'
+            ? className(child.node, parent.node)
+            : className
+        }
+        style={
+          typeof style === 'function' ? style(child.node, parent.node) : style
+        }
+      />,
+    );
   }
+  return arrows;
 }

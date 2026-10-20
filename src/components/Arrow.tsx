@@ -1,54 +1,78 @@
-import type { Point } from '../types/Point.ts';
+import type { CSSProperties } from 'react';
 
-import { refX } from './MarkerDef.utils.tsx';
+import type { Point } from '../types/Point.ts';
+import type { ConnectorShape } from '../types/drawing.ts';
+
 import { Text } from './Text.tsx';
+import { connectorPath } from './connectorPath.ts';
+
+interface ArrowProps {
+  /** Id set on the arrow's group. */
+  id?: string;
+  /** Start point (the parent's right anchor). */
+  from: Point;
+  /** End point (the child's left anchor). */
+  to: Point;
+  /** Text drawn next to the arrow; it may hold newlines. */
+  label?: string;
+  /**
+   * Where the label sits along the arrow.
+   * @default 'center'
+   */
+  horizontalPosition?: 'left' | 'center' | 'right';
+  /**
+   * Vertical alignment of the label.
+   * @default 'center'
+   */
+  verticalPosition?: 'top' | 'bottom' | 'center';
+  /**
+   * Id of the marker drawn as the arrowhead.
+   * @default undefined — no arrowhead
+   */
+  markerId?: string;
+  /**
+   * How the arrow runs between its points.
+   * @default 'curve'
+   */
+  shape?: ConnectorShape;
+  /** Class of the path. */
+  className?: string;
+  /** Inline style of the path, over its presentation attributes. */
+  style?: CSSProperties;
+}
+
 /**
- * Draw a curved arrow between two points, bending at their midpoint.
- * Relies on a marker with id="arrowhead" being defined in the SVG.
+ * Draw an arrow between two points, with an optional label. The default look
+ * is written as presentation attributes, so a CSS class overrides it.
  * @param props - Arrow configuration.
- * @param props.id - Optional id set on the arrow's group.
- * @param props.from - Start point (parent's right anchor).
- * @param props.to - End point (child's left anchor).
- * @param props.label - Text drawn next to the arrow.
- * @param props.horizontalPosition - Where the label sits along the arrow. Defaults to `'center'`.
- * @param props.verticalPosition - Vertical alignment of the label.
  * @returns The arrow group: the path and, when a label is given, its text.
  */
-
-export function Arrow(props: {
-  id: string;
-  from: Point;
-  to: Point;
-  label: string;
-  horizontalPosition?: 'left' | 'center' | 'right';
-  verticalPosition?: 'top' | 'bottom' | 'center';
-}) {
+export function Arrow(props: ArrowProps) {
   const {
     id,
     from,
     to,
-    label,
+    label = '',
     horizontalPosition = 'center',
     verticalPosition = 'center',
+    markerId,
+    shape = 'curve',
+    className,
+    style,
   } = props;
   const middle = { x: (from.x + to.x) / 2, y: (from.y + to.y) / 2 };
-
-  const headInflectionPoint = {
-    x: to.x - refX * 2, // refX attribute of the marker element in the Arrow component shifts the arrow head to the left, and that the vertices of the arrow head are set to refX, which means that the beginning of the arrow head is refX * 2 to the left.
-    y: to.y,
-  };
-  const d = `M ${from.x} ${from.y} C ${middle.x} ${from.y}  ${middle.x} ${to.y}  ${headInflectionPoint.x} ${to.y} Q ${headInflectionPoint.x} ${to.y}  ${to.x} ${to.y} `;
+  const d = connectorPath(from, to, shape, markerId !== undefined);
 
   return (
     <g id={id}>
       <path
         d={d}
-        style={{
-          fill: 'none',
-          strokeWidth: '2',
-          stroke: 'black',
-          markerEnd: 'url(#arrowhead)',
-        }}
+        className={className}
+        fill="none"
+        strokeWidth={2}
+        stroke="black"
+        markerEnd={markerId === undefined ? undefined : `url(#${markerId})`}
+        style={style}
       />
       {horizontalPosition === 'center' && (
         <Text

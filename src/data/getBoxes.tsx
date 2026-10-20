@@ -1,30 +1,28 @@
-/**
- * Flatten the positioned tree into one translated SVG group per node.
- * @param nodes - Positioned nodes, each carrying its `position` and rendered `element`.
- * @param options - May provide `getID` to stamp an id on each group.
- * @returns One `<g>` element per node, moved to the node's computed coordinates.
- */
-export function getBoxes(nodes, options) {
-  const boxes: any[] = [];
-  appendBoxes(nodes, boxes, options);
-  return boxes;
-}
+import type { ReactElement } from 'react';
 
-function appendBoxes(nodes, boxes, options: any = {}) {
-  const { getID } = options;
+import type { PositionedNode } from '../types/tree.ts';
+
+/**
+ * One translated SVG group per node, each holding the node's drawing.
+ * @param nodes - Positioned nodes, in drawing order.
+ * @param getID - Id stamped on each node's group.
+ * @returns One `<g>` element per node, moved to the node's coordinates.
+ */
+export function getBoxes<TNode>(
+  nodes: ReadonlyArray<PositionedNode<TNode>>,
+  getID?: (node: TNode) => string | undefined,
+): ReactElement[] {
+  const boxes: ReactElement[] = [];
   for (const node of nodes) {
     boxes.push(
       <g
-        id={getID ? getID(node) : undefined}
-        key={boxes.length}
-        transform={`translate(${node.position.x} ${node.position.y})`}
+        id={getID?.(node.node)}
+        key={node.key}
+        transform={`translate(${node.x} ${node.y})`}
       >
         {node.element}
       </g>,
     );
-
-    if (node.children) {
-      appendBoxes(node.children, boxes, options);
-    }
   }
+  return boxes;
 }

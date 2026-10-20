@@ -1,21 +1,10 @@
-import { SVGBoxesTree } from '../src/components/SVGBoxesTree.tsx';
+import { TreeSvg } from '../src/components/TreeSvg.tsx';
 import { taxonomyRenderer } from '../src/nodeRenderer/taxonomyRenderer.tsx';
 
 import { getDataTaxonomy } from './data/taxonomiesWithUrl.ts';
 
-const props = {
-  tree: getDataTaxonomy(),
-  nodeRenderer: taxonomyRenderer,
-  arrowRendererOptions: {
-    getLabel: () => {},
-  },
-  nodeRendererOptions: {
-    maxRankDepth: 8,
-  },
-  positionOptions: {
-    spacingHorizontal: 100,
-  },
-};
+const tree = getDataTaxonomy();
+const positionOptions = { spacingHorizontal: 100 };
 
 /**
  * Demo page rendering a species taxonomy tree.
@@ -29,7 +18,11 @@ export default function Taxonomy() {
         overflow: 'clip',
       }}
     >
-      <SVGBoxesTree {...props} />
+      <TreeSvg
+        tree={tree}
+        nodeRenderer={taxonomyRenderer}
+        positionOptions={positionOptions}
+      />
     </div>
   );
 }
