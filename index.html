@@ -1,0 +1,209 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="./"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>react-tree-svg</title><meta name="description" content="Documentation for react-tree-svg"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script><script async src="assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="index.html" class="title">react-tree-svg</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>react-tree-svg</h1></div><div class="tsd-panel tsd-typography"><h1 id="react-tree-svg" class="tsd-anchor-link">react-tree-svg<a href="#react-tree-svg" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p><a href="https://www.npmjs.com/package/react-tree-svg"><img src="https://img.shields.io/npm/v/react-tree-svg.svg" alt="NPM version"></a>
+<a href="https://github.com/cheminfo/react-tree-svg/actions?query=workflow%3A%22Node.js+CI%22"><img src="https://github.com/cheminfo/react-tree-svg/workflows/Node.js%20CI/badge.svg?branch=main" alt="build status"></a>
+<a href="https://codecov.io/gh/cheminfo/react-tree-svg"><img src="https://img.shields.io/codecov/c/github/cheminfo/react-tree-svg.svg" alt="Test coverage"></a>
+<a href="https://www.npmjs.com/package/react-tree-svg"><img src="https://img.shields.io/npm/dm/react-tree-svg.svg" alt="npm download"></a></p>
+<h2 id="introduction" class="tsd-anchor-link">Introduction<a href="#introduction" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>Draw a tree from left to right as one SVG: a box per node, drawn by a node
+renderer you choose, and a connector from each parent to each of its children.</p>
+<p>Use it as a React component inside your app (<code>TreeSvg</code>), as an SVG string
+(<code>render</code>), or take only the positions and draw the tree yourself
+(<code>layoutTree</code>).</p>
+<h2 id="installation" class="tsd-anchor-link">Installation<a href="#installation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p><code>$ npm i react-tree-svg</code></p>
+<h2 id="usage" class="tsd-anchor-link">Usage<a href="#usage" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>A tree is an array of root nodes; each node keeps its children in a
+<code>children</code> array. Every other field is yours.</p>
+<h3 id="in-a-react-app" class="tsd-anchor-link">In a React app<a href="#in-a-react-app" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<pre><code class="tsx"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">TreeSvg</span><span class="hl-1">, </span><span class="hl-2">taxonomyRenderer</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;react-tree-svg&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">tree</span><span class="hl-1"> = [</span><br/><span class="hl-1">  {</span><br/><span class="hl-1">    </span><span class="hl-2">name:</span><span class="hl-1"> </span><span class="hl-3">&#39;Bacteria&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">rank:</span><span class="hl-1"> </span><span class="hl-3">&#39;superkingdom&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">nbTaxonomies:</span><span class="hl-1"> </span><span class="hl-6">3</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">children:</span><span class="hl-1"> [</span><br/><span class="hl-1">      { </span><span class="hl-2">name:</span><span class="hl-1"> </span><span class="hl-3">&#39;Streptomyces&#39;</span><span class="hl-1">, </span><span class="hl-2">rank:</span><span class="hl-1"> </span><span class="hl-3">&#39;genus&#39;</span><span class="hl-1">, </span><span class="hl-2">nbTaxonomies:</span><span class="hl-1"> </span><span class="hl-6">2</span><span class="hl-1"> },</span><br/><span class="hl-1">      { </span><span class="hl-2">name:</span><span class="hl-1"> </span><span class="hl-3">&#39;Bacillus&#39;</span><span class="hl-1">, </span><span class="hl-2">rank:</span><span class="hl-1"> </span><span class="hl-3">&#39;genus&#39;</span><span class="hl-1">, </span><span class="hl-2">nbTaxonomies:</span><span class="hl-1"> </span><span class="hl-6">1</span><span class="hl-1"> },</span><br/><span class="hl-1">    ],</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">];</span><br/><br/><span class="hl-0">export</span><span class="hl-1"> </span><span class="hl-4">function</span><span class="hl-1"> </span><span class="hl-7">Taxonomy</span><span class="hl-1">() {</span><br/><span class="hl-1">  </span><span class="hl-0">return</span><span class="hl-1"> (</span><br/><span class="hl-1">    </span><span class="hl-8">&lt;</span><span class="hl-9">TreeSvg</span><br/><span class="hl-1">      </span><span class="hl-10">tree</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-2">tree</span><span class="hl-4">}</span><br/><span class="hl-1">      </span><span class="hl-10">nodeRenderer</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-2">taxonomyRenderer</span><span class="hl-4">}</span><br/><span class="hl-1">      </span><span class="hl-10">positionOptions</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-11">{ </span><span class="hl-2">spacingHorizontal:</span><span class="hl-11"> </span><span class="hl-6">100</span><span class="hl-11"> }</span><span class="hl-4">}</span><br/><span class="hl-1">    </span><span class="hl-8">/&gt;</span><br/><span class="hl-1">  );</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p>The node drawings are part of your React tree: their handlers, state and focus
+behave as anywhere else. The layout is computed again only when <code>tree</code>,
+<code>nodeRenderer</code>, <code>nodeRendererOptions</code>, the spacing, <code>shouldSkipBranch</code> or
+<code>getKey</code> change, so keep them stable (<code>useMemo</code>, <code>useCallback</code>) when the tree is
+large.</p>
+<h3 id="as-an-svg-string" class="tsd-anchor-link">As an SVG string<a href="#as-an-svg-string" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p><code>render(tree, options)</code> takes the same options as <code>TreeSvg</code> and returns the
+markup. It renders synchronously into a detached element, so it needs a DOM
+(a browser, or jsdom) and cannot run while React is rendering: inside an app,
+use <code>TreeSvg</code>.</p>
+<pre><code class="js"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">Molecule</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;openchemlib&#39;</span><span class="hl-1">;</span><br/><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">moleculeRenderer</span><span class="hl-1">, </span><span class="hl-2">render</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;react-tree-svg&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">svg</span><span class="hl-1"> = </span><span class="hl-7">render</span><span class="hl-1">(</span><span class="hl-2">reactionTree</span><span class="hl-1">, {</span><br/><span class="hl-1">  </span><span class="hl-2">nodeRenderer:</span><span class="hl-1"> </span><span class="hl-2">moleculeRenderer</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">nodeRendererOptions:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-7">getMolecules</span><span class="hl-2">:</span><span class="hl-1"> (</span><span class="hl-2">node</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><br/><span class="hl-1">      </span><span class="hl-2">node</span><span class="hl-1">.</span><span class="hl-2">molecules</span><span class="hl-1">.</span><span class="hl-7">map</span><span class="hl-1">((</span><span class="hl-2">molecule</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-2">Molecule</span><span class="hl-1">.</span><span class="hl-7">fromIDCode</span><span class="hl-1">(</span><span class="hl-2">molecule</span><span class="hl-1">.</span><span class="hl-2">idCode</span><span class="hl-1">)),</span><br/><span class="hl-1">    </span><span class="hl-7">getTopLabel</span><span class="hl-2">:</span><span class="hl-1"> (</span><span class="hl-2">node</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-2">node</span><span class="hl-1">.</span><span class="hl-2">label</span><span class="hl-1">,</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">  </span><span class="hl-2">arrowRendererOptions:</span><span class="hl-1"> { </span><span class="hl-7">getLabel</span><span class="hl-2">:</span><span class="hl-1"> (</span><span class="hl-2">node</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-2">node</span><span class="hl-1">.</span><span class="hl-2">reaction</span><span class="hl-1">?.</span><span class="hl-2">label</span><span class="hl-1"> },</span><br/><span class="hl-1">  </span><span class="hl-2">positionOptions:</span><span class="hl-1"> { </span><span class="hl-2">spacingHorizontal:</span><span class="hl-1"> </span><span class="hl-6">150</span><span class="hl-1"> },</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<h3 id="an-interactive-tree-expand-and-collapse" class="tsd-anchor-link">An interactive tree: expand and collapse<a href="#an-interactive-tree-expand-and-collapse" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>A collapsed node is a node whose children are skipped. The toggle sits astride
+the box's right edge, where the connectors start: connectors are drawn beneath
+the boxes, and <code>overflow</code> keeps the toggle inside the drawing.</p>
+<pre><code class="tsx"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">useState</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;react&#39;</span><span class="hl-1">;</span><br/><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-0">type</span><span class="hl-1"> { </span><span class="hl-2">NodeRenderer</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;react-tree-svg&#39;</span><span class="hl-1">;</span><br/><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">TreeSvg</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;react-tree-svg&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">interface</span><span class="hl-1"> </span><span class="hl-9">Taxon</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-2">id</span><span class="hl-1">: </span><span class="hl-9">string</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-2">name</span><span class="hl-1">: </span><span class="hl-9">string</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-2">children</span><span class="hl-1">?: </span><span class="hl-9">Taxon</span><span class="hl-1">[];</span><br/><span class="hl-1">}</span><br/><br/><span class="hl-4">interface</span><span class="hl-1"> </span><span class="hl-9">TaxonOptions</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-2">collapsed</span><span class="hl-1">: </span><span class="hl-9">ReadonlySet</span><span class="hl-1">&lt;</span><span class="hl-9">string</span><span class="hl-1">&gt;;</span><br/><span class="hl-1">  </span><span class="hl-7">onToggle</span><span class="hl-1">: (</span><span class="hl-2">id</span><span class="hl-1">: </span><span class="hl-9">string</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-9">void</span><span class="hl-1">;</span><br/><span class="hl-1">}</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-7">renderTaxon</span><span class="hl-1">: </span><span class="hl-9">NodeRenderer</span><span class="hl-1">&lt;</span><span class="hl-9">Taxon</span><span class="hl-1">, </span><span class="hl-9">TaxonOptions</span><span class="hl-1">&gt; = (</span><span class="hl-2">taxon</span><span class="hl-1">, </span><span class="hl-2">options</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">hasChildren</span><span class="hl-1"> = </span><span class="hl-7">Boolean</span><span class="hl-1">(</span><span class="hl-2">taxon</span><span class="hl-1">.</span><span class="hl-2">children</span><span class="hl-1">?.</span><span class="hl-2">length</span><span class="hl-1">);</span><br/><span class="hl-1">  </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">isOpen</span><span class="hl-1"> = !</span><span class="hl-2">options</span><span class="hl-1">.</span><span class="hl-2">collapsed</span><span class="hl-1">.</span><span class="hl-7">has</span><span class="hl-1">(</span><span class="hl-2">taxon</span><span class="hl-1">.</span><span class="hl-2">id</span><span class="hl-1">);</span><br/><span class="hl-1">  </span><span class="hl-0">return</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">width:</span><span class="hl-1"> </span><span class="hl-6">150</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">height:</span><span class="hl-1"> </span><span class="hl-6">28</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">overflow:</span><span class="hl-1"> </span><span class="hl-2">hasChildren</span><span class="hl-1"> ? { </span><span class="hl-2">right:</span><span class="hl-1"> </span><span class="hl-6">10</span><span class="hl-1"> } : </span><span class="hl-4">undefined</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-7">element</span><span class="hl-2">:</span><span class="hl-1"> (</span><br/><span class="hl-1">      </span><span class="hl-8">&lt;</span><span class="hl-12">g</span><span class="hl-8">&gt;</span><br/><span class="hl-1">        </span><span class="hl-8">&lt;</span><span class="hl-12">rect</span><span class="hl-1"> </span><span class="hl-10">width</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-6">150</span><span class="hl-4">}</span><span class="hl-1"> </span><span class="hl-10">height</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-6">28</span><span class="hl-4">}</span><span class="hl-1"> </span><span class="hl-10">rx</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-6">6</span><span class="hl-4">}</span><span class="hl-1"> </span><span class="hl-10">fill</span><span class="hl-1">=</span><span class="hl-3">&quot;white&quot;</span><span class="hl-1"> </span><span class="hl-10">stroke</span><span class="hl-1">=</span><span class="hl-3">&quot;#c3cad3&quot;</span><span class="hl-1"> </span><span class="hl-8">/&gt;</span><br/><span class="hl-1">        </span><span class="hl-8">&lt;</span><span class="hl-12">text</span><span class="hl-1"> </span><span class="hl-10">x</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-6">10</span><span class="hl-4">}</span><span class="hl-1"> </span><span class="hl-10">y</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-6">14</span><span class="hl-4">}</span><span class="hl-1"> </span><span class="hl-10">dominantBaseline</span><span class="hl-1">=</span><span class="hl-3">&quot;central&quot;</span><span class="hl-1"> </span><span class="hl-10">fontSize</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-6">13</span><span class="hl-4">}</span><span class="hl-8">&gt;</span><br/><span class="hl-1">          </span><span class="hl-4">{</span><span class="hl-2">taxon</span><span class="hl-11">.</span><span class="hl-2">name</span><span class="hl-4">}</span><br/><span class="hl-1">        </span><span class="hl-8">&lt;/</span><span class="hl-12">text</span><span class="hl-8">&gt;</span><br/><span class="hl-1">        </span><span class="hl-4">{</span><span class="hl-2">hasChildren</span><span class="hl-11"> </span><span class="hl-1">&amp;&amp;</span><span class="hl-11"> (</span><br/><span class="hl-11">          </span><span class="hl-8">&lt;</span><span class="hl-12">g</span><br/><span class="hl-11">            </span><span class="hl-10">transform</span><span class="hl-1">=</span><span class="hl-3">&quot;translate(150 14)&quot;</span><br/><span class="hl-11">            </span><span class="hl-10">role</span><span class="hl-1">=</span><span class="hl-3">&quot;button&quot;</span><br/><span class="hl-11">            </span><span class="hl-10">tabIndex</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-6">0</span><span class="hl-4">}</span><br/><span class="hl-11">            </span><span class="hl-10">aria-expanded</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-2">isOpen</span><span class="hl-4">}</span><br/><span class="hl-11">            </span><span class="hl-10">onClick</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-11">() </span><span class="hl-4">=&gt;</span><span class="hl-11"> </span><span class="hl-2">options</span><span class="hl-11">.</span><span class="hl-7">onToggle</span><span class="hl-11">(</span><span class="hl-2">taxon</span><span class="hl-11">.</span><span class="hl-2">id</span><span class="hl-11">)</span><span class="hl-4">}</span><br/><span class="hl-11">          </span><span class="hl-8">&gt;</span><br/><span class="hl-11">            </span><span class="hl-8">&lt;</span><span class="hl-12">circle</span><span class="hl-11"> </span><span class="hl-10">r</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-6">9</span><span class="hl-4">}</span><span class="hl-11"> </span><span class="hl-10">fill</span><span class="hl-1">=</span><span class="hl-3">&quot;white&quot;</span><span class="hl-11"> </span><span class="hl-10">stroke</span><span class="hl-1">=</span><span class="hl-3">&quot;#5b6875&quot;</span><span class="hl-11"> </span><span class="hl-8">/&gt;</span><br/><span class="hl-11">            </span><span class="hl-8">&lt;</span><span class="hl-12">text</span><span class="hl-11"> </span><span class="hl-10">textAnchor</span><span class="hl-1">=</span><span class="hl-3">&quot;middle&quot;</span><span class="hl-11"> </span><span class="hl-10">dominantBaseline</span><span class="hl-1">=</span><span class="hl-3">&quot;central&quot;</span><span class="hl-8">&gt;</span><br/><span class="hl-11">              </span><span class="hl-4">{</span><span class="hl-2">isOpen</span><span class="hl-11"> </span><span class="hl-1">?</span><span class="hl-11"> </span><span class="hl-3">&#39;−&#39;</span><span class="hl-11"> </span><span class="hl-1">:</span><span class="hl-11"> </span><span class="hl-3">&#39;+&#39;</span><span class="hl-4">}</span><br/><span class="hl-11">            </span><span class="hl-8">&lt;/</span><span class="hl-12">text</span><span class="hl-8">&gt;</span><br/><span class="hl-11">          </span><span class="hl-8">&lt;/</span><span class="hl-12">g</span><span class="hl-8">&gt;</span><br/><span class="hl-11">        )</span><span class="hl-4">}</span><br/><span class="hl-1">      </span><span class="hl-8">&lt;/</span><span class="hl-12">g</span><span class="hl-8">&gt;</span><br/><span class="hl-1">    ),</span><br/><span class="hl-1">  };</span><br/><span class="hl-1">};</span><br/><br/><span class="hl-0">export</span><span class="hl-1"> </span><span class="hl-4">function</span><span class="hl-1"> </span><span class="hl-7">TaxonTree</span><span class="hl-1">({ </span><span class="hl-2">tree</span><span class="hl-1"> }: { </span><span class="hl-2">tree</span><span class="hl-1">: </span><span class="hl-9">Taxon</span><span class="hl-1">[] }) {</span><br/><span class="hl-1">  </span><span class="hl-4">const</span><span class="hl-1"> [</span><span class="hl-5">collapsed</span><span class="hl-1">, </span><span class="hl-5">setCollapsed</span><span class="hl-1">] = </span><span class="hl-7">useState</span><span class="hl-1">&lt;</span><span class="hl-9">ReadonlySet</span><span class="hl-1">&lt;</span><span class="hl-9">string</span><span class="hl-1">&gt;&gt;(</span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-7">Set</span><span class="hl-1">());</span><br/><br/><span class="hl-1">  </span><span class="hl-4">function</span><span class="hl-1"> </span><span class="hl-7">onToggle</span><span class="hl-1">(</span><span class="hl-2">id</span><span class="hl-1">: </span><span class="hl-9">string</span><span class="hl-1">) {</span><br/><span class="hl-1">    </span><span class="hl-7">setCollapsed</span><span class="hl-1">((</span><span class="hl-2">previous</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">next</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-7">Set</span><span class="hl-1">(</span><span class="hl-2">previous</span><span class="hl-1">);</span><br/><span class="hl-1">      </span><span class="hl-0">if</span><span class="hl-1"> (!</span><span class="hl-2">next</span><span class="hl-1">.</span><span class="hl-7">delete</span><span class="hl-1">(</span><span class="hl-2">id</span><span class="hl-1">)) </span><span class="hl-2">next</span><span class="hl-1">.</span><span class="hl-7">add</span><span class="hl-1">(</span><span class="hl-2">id</span><span class="hl-1">);</span><br/><span class="hl-1">      </span><span class="hl-0">return</span><span class="hl-1"> </span><span class="hl-2">next</span><span class="hl-1">;</span><br/><span class="hl-1">    });</span><br/><span class="hl-1">  }</span><br/><br/><span class="hl-1">  </span><span class="hl-0">return</span><span class="hl-1"> (</span><br/><span class="hl-1">    </span><span class="hl-8">&lt;</span><span class="hl-9">TreeSvg</span><br/><span class="hl-1">      </span><span class="hl-10">tree</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-2">tree</span><span class="hl-4">}</span><br/><span class="hl-1">      </span><span class="hl-10">nodeRenderer</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-2">renderTaxon</span><span class="hl-4">}</span><br/><span class="hl-1">      </span><span class="hl-10">nodeRendererOptions</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-11">{ </span><span class="hl-2">collapsed</span><span class="hl-11">, </span><span class="hl-2">onToggle</span><span class="hl-11"> }</span><span class="hl-4">}</span><br/><span class="hl-1">      </span><span class="hl-10">getKey</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-11">(</span><span class="hl-2">taxon</span><span class="hl-11">) </span><span class="hl-4">=&gt;</span><span class="hl-11"> </span><span class="hl-2">taxon</span><span class="hl-11">.</span><span class="hl-2">id</span><span class="hl-4">}</span><br/><span class="hl-1">      </span><span class="hl-10">shouldSkipBranch</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-11">(</span><span class="hl-2">taxon</span><span class="hl-11">, [</span><span class="hl-2">parent</span><span class="hl-11">]) </span><span class="hl-4">=&gt;</span><span class="hl-11"> </span><span class="hl-2">collapsed</span><span class="hl-11">.</span><span class="hl-7">has</span><span class="hl-11">(</span><span class="hl-2">parent</span><span class="hl-11">.</span><span class="hl-2">id</span><span class="hl-11">)</span><span class="hl-4">}</span><br/><span class="hl-1">      </span><span class="hl-10">arrowRendererOptions</span><span class="hl-1">=</span><span class="hl-4">{</span><span class="hl-11">{</span><br/><span class="hl-11">        </span><span class="hl-2">arrowHead:</span><span class="hl-11"> </span><span class="hl-4">false</span><span class="hl-11">,</span><br/><span class="hl-11">        </span><span class="hl-2">shape:</span><span class="hl-11"> </span><span class="hl-3">&#39;elbow&#39;</span><span class="hl-11">,</span><br/><span class="hl-11">        </span><span class="hl-2">className:</span><span class="hl-11"> </span><span class="hl-3">&#39;branch&#39;</span><span class="hl-11">,</span><br/><span class="hl-11">      }</span><span class="hl-4">}</span><br/><span class="hl-1">    </span><span class="hl-8">/&gt;</span><br/><span class="hl-1">  );</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<pre><code class="css"><span class="hl-13">/* The default look is written as attributes, so a class overrides it. */</span><br/><span class="hl-14">.branch</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-10">stroke</span><span class="hl-1">: </span><span class="hl-15">#c3cad3</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-10">stroke-width</span><span class="hl-1">: </span><span class="hl-6">1.5px</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p><code>getKey</code> gives each node a stable React key: when a branch opens, the other
+nodes keep their elements, and the focused toggle keeps the focus. Without it,
+nodes are keyed by their position, as in earlier versions. <code>demo/Expandable.tsx</code>
+is this example, runnable with <code>npm run dev</code>.</p>
+<h3 id="node-renderers" class="tsd-anchor-link">Node renderers<a href="#node-renderers" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>A node renderer is a plain function <code>(node, options, context)</code> returning:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>width</code></td>
+<td>Width of the node's box; boxes and connectors are placed from it.</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td>Height of the node's box.</td>
+</tr>
+<tr>
+<td><code>element</code></td>
+<td>The drawing, its origin at the box's top-left corner.</td>
+</tr>
+<tr>
+<td><code>overflow</code></td>
+<td>Optional <code>{ top, right, bottom, left }</code>: how far the drawing reaches outside its box. The drawing's bounds grow to hold it.</td>
+</tr>
+</tbody>
+</table>
+<p><code>options</code> is <code>nodeRendererOptions</code> (<code>{}</code> when omitted) and <code>context</code> is
+<code>{ parent, depth }</code>. The renderer must not call hooks; the element it returns
+may be a component that does.</p>
+<p>Two renderers are included:</p>
+<ul>
+<li><code>taxonomyRenderer</code> draws <code>name</code> in a box, <code>rank</code> and <code>nbTaxonomies</code> over it.
+It measures the names in a hidden element of the document; give
+<code>nodeRendererOptions.measureText(text, font)</code> to measure them otherwise, for
+instance with a canvas context or a width per character on a server.</li>
+<li><code>moleculeRenderer</code> draws the OpenChemLib molecules <code>getMolecules(node)</code>
+returns, with <code>getTopLabel</code>, <code>getBoxStyle</code>, <code>getMoleculeStyle</code>, <code>maxWidth</code>
+and <code>maxHeight</code>. Its callbacks receive <code>any</code>; write
+<code>nodeRenderer: moleculeRenderer&lt;MyNode&gt;</code> to have them typed.</li>
+</ul>
+<h3 id="options" class="tsd-anchor-link">Options<a href="#options" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p><code>TreeSvg</code> props and <code>render</code> options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nodeRenderer</code></td>
+<td>—</td>
+<td>Draws each node, see above.</td>
+</tr>
+<tr>
+<td><code>nodeRendererOptions</code></td>
+<td><code>{}</code></td>
+<td>Passed to the renderer.</td>
+</tr>
+<tr>
+<td><code>positionOptions</code></td>
+<td>see below</td>
+<td><code>x</code> (0), <code>y</code> (22), <code>spacingHorizontal</code> (140), <code>spacingVertical</code> (30).</td>
+</tr>
+<tr>
+<td><code>shouldSkipBranch</code></td>
+<td>—</td>
+<td><code>(node, parents)</code> returning true leaves the node and its descendants out; <code>parents</code> starts with its parent.</td>
+</tr>
+<tr>
+<td><code>getKey</code></td>
+<td>depth-first index</td>
+<td>A key unique among the drawn nodes.</td>
+</tr>
+<tr>
+<td><code>arrowRendererOptions</code></td>
+<td><code>{}</code></td>
+<td>How connectors are drawn, see below.</td>
+</tr>
+<tr>
+<td><code>idPrefix</code></td>
+<td>from <code>useId</code></td>
+<td>Prefix of the ids in the drawing. Give one per tree when several trees rendered on a server share a page.</td>
+</tr>
+<tr>
+<td><code>svgProps</code></td>
+<td><code>{}</code></td>
+<td>Props of the <code>&lt;svg&gt;</code>: <code>className</code>, <code>width</code>, <code>ref</code>, handlers… A <code>viewBox</code> here replaces the computed one.</td>
+</tr>
+</tbody>
+</table>
+<p><code>arrowRendererOptions</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getLabel(child)</code></td>
+<td>—</td>
+<td>Text drawn along the connector into a child.</td>
+</tr>
+<tr>
+<td><code>horizontalPosition</code>, <code>verticalPosition</code></td>
+<td><code>'center'</code></td>
+<td>Where the label sits.</td>
+</tr>
+<tr>
+<td><code>getID(parent, child)</code></td>
+<td>—</td>
+<td>Id of a connector's group.</td>
+</tr>
+<tr>
+<td><code>arrowHead</code></td>
+<td><code>true</code></td>
+<td>Whether connectors end with an arrowhead.</td>
+</tr>
+<tr>
+<td><code>shape</code></td>
+<td><code>'curve'</code></td>
+<td><code>'curve'</code>, <code>'straight'</code> or <code>'elbow'</code>.</td>
+</tr>
+<tr>
+<td><code>className</code></td>
+<td>—</td>
+<td>Class of every connector's path, or <code>(child, parent) =&gt; className</code> to pick per connector.</td>
+</tr>
+<tr>
+<td><code>style</code></td>
+<td>—</td>
+<td>Inline style of the paths, or <code>(child, parent) =&gt; style</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Every tree gets its own arrowhead marker, so several trees can share a page.
+The head is black whatever the stroke; a rule such as
+<code>.my-tree marker polygon { fill: grey; }</code> recolours it.</p>
+<h3 id="laying-out-without-drawing" class="tsd-anchor-link">Laying out without drawing<a href="#laying-out-without-drawing" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p><code>layoutTree(tree, options)</code> takes the layout options (<code>nodeRenderer</code>,
+<code>nodeRendererOptions</code>, <code>positionOptions</code>, <code>shouldSkipBranch</code>, <code>getKey</code>) and
+returns:</p>
+<ul>
+<li><code>nodes</code>: every node, depth first, with <code>node</code> (your object, never copied),
+<code>key</code>, <code>depth</code>, <code>parent</code>, <code>children</code>, <code>x</code>, <code>y</code>, <code>width</code>, <code>height</code>, <code>overflow</code>
+and <code>element</code>;</li>
+<li><code>connectors</code>: every parent-to-child link, with <code>parent</code>, <code>child</code>, <code>from</code> and
+<code>to</code>;</li>
+<li><code>bounds</code>: the <code>{ x, y, width, height }</code> the drawing shows, overflow included.</li>
+</ul>
+<p>Use it to know the size of a drawing before showing it, or to draw the tree
+your own way, for instance with transitions.</p>
+<h2 id="license" class="tsd-anchor-link">License<a href="#license" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p><a href="media/LICENSE">MIT</a></p>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#react-tree-svg"><span>react-<wbr/>tree-<wbr/>svg</span></a><ul><li><a href="#introduction"><span>Introduction</span></a></li><li><a href="#installation"><span>Installation</span></a></li><li><a href="#usage"><span>Usage</span></a></li><li><ul><li><a href="#in-a-react-app"><span>In a <wbr/>React app</span></a></li><li><a href="#as-an-svg-string"><span>As an <wbr/>SVG string</span></a></li><li><a href="#an-interactive-tree-expand-and-collapse"><span>An interactive tree: expand and collapse</span></a></li><li><a href="#node-renderers"><span>Node renderers</span></a></li><li><a href="#options"><span>Options</span></a></li><li><a href="#laying-out-without-drawing"><span>Laying out without drawing</span></a></li></ul></li><li><a href="#license"><span>License</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">react-tree-svg</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer></footer><div class="overlay"></div></body></html>
