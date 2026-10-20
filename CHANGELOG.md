@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/cheminfo/react-tree-svg/compare/v1.5.1...v2.0.0) (2026-10-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* renderers receive the caller's node (parent in the context argument), the arrowhead marker id is prefixed, connectors use presentation attributes, and types are strict.
+
+### Features
+
+* add interactive TreeSvg component and layoutTree ([7d9be41](https://github.com/cheminfo/react-tree-svg/commit/7d9be41f42676f0beb7633bb49033ddeb9bd0fb5))
+
 ## [1.5.1](https://github.com/cheminfo/react-tree-svg/compare/v1.5.0...v1.5.1) (2026-07-24)
 
 
